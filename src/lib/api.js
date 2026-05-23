@@ -92,4 +92,22 @@ export const api = {
     })
     return handleResponse(response)
   },
+
+  // Stripe Payments
+  createPaymentIntent: async ({ amount, currency, country, duration_months, user_email }) => {
+    const response = await fetch(`${API_BASE_URL}/payments/stripe/create-intent`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ amount, currency, country, duration_months, user_email }),
+    })
+    return handleResponse(response)
+  },
+
+  // Web user numbers (for polling after Stripe payment)
+  getWebNumbers: async (email) => {
+    const response = await fetch(`${API_BASE_URL}/numbers/web/${encodeURIComponent(email)}`, {
+      headers: headers(),
+    })
+    return handleResponse(response)
+  },
 }
