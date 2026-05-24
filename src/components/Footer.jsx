@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Twitter, Linkedin, Mail, MapPin, Shield, ExternalLink } from 'lucide-react'
+import { Facebook, Linkedin, Mail, MapPin, Shield, ExternalLink } from 'lucide-react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -37,10 +37,10 @@ const Footer = () => {
               Premium virtual phone numbers for secure SMS verification. Reliable, instant, and built for professionals.
             </p>
             <div className="mt-4 flex items-center space-x-3">
-              <a href="#" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-gold-500 hover:bg-dark-700 transition-colors">
-                <Twitter className="w-4 h-4" />
+              <a href="https://www.facebook.com/share/1G8dG4ZwXh/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-gold-500 hover:bg-dark-700 transition-colors">
+                <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-gold-500 hover:bg-dark-700 transition-colors">
+              <a href="https://www.linkedin.com/in/prime-digits-0a0244411" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-gold-500 hover:bg-dark-700 transition-colors">
                 <Linkedin className="w-4 h-4" />
               </a>
               <a href="mailto:support@primesdigits.com" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-gold-500 hover:bg-dark-700 transition-colors">
