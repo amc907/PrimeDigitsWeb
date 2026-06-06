@@ -15,7 +15,7 @@ const Pricing = () => {
         '1 virtual number',
         '30 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Email support'
       ],
       cta: 'Get Starter Plan',
@@ -30,7 +30,7 @@ const Pricing = () => {
         '1 virtual number',
         '90 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support'
       ],
       cta: 'Get Standard Plan',
@@ -45,7 +45,7 @@ const Pricing = () => {
         '1 virtual number',
         '180 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support'
       ],
       cta: 'Get Pro Plan',
@@ -60,7 +60,7 @@ const Pricing = () => {
         '1 virtual number',
         '365 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support',
         'Number guaranteed for 1 year'
       ],
@@ -72,7 +72,6 @@ const Pricing = () => {
   const countries = [
     { flag: '🇺🇸', name: 'United States', price: 'From $3.99' },
     { flag: '🇨🇦', name: 'Canada', price: 'From $3.99' },
-    { flag: '🇬🇧', name: 'United Kingdom', price: 'From $3.99' },
   ]
 
   return (
@@ -120,7 +119,7 @@ const Pricing = () => {
         {/* Country Pricing */}
         <div className="mt-20">
           <h2 className="text-2xl font-bold text-white text-center mb-8">Available Countries</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {countries.map((country, i) => (
               <Card key={i} className="p-4 flex items-center justify-between">
                 <div className="flex items-center space-x-3">

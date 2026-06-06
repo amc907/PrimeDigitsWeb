@@ -7,7 +7,7 @@ const HowItWorks = () => {
     {
       icon: Search,
       title: 'Browse Available Numbers',
-      description: 'Explore our inventory of virtual numbers from the United States, United Kingdom, and Canada. Each number is ready for instant activation.',
+      description: 'Explore our inventory of virtual numbers from the United States and Canada. Each number is ready for instant activation.'
     },
     {
       icon: ShoppingCart,

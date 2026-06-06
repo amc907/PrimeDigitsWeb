@@ -324,7 +324,7 @@ const Home = () => {
               {
                 icon: Globe,
                 title: 'Global Coverage',
-                desc: 'Numbers from US, UK, and Canada with more regions coming soon.',
+                desc: 'Numbers from US and Canada with more regions coming soon.'
                 gradient: 'from-blue-500/10 to-blue-600/5',
               },
               {
@@ -388,7 +388,7 @@ const Home = () => {
                 {
                   num: '01',
                   title: 'Choose a Country',
-                  desc: 'Select from available countries including US, UK, and Canada.',
+                  desc: 'Select from available countries including US and Canada.'
                   icon: MapPin,
                   color: 'text-blue-400',
                   bg: 'bg-blue-500/10',
@@ -446,7 +446,7 @@ const Home = () => {
             <h2 className="text-3xl sm:text-4xl font-bold text-white">Available Countries</h2>
             <p className="mt-4 text-gray-400">Get local numbers from trusted carriers across multiple regions.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {[
               {
                 flag: '🇺🇸',
@@ -455,18 +455,8 @@ const Home = () => {
                 status: 'Available',
                 price: '$3.99',
                 period: '/mo',
-                features: ['Instant Activation', '15 SMS Included', 'Twilio Powered'],
-                gradient: 'from-blue-500/10 to-red-500/5',
-              },
-              {
-                flag: '🇬🇧',
-                name: 'United Kingdom',
-                code: '+44',
-                status: 'Available',
-                price: '$5.99',
-                period: '/mo',
                 features: ['Instant Activation', '15 SMS Included', 'Telnyx Powered'],
-                gradient: 'from-red-500/10 to-blue-500/5',
+                gradient: 'from-blue-500/10 to-red-500/5',
               },
               {
                 flag: '🇨🇦',
@@ -475,7 +465,7 @@ const Home = () => {
                 status: 'Available',
                 price: '$3.99',
                 period: '/mo',
-                features: ['Instant Activation', '15 SMS Included', 'Twilio Powered'],
+                features: ['Instant Activation', '15 SMS Included', 'Telnyx Powered'],
                 gradient: 'from-red-500/10 to-white/5',
               },
             ].map((country, i) => (

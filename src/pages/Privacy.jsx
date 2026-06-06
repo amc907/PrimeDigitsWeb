@@ -11,14 +11,13 @@ const Privacy = () => {
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">1. Company Information</h2>
           <p className="text-gray-400 leading-relaxed">
             Prime Digits (EIN: 42-2601844) is committed to protecting your privacy. Our US headquarters is located 
-            at 518 Magnolia Dr, Osceola, AR 72370, United States. Our UK office is located at 39 Ludgate Hill, 
-            London, EC4M 7JN, United Kingdom. This Privacy Policy explains how we collect, use, and safeguard 
+            at 518 Magnolia Dr, Osceola, AR 72370, United States. This Privacy Policy explains how we collect, use, and safeguard 
             your information when you use our services.
           </p>
 
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">2. Compliance</h2>
           <p className="text-gray-400 leading-relaxed">
-            Prime Digits is GDPR compliant through our UK office and CCPA compliant as a US business. We adhere 
+            Prime Digits is CCPA compliant as a US business. We adhere 
             to international data protection standards and respect your privacy rights regardless of your location.
           </p>
 
@@ -99,7 +98,7 @@ const Privacy = () => {
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">10. International Transfers</h2>
           <p className="text-gray-400 leading-relaxed">
             Your data may be transferred to and processed in countries other than your own, including 
-            the United States and the United Kingdom. We ensure appropriate safeguards are in place 
+            the United States. We ensure appropriate safeguards are in place 
             to protect your data during such transfers.
           </p>
 

@@ -6,7 +6,7 @@ const Features = () => {
   const features = [
     { icon: Shield, title: 'Maximum Security', desc: 'End-to-end encryption and secure number handling protect your data.' },
     { icon: Zap, title: 'Instant Delivery', desc: 'Receive SMS messages in real-time with sub-second latency.' },
-    { icon: Globe, title: 'Global Coverage', desc: 'Numbers from US, UK, and Canada with more regions coming soon.' },
+    { icon: Globe, title: 'Global Coverage', desc: 'Numbers from US and Canada with more regions coming soon.' }
     { icon: Clock, title: 'Flexible Duration', desc: 'Choose from monthly, quarterly, 6-month, or annual plans that fit your needs.' },
     { icon: MessageSquare, title: 'SMS History', desc: 'Access complete message history for all your numbers anytime.' },
     { icon: CreditCard, title: 'Simple Pricing', desc: 'Transparent pricing with no hidden fees. Pay only for what you use.' },

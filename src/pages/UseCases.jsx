@@ -29,10 +29,10 @@ const UseCases = () => {
     {
       icon: Briefcase,
       title: 'Business Communication',
-      description: 'Keep your business and personal life separate. Establish a professional US or UK presence globally and manage business SMS from anywhere in the world.',
+      description: 'Keep your business and personal life separate. Establish a professional US or Canada presence globally and manage business SMS from anywhere in the world.'
       points: [
         'Separate business number from personal',
-        'Professional US/UK presence globally',
+        'Professional US/Canada presence globally',
         'Manage business SMS from anywhere',
       ],
     },

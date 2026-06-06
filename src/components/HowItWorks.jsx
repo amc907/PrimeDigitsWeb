@@ -2,7 +2,7 @@ import React from 'react'
 
 const HowItWorksSection = () => {
   const steps = [
-    { step: '01', title: 'Choose a Country', desc: 'Select from available countries including US, UK, and Canada.' },
+    { step: '01', title: 'Choose a Country', desc: 'Select from available countries including US and Canada.' }
     { step: '02', title: 'Pick a Plan', desc: 'Choose the duration that works for you with transparent pricing.' },
     { step: '03', title: 'Start Receiving', desc: 'Your number is activated instantly. Start receiving SMS right away.' },
   ]

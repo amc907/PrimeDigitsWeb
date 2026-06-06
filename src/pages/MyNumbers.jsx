@@ -52,7 +52,7 @@ const MyNumbers = () => {
   }
 
   const getCountryFlag = (country) => {
-    const flags = { US: '🇺🇸', CA: '🇨🇦', GB: '🇬🇧', USA: '🇺🇸', CANADA: '🇨🇦', UK: '🇬🇧' }
+    const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦' }
     return flags[country?.toUpperCase()] || '🌍'
   }
 

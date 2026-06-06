@@ -60,15 +60,6 @@ const Contact = () => {
                 United States
               </p>
             </Card>
-            <Card className="p-5">
-              <MapPin className="w-6 h-6 text-gold-500 mb-3" />
-              <h3 className="text-white font-medium">UK Address</h3>
-              <p className="mt-1 text-sm text-gray-400">
-                39 Ludgate Hill<br />
-                London, EC4M 7JN<br />
-                United Kingdom
-              </p>
-            </Card>
           </div>
 
           {/* Contact Form */}

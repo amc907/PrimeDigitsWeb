@@ -15,7 +15,7 @@ const FAQ = () => {
     },
     {
       question: 'Which countries are available?',
-      answer: 'We currently offer virtual numbers from the United States, United Kingdom, and Canada. We are continuously expanding to more regions.',
+      answer: 'We currently offer virtual numbers from the United States and Canada. We are continuously expanding to more regions.'
     },
     {
       question: 'Can I receive SMS from any service?',

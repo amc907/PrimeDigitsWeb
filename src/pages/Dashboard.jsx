@@ -99,7 +99,7 @@ const Dashboard = () => {
   }
 
   const getCountryFlag = (country) => {
-    const flags = { US: '🇺🇸', CA: '🇨🇦', GB: '🇬🇧', USA: '🇺🇸', CANADA: '🇨🇦', UK: '🇬🇧', 'UNITED STATES': '🇺🇸', 'UNITED KINGDOM': '🇬🇧' }
+    const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦', 'UNITED STATES': '🇺🇸' }
     return flags[country?.toUpperCase()] || '🌍'
   }
 

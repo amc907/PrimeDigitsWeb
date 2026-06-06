@@ -45,7 +45,6 @@ const BuyNumber = () => {
   const countries = [
     { code: 'US', name: 'United States', flag: '🇺🇸', prefix: '+1' },
     { code: 'CA', name: 'Canada', flag: '🇨🇦', prefix: '+1' },
-    { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', prefix: '+44' },
   ]
 
   const plans = {
@@ -61,12 +60,7 @@ const BuyNumber = () => {
       { duration: 6, label: '6 Months', price: 17.99, credits: 15, period: '6 months', savings: '25%' },
       { duration: 12, label: '1 Year', price: 29.99, credits: 15, period: 'year', savings: '37%' },
     ],
-    GB: [
-      { duration: 1, label: '1 Month', price: 5.99, credits: 15, period: 'month' },
-      { duration: 3, label: '3 Months', price: 14.99, credits: 15, period: '3 months', recommended: true, savings: '17%' },
-      { duration: 6, label: '6 Months', price: 23.99, credits: 15, period: '6 months', savings: '33%' },
-      { duration: 12, label: '1 Year', price: 39.99, credits: 15, period: 'year', savings: '44%' },
-    ],
+
   }
 
   const handleCountrySelect = (country) => {
@@ -232,7 +226,7 @@ const BuyNumber = () => {
                     <p className="text-white font-medium">{country.name}</p>
                     <p className="text-sm text-gray-400">Prefix {country.prefix}</p>
                     <p className="text-sm text-gold-500">
-                      From ${country.code === 'GB' ? '5.99' : '3.99'}/month
+                      From $3.99/month
                     </p>
                   </div>
                 </div>
@@ -479,7 +473,7 @@ const BuyNumber = () => {
 }
 
 const getCountryFlag = (country) => {
-  const flags = { US: '🇺🇸', CA: '🇨🇦', GB: '🇬🇧', USA: '🇺🇸', CANADA: '🇨🇦', UK: '🇬🇧' }
+  const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦' }
   return flags[country?.toUpperCase()] || '🌍'
 }
 

@@ -70,7 +70,7 @@ const About = () => {
             {[
               { value: '10K+', label: 'Numbers Delivered' },
               { value: '99.9%', label: 'Uptime' },
-              { value: '3', label: 'Countries Available' },
+              { value: '2', label: 'Countries Available' }
               { value: '<1s', label: 'SMS Delivery' },
             ].map((stat, i) => (
               <Card key={i} className="p-6 text-center">
@@ -111,7 +111,7 @@ const About = () => {
         {/* Addresses */}
         <div className="mb-20">
           <h2 className="text-2xl font-bold text-white text-center mb-8">Our Offices</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-6 max-w-xl mx-auto">
             <Card className="p-6">
               <div className="flex items-start space-x-3">
                 <MapPin className="w-6 h-6 text-gold-500 flex-shrink-0 mt-0.5" />
@@ -121,19 +121,6 @@ const About = () => {
                     518 Magnolia Dr<br />
                     Osceola, AR 72370<br />
                     United States
-                  </p>
-                </div>
-              </div>
-            </Card>
-            <Card className="p-6">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-6 h-6 text-gold-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="text-white font-semibold mb-1">UK Office</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    39 Ludgate Hill<br />
-                    London, EC4M 7JN<br />
-                    United Kingdom
                   </p>
                 </div>
               </div>

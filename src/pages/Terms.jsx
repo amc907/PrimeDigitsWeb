@@ -11,8 +11,7 @@ const Terms = () => {
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">1. Company Information</h2>
           <p className="text-gray-400 leading-relaxed">
             Prime Digits is a registered US business (EIN: 42-2601844). Our US headquarters is located at 
-            518 Magnolia Dr, Osceola, AR 72370, United States. Our UK office is located at 39 Ludgate Hill, 
-            London, EC4M 7JN, United Kingdom. Our website is https://primesdigits.com and our support email 
+            518 Magnolia Dr, Osceola, AR 72370, United States. Our website is https://primesdigits.com and our support email 
             is support@primesdigits.com.
           </p>
 

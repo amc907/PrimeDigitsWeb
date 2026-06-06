@@ -102,12 +102,6 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex items-start space-x-2">
-            <MapPin className="w-4 h-4 text-gold-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-gray-500">
-              <span className="text-gray-400 font-medium">UK Office:</span> 39 Ludgate Hill, London, EC4M 7JN
-            </p>
-          </div>
-          <div className="flex items-start space-x-2">
             <Shield className="w-4 h-4 text-gold-500 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-gray-500">
               <span className="text-gray-400 font-medium">EIN:</span> 42-2601844

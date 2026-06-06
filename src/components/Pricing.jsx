@@ -15,7 +15,7 @@ const PricingSection = () => {
         '1 virtual number',
         '30 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Email support'
       ]
     },
@@ -28,7 +28,7 @@ const PricingSection = () => {
         '1 virtual number',
         '90 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support'
       ],
       popular: true
@@ -42,7 +42,7 @@ const PricingSection = () => {
         '1 virtual number',
         '180 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support'
       ]
     },
@@ -55,7 +55,7 @@ const PricingSection = () => {
         '1 virtual number',
         '365 days active',
         '15 SMS credits included',
-        'US, UK or Canada number',
+        'US or Canada number',
         'Priority support',
         'Number guaranteed for 1 year'
       ]
