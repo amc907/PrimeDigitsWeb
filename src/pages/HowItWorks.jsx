@@ -48,9 +48,9 @@ const HowItWorks = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {steps.map((step, i) => (
-            <Card key={i} className="p-6 hover:border-gold-500/30 transition-colors animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="w-12 h-12 rounded-lg bg-gold-500/10 flex items-center justify-center mb-4">
-                <step.icon className="w-6 h-6 text-gold-500" />
+            <Card key={i} className="p-6 hover:border-brand-500/30 transition-colors animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <div className="w-12 h-12 rounded-lg bg-brand-500/10 flex items-center justify-center mb-4">
+                <step.icon className="w-6 h-6 text-brand-400" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
@@ -61,7 +61,7 @@ const HowItWorks = () => {
         {/* FAQ Teaser */}
         <div className="mt-20 text-center">
           <p className="text-gray-400">Have more questions?</p>
-          <a href="/faq" className="mt-2 inline-flex items-center text-gold-500 hover:text-gold-400 font-medium transition-colors">
+          <a href="/faq" className="mt-2 inline-flex items-center text-brand-400 hover:text-brand-400 font-medium transition-colors">
             Visit our FAQ page
           </a>
         </div>

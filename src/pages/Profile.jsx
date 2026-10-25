@@ -115,7 +115,7 @@ const Profile = () => {
             {/* Account Info */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <User className="w-5 h-5 mr-2 text-gold-500" /> Account Information
+                <User className="w-5 h-5 mr-2 text-brand-400" /> Account Information
               </h3>
               <div className="space-y-4">
                 <div>
@@ -126,7 +126,7 @@ const Profile = () => {
                       type="text"
                       value={profile.fullName}
                       onChange={(e) => setProfile(prev => ({ ...prev, fullName: e.target.value }))}
-                      className="w-full pl-10 pr-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                      className="w-full pl-10 pr-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
                     />
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const Profile = () => {
             {/* Change Password */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <Lock className="w-5 h-5 mr-2 text-gold-500" /> Change Password
+                <Lock className="w-5 h-5 mr-2 text-brand-400" /> Change Password
               </h3>
               <form onSubmit={handleSavePassword} className="space-y-4">
                 <Input
@@ -206,14 +206,14 @@ const Profile = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-dark-800/50 rounded-lg">
                   <div className="flex items-center space-x-2">
-                    <Phone className="w-4 h-4 text-gold-500" />
+                    <Phone className="w-4 h-4 text-brand-400" />
                     <span className="text-sm text-gray-400">Total Numbers</span>
                   </div>
                   <span className="text-white font-semibold">{profile.totalNumbers}</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-dark-800/50 rounded-lg">
                   <div className="flex items-center space-x-2">
-                    <MessageSquare className="w-4 h-4 text-gold-500" />
+                    <MessageSquare className="w-4 h-4 text-brand-400" />
                     <span className="text-sm text-gray-400">Total SMS Received</span>
                   </div>
                   <span className="text-white font-semibold">{profile.totalSMS}</span>
@@ -247,7 +247,7 @@ const Profile = () => {
                       />
                       <button
                         onClick={copyReferralLink}
-                        className="p-2 bg-gold-500 hover:bg-gold-600 text-[#fff] rounded-lg transition-colors"
+                        className="p-2 bg-brand-500 hover:bg-brand-600 text-[#fff] rounded-lg transition-colors"
                       >
                         {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       </button>
@@ -259,7 +259,7 @@ const Profile = () => {
                       <p className="text-xs text-gray-400">Referrals</p>
                     </div>
                     <div className="p-3 bg-dark-800/50 rounded-lg text-center">
-                      <p className="text-2xl font-bold text-gold-500">{profile.referralCredits}</p>
+                      <p className="text-2xl font-bold text-brand-400">{profile.referralCredits}</p>
                       <p className="text-xs text-gray-400">Credits Earned</p>
                     </div>
                   </div>

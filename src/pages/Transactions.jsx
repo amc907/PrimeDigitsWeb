@@ -99,7 +99,7 @@ const Transactions = () => {
                 placeholder="Search reference..."
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1) }}
-                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
               />
             </div>
             <div className="relative">
@@ -107,7 +107,7 @@ const Transactions = () => {
               <select
                 value={filterType}
                 onChange={(e) => { setFilterType(e.target.value); setCurrentPage(1) }}
-                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white appearance-none focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
               >
                 <option value="All">All Types</option>
                 <option value="Number Purchase">Number Purchase</option>
@@ -121,7 +121,7 @@ const Transactions = () => {
                 type="date"
                 value={dateFrom}
                 onChange={(e) => { setDateFrom(e.target.value); setCurrentPage(1) }}
-                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
               />
             </div>
             <div className="relative">
@@ -130,7 +130,7 @@ const Transactions = () => {
                 type="date"
                 value={dateTo}
                 onChange={(e) => { setDateTo(e.target.value); setCurrentPage(1) }}
-                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
               />
             </div>
           </div>

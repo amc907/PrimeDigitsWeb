@@ -71,9 +71,9 @@ const PricingSection = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, i) => (
-            <Card key={i} className={`relative p-6 ${plan.popular ? 'border-gold-500/50 shadow-gold-500/10' : ''}`}>
+            <Card key={i} className={`relative p-6 ${plan.popular ? 'border-brand-500/50 shadow-brand-500/10' : ''}`}>
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gold-500 text-[#fff] text-xs font-semibold rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-500 text-[#fff] text-xs font-semibold rounded-full">
                   Most Popular
                 </div>
               )}
@@ -86,7 +86,7 @@ const PricingSection = () => {
               <ul className="mt-6 space-y-3">
                 {plan.features.map((feature, fi) => (
                   <li key={fi} className="flex items-center text-sm text-gray-300">
-                    <Check className="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-brand-400 mr-2 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}

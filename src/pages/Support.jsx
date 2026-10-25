@@ -42,7 +42,7 @@ const Support = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <MessageSquare className="w-5 h-5 text-gold-500" />
+                  <MessageSquare className="w-5 h-5 text-brand-400" />
                   <span>Contact Support</span>
                 </CardTitle>
               </CardHeader>
@@ -65,7 +65,7 @@ const Support = () => {
                       required
                       rows={5}
                       placeholder="Describe your issue in detail..."
-                      className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 resize-none"
+                      className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 resize-none"
                     />
                   </div>
                   <Button type="submit" variant="primary" isLoading={isLoading}>
@@ -82,7 +82,7 @@ const Support = () => {
                 {faqs.map((faq, i) => (
                   <Card key={i} className="p-4">
                     <h3 className="text-white font-medium mb-1 flex items-center">
-                      <HelpCircle className="w-4 h-4 text-gold-500 mr-2" />
+                      <HelpCircle className="w-4 h-4 text-brand-400 mr-2" />
                       {faq.question}
                     </h3>
                     <p className="text-gray-400 text-sm">{faq.answer}</p>
@@ -95,17 +95,17 @@ const Support = () => {
           {/* Sidebar Info */}
           <div className="space-y-4">
             <Card className="p-5">
-              <Clock className="w-6 h-6 text-gold-500 mb-3" />
+              <Clock className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium mb-1">Response Time</h3>
               <p className="text-sm text-gray-400">We typically respond to support tickets within a few hours during business hours.</p>
             </Card>
             <Card className="p-5">
-              <Mail className="w-6 h-6 text-gold-500 mb-3" />
+              <Mail className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium mb-1">Email Support</h3>
               <p className="text-sm text-gray-400">support@primesdigits.com</p>
             </Card>
             <Card className="p-5">
-              <FileText className="w-6 h-6 text-gold-500 mb-3" />
+              <FileText className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium mb-1">Documentation</h3>
               <p className="text-sm text-gray-400">Check our FAQ and How It Works pages for quick answers.</p>
             </Card>

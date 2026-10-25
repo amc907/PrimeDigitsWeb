@@ -43,7 +43,7 @@ const AppLayout = ({ children }) => (
 
 const ThemedToaster = () => {
   const { theme } = useTheme()
-  const surface = theme === 'light' ? '#ffffff' : '#1a1a20'
+  const surface = theme === 'light' ? '#ffffff' : '#181526'
   return (
     <Toaster
       position="top-right"
@@ -51,11 +51,11 @@ const ThemedToaster = () => {
         duration: 4000,
         style: {
           background: surface,
-          color: theme === 'light' ? '#111118' : '#fff',
-          border: `1px solid ${theme === 'light' ? '#dedee4' : '#35353c'}`,
+          color: theme === 'light' ? '#14121f' : '#fff',
+          border: `1px solid ${theme === 'light' ? '#e2dfee' : '#2a2540'}`,
         },
         success: {
-          iconTheme: { primary: '#d49a2e', secondary: surface },
+          iconTheme: { primary: '#6d28d9', secondary: surface },
         },
         error: {
           iconTheme: { primary: '#ef4444', secondary: surface },

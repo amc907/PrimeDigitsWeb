@@ -34,10 +34,10 @@ const Testimonials = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <Card key={i} className="p-6 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-              <Quote className="w-8 h-8 text-gold-500/30 mb-4" />
+              <Quote className="w-8 h-8 text-brand-400/30 mb-4" />
               <div className="flex items-center space-x-1 mb-3">
                 {[...Array(t.rating)].map((_, ri) => (
-                  <Star key={ri} className="w-4 h-4 text-gold-500 fill-gold-500" />
+                  <Star key={ri} className="w-4 h-4 text-brand-400 fill-brand-500" />
                 ))}
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-4">{t.content}</p>

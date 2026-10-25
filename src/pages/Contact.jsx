@@ -37,22 +37,22 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="space-y-4">
             <Card className="p-5">
-              <Mail className="w-6 h-6 text-gold-500 mb-3" />
+              <Mail className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium">Email Us</h3>
               <p className="mt-1 text-sm text-gray-400">support@primesdigits.com</p>
             </Card>
             <Card className="p-5">
-              <Clock className="w-6 h-6 text-gold-500 mb-3" />
+              <Clock className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium">Response Time</h3>
               <p className="mt-1 text-sm text-gray-400">Within 24 hours</p>
             </Card>
             <Card className="p-5">
-              <MessageSquare className="w-6 h-6 text-gold-500 mb-3" />
+              <MessageSquare className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium">Business Hours</h3>
               <p className="mt-1 text-sm text-gray-400">Monday - Friday<br />9am - 6pm GMT</p>
             </Card>
             <Card className="p-5">
-              <MapPin className="w-6 h-6 text-gold-500 mb-3" />
+              <MapPin className="w-6 h-6 text-brand-400 mb-3" />
               <h3 className="text-white font-medium">US Address</h3>
               <p className="mt-1 text-sm text-gray-400">
                 518 Magnolia Dr<br />
@@ -102,7 +102,7 @@ const Contact = () => {
                     required
                     rows={5}
                     placeholder="Tell us more about your inquiry..."
-                    className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 resize-none"
+                    className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 resize-none"
                   />
                 </div>
                 <Button type="submit" variant="primary" isLoading={isLoading} className="w-full sm:w-auto">

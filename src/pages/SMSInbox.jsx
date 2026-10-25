@@ -279,7 +279,7 @@ const SMSInbox = () => {
             <p className="text-gray-400 mb-2">Get a number and your texts will show up here like a messaging app.</p>
             <button
               onClick={() => navigate('/buy')}
-              className="mt-4 inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-[#fff] font-medium rounded-lg transition-colors"
+              className="mt-4 inline-flex items-center px-6 py-3 bg-brand-500 hover:bg-brand-600 text-[#fff] font-medium rounded-lg transition-colors"
             >
               Get a Number
             </button>
@@ -320,7 +320,7 @@ const SMSInbox = () => {
                     <button
                       onClick={enableAlerts}
                       title="Get a browser alert when a text arrives"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20 hover:bg-gold-500/20"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20"
                     >
                       <Bell className="w-3.5 h-3.5" /> Alerts
                     </button>
@@ -340,7 +340,7 @@ const SMSInbox = () => {
                       key={number.id}
                       onClick={() => { setSelectedNumber(number.id.toString()); setShowNumberMenu(false) }}
                       className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm hover:bg-dark-700 ${
-                        selectedNumber === number.id.toString() ? 'text-gold-400' : 'text-gray-200'
+                        selectedNumber === number.id.toString() ? 'text-brand-400' : 'text-gray-200'
                       }`}
                     >
                       <span>{getCountryFlag(number.country)}</span>
@@ -358,16 +358,16 @@ const SMSInbox = () => {
                   placeholder="Search conversations"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                  className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
                 />
               </div>
             </div>
 
             {/* Latest verification code */}
             {showLatestCode && (
-              <div className="mx-4 mt-3 p-3 rounded-xl bg-gold-500/10 border border-gold-500/25">
+              <div className="mx-4 mt-3 p-3 rounded-xl bg-brand-500/10 border border-brand-500/25">
                 <div className="flex items-center justify-between gap-2 text-[11px] text-gray-400">
-                  <span className="flex items-center gap-1 font-semibold text-gold-400 uppercase tracking-wider">
+                  <span className="flex items-center gap-1 font-semibold text-brand-400 uppercase tracking-wider">
                     <KeyRound className="w-3.5 h-3.5" /> Latest code
                   </span>
                   <span className="truncate">{latestCode.msg.from_number} · {timeAgo(latestCode.msg.created_at)}</span>
@@ -376,7 +376,7 @@ const SMSInbox = () => {
                   <span className="text-3xl font-extrabold tracking-[0.2em] text-white">{latestCode.code}</span>
                   <button
                     onClick={() => copyToClipboard(latestCode.code, `Code ${latestCode.code} copied`)}
-                    className="inline-flex items-center px-3 py-2 rounded-lg bg-gold-500 hover:bg-gold-600 text-[#fff] text-sm font-semibold transition-colors"
+                    className="inline-flex items-center px-3 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-[#fff] text-sm font-semibold transition-colors"
                   >
                     <Copy className="w-4 h-4 mr-1.5" /> Copy
                   </button>
@@ -407,7 +407,7 @@ const SMSInbox = () => {
                       key={conv.sender}
                       onClick={() => openConversation(conv.sender)}
                       className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors border-l-2 ${
-                        isActive ? 'bg-gold-500/10 border-gold-500' : 'border-transparent hover:bg-dark-800/60'
+                        isActive ? 'bg-brand-500/10 border-brand-500' : 'border-transparent hover:bg-dark-800/60'
                       }`}
                     >
                       <Avatar sender={conv.sender} />
@@ -416,14 +416,14 @@ const SMSInbox = () => {
                           <p className={`text-sm truncate ${unread ? 'text-white font-semibold' : 'text-gray-200 font-medium'}`}>
                             {conv.sender}
                           </p>
-                          <span className={`text-xs flex-shrink-0 ${unread ? 'text-gold-400' : 'text-gray-500'}`}>
+                          <span className={`text-xs flex-shrink-0 ${unread ? 'text-brand-400' : 'text-gray-500'}`}>
                             {formatListTime(conv.last.created_at)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between gap-2 mt-0.5">
                           <p className={`text-[13px] truncate ${unread ? 'text-gray-300' : 'text-gray-500'}`}>{conv.last.message}</p>
                           {unread > 0 && (
-                            <span className="flex-shrink-0 min-w-[20px] h-5 px-1.5 bg-gold-500 text-dark-900 text-[11px] font-bold rounded-full flex items-center justify-center">
+                            <span className="flex-shrink-0 min-w-[20px] h-5 px-1.5 bg-brand-500 text-[#fff] text-[11px] font-bold rounded-full flex items-center justify-center">
                               {unread}
                             </span>
                           )}
@@ -440,8 +440,8 @@ const SMSInbox = () => {
           <section className={`${activeSender ? 'flex' : 'hidden md:flex'} flex-1 flex-col min-w-0`}>
             {!activeConversation ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
-                <div className="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center mb-4">
-                  <MessageSquare className="w-8 h-8 text-gold-500" />
+                <div className="w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center mb-4">
+                  <MessageSquare className="w-8 h-8 text-brand-400" />
                 </div>
                 <p className="text-white font-semibold">Select a conversation</p>
                 <p className="text-sm text-gray-500 mt-1">Pick a sender on the left to read their messages.</p>
@@ -488,7 +488,7 @@ const SMSInbox = () => {
                             {code && (
                               <button
                                 onClick={() => copyToClipboard(code, `Code ${code} copied`)}
-                                className="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold text-gold-400 bg-gold-500/10 hover:bg-gold-500/20 rounded-full border border-gold-500/20 transition-colors"
+                                className="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 rounded-full border border-brand-500/20 transition-colors"
                               >
                                 <Hash className="w-3 h-3 mr-0.5" /> Copy {code}
                               </button>

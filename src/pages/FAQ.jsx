@@ -68,7 +68,7 @@ const FAQ = () => {
                 className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-dark-800/50 transition-colors"
               >
                 <span className="text-white font-medium pr-4">{faq.question}</span>
-                <ChevronDown className={`w-5 h-5 text-gold-500 flex-shrink-0 transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-5 h-5 text-brand-400 flex-shrink-0 transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`} />
               </button>
               {openIndex === i && (
                 <div className="px-6 pb-4 animate-fade-in">
@@ -81,7 +81,7 @@ const FAQ = () => {
 
         <div className="mt-16 text-center">
           <p className="text-gray-400">Still have questions?</p>
-          <a href="/contact" className="mt-2 inline-flex items-center text-gold-500 hover:text-gold-400 font-medium transition-colors">
+          <a href="/contact" className="mt-2 inline-flex items-center text-brand-400 hover:text-brand-400 font-medium transition-colors">
             Contact our support team
           </a>
         </div>

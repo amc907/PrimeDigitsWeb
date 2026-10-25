@@ -88,14 +88,14 @@ const Navbar = () => {
                 to={link.path}
                 className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   location.pathname === link.path
-                    ? 'text-gold-500 bg-gold-500/10'
+                    ? 'text-brand-400 bg-brand-500/10'
                     : 'text-gray-300 hover:text-white hover:bg-dark-800'
                 }`}
               >
                 <span className="flex items-center">
                   {link.name}
                   {link.name === 'SMS Inbox' && unreadCount > 0 && (
-                    <span className="ml-1.5 px-1.5 py-0.5 bg-gold-500 text-[#fff] text-[10px] font-bold rounded-full">
+                    <span className="ml-1.5 px-1.5 py-0.5 bg-brand-500 text-[#fff] text-[10px] font-bold rounded-full">
                       {unreadCount}
                     </span>
                   )}
@@ -168,14 +168,14 @@ const Navbar = () => {
                 to={link.path}
                 className={`flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   location.pathname === link.path
-                    ? 'text-gold-500 bg-gold-500/10'
+                    ? 'text-brand-400 bg-brand-500/10'
                     : 'text-gray-300 hover:text-white hover:bg-dark-800'
                 }`}
               >
                 {link.icon && <link.icon className="w-4 h-4 mr-2" />}
                 {link.name}
                 {link.name === 'SMS Inbox' && unreadCount > 0 && (
-                  <span className="ml-auto px-1.5 py-0.5 bg-gold-500 text-[#fff] text-[10px] font-bold rounded-full">
+                  <span className="ml-auto px-1.5 py-0.5 bg-brand-500 text-[#fff] text-[10px] font-bold rounded-full">
                     {unreadCount}
                   </span>
                 )}

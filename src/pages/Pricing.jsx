@@ -87,9 +87,9 @@ const Pricing = () => {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, i) => (
-            <Card key={i} className={`relative p-6 lg:p-8 ${plan.popular ? 'border-gold-500/50 shadow-lg shadow-gold-500/10' : ''}`}>
+            <Card key={i} className={`relative p-6 lg:p-8 ${plan.popular ? 'border-brand-500/50 shadow-lg shadow-brand-500/10' : ''}`}>
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gold-500 text-[#fff] text-xs font-semibold rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-500 text-[#fff] text-xs font-semibold rounded-full">
                   Most Popular
                 </div>
               )}
@@ -102,7 +102,7 @@ const Pricing = () => {
               <ul className="mt-6 space-y-3">
                 {plan.features.map((feature, fi) => (
                   <li key={fi} className="flex items-start text-sm text-gray-300">
-                    <Check className="w-4 h-4 text-gold-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 text-brand-400 mr-2 flex-shrink-0 mt-0.5" />
                     {feature}
                   </li>
                 ))}
@@ -126,7 +126,7 @@ const Pricing = () => {
                   <span className="text-2xl">{country.flag}</span>
                   <span className="text-white font-medium">{country.name}</span>
                 </div>
-                <span className="text-gold-500 font-semibold text-sm">{country.price}</span>
+                <span className="text-brand-400 font-semibold text-sm">{country.price}</span>
               </Card>
             ))}
           </div>
@@ -140,7 +140,7 @@ const Pricing = () => {
             { icon: Globe, title: 'Global Numbers', desc: 'Access numbers from multiple countries.' },
           ].map((feature, i) => (
             <div key={i} className="text-center">
-              <feature.icon className="w-8 h-8 text-gold-500 mx-auto mb-3" />
+              <feature.icon className="w-8 h-8 text-brand-400 mx-auto mb-3" />
               <h3 className="text-white font-medium">{feature.title}</h3>
               <p className="mt-1 text-sm text-gray-400">{feature.desc}</p>
             </div>

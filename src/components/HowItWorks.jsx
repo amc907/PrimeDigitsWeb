@@ -17,7 +17,7 @@ const HowItWorksSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((item, i) => (
             <div key={i} className="relative text-center animate-slide-up" style={{ animationDelay: `${i * 150}ms` }}>
-              <div className="text-5xl font-bold text-gold-500/20 mb-4">{item.step}</div>
+              <div className="text-5xl font-bold text-brand-400/20 mb-4">{item.step}</div>
               <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
             </div>

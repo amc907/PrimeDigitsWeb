@@ -12,7 +12,7 @@ const Stats = () => {
             { value: '< 1 Second', label: 'SMS Delivery' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-gold-500">{stat.value}</div>
+              <div className="text-2xl sm:text-3xl font-bold text-brand-400">{stat.value}</div>
               <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
             </div>
           ))}

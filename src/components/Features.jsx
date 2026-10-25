@@ -21,8 +21,8 @@ const Features = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <Card key={i} className="p-6 hover:border-gold-500/30 transition-colors group animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-              <feature.icon className="w-10 h-10 text-gold-500 mb-4 group-hover:scale-110 transition-transform" />
+            <Card key={i} className="p-6 hover:border-brand-500/30 transition-colors group animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <feature.icon className="w-10 h-10 text-brand-400 mb-4 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
             </Card>

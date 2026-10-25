@@ -7,7 +7,7 @@ export const useCardElementOptions = () => {
   return useMemo(() => ({
     style: {
       base: {
-        color: theme === 'light' ? '#111118' : '#f3f4f6',
+        color: theme === 'light' ? '#14121f' : '#f5f4fa',
         fontFamily: '"Inter", sans-serif',
         fontSize: '16px',
         '::placeholder': {

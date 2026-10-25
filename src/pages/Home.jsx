@@ -69,7 +69,7 @@ const PhoneMockup = () => (
                 </div>
                 <p className={`text-[11px] truncate ${t.unread ? 'text-gray-300' : 'text-gray-500'}`}>{t.msg}</p>
               </div>
-              {t.unread && <div className="w-2 h-2 rounded-full bg-gold-500 flex-shrink-0" />}
+              {t.unread && <div className="w-2 h-2 rounded-full bg-brand-500 flex-shrink-0" />}
             </div>
           ))}
         </div>
@@ -77,14 +77,14 @@ const PhoneMockup = () => (
         <div className="px-4 pt-3 pb-5 bg-dark-950/60 space-y-2">
           <p className="text-center text-[9px] text-gray-600">Today 9:41</p>
           <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-md bg-dark-800 text-[11px] text-gray-200">
-            Your PayPal code is <span className="font-bold text-gold-400 tracking-widest">739201</span>
+            Your PayPal code is <span className="font-bold text-brand-400 tracking-widest">739201</span>
           </div>
           <div className="flex items-center gap-2 pt-1">
             <div className="flex-1 h-8 rounded-full bg-dark-800 border border-dark-700 px-3 flex items-center text-[10px] text-gray-500">
               Message
             </div>
-            <div className="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center">
-              <Send className="w-3.5 h-3.5 text-dark-900" />
+            <div className="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center">
+              <Send className="w-3.5 h-3.5 text-[#fff]" />
             </div>
           </div>
         </div>
@@ -138,8 +138,8 @@ const StatItem = ({ value, suffix, label, icon: Icon }) => {
 
   return (
     <div ref={ref} className="text-center group">
-      <div className="w-14 h-14 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:bg-gold-500/20 transition-all duration-300">
-        <Icon className="w-7 h-7 text-gold-500" />
+      <div className="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all duration-300">
+        <Icon className="w-7 h-7 text-brand-400" />
       </div>
       <div className="text-3xl sm:text-4xl font-bold text-white">{displayValue}{suffix}</div>
       <div className="mt-1 text-sm text-gray-400">{label}</div>
@@ -158,20 +158,20 @@ const Home = () => {
       {/* ───────────────────────────────────────────────────────────── */}
       <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden">
         {/* Background glows */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold-500/10 via-transparent to-transparent" />
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent" />
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* Left: Text */}
             <div className="max-w-xl">
-              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-sm font-medium mb-6">
+              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium mb-6">
                 <Smartphone className="w-4 h-4 mr-2" />
                 A second number on the phone you already have
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
                 Get a real phone number.{' '}
-                <span className="gold-shimmer">Keep yours private.</span>
+                <span className="brand-shimmer">Keep yours private.</span>
               </h1>
               <p
                 className="mt-6 text-lg sm:text-xl text-gray-300"
@@ -199,13 +199,13 @@ const Home = () => {
 
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-gray-500 text-sm">
                 <span className="flex items-center gap-1.5">
-                  <Zap className="w-4 h-4 text-gold-500" /> Live in under a minute
+                  <Zap className="w-4 h-4 text-brand-400" /> Live in under a minute
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Inbox className="w-4 h-4 text-gold-500" /> Texts arrive instantly
+                  <Inbox className="w-4 h-4 text-brand-400" /> Texts arrive instantly
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <RefreshCw className="w-4 h-4 text-gold-500" /> Cancel anytime
+                  <RefreshCw className="w-4 h-4 text-brand-400" /> Cancel anytime
                 </span>
               </div>
             </div>
@@ -235,7 +235,7 @@ const Home = () => {
             ].map((app, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-800/60 border border-dark-700 hover:border-gold-500/30 hover:bg-dark-800 transition-all duration-300 cursor-default"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-800/60 border border-dark-700 hover:border-brand-500/30 hover:bg-dark-800 transition-all duration-300 cursor-default"
               >
                 <app.icon className={`w-5 h-5 ${app.color}`} />
                 <span className="text-gray-300 text-sm font-medium">{app.label}</span>
@@ -265,7 +265,7 @@ const Home = () => {
       <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Star className="w-3.5 h-3.5" />
               Features
             </span>
@@ -278,7 +278,7 @@ const Home = () => {
                 icon: Shield,
                 title: 'Maximum Security',
                 desc: 'End-to-end encryption and secure number handling protect your data.',
-                gradient: 'from-gold-500/10 to-gold-600/5',
+                gradient: 'from-brand-500/10 to-brand-600/5',
               },
               {
                 icon: Zap,
@@ -313,16 +313,16 @@ const Home = () => {
             ].map((feature, i) => (
               <div
                 key={i}
-                className={`relative group p-6 rounded-2xl border border-dark-800 bg-gradient-to-br ${feature.gradient} hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/5 animate-slide-up`}
+                className={`relative group p-6 rounded-2xl border border-dark-800 bg-gradient-to-br ${feature.gradient} hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 animate-slide-up`}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-dark-900/80 border border-dark-700 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-gold-500/30 transition-all duration-300">
-                  <feature.icon className="w-6 h-6 text-gold-500" />
+                <div className="w-12 h-12 rounded-xl bg-dark-900/80 border border-dark-700 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-brand-500/30 transition-all duration-300">
+                  <feature.icon className="w-6 h-6 text-brand-400" />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronRight className="w-5 h-5 text-gold-500" />
+                  <ChevronRight className="w-5 h-5 text-brand-400" />
                 </div>
               </div>
             ))}
@@ -336,7 +336,7 @@ const Home = () => {
       <section className="py-20 lg:py-28 bg-dark-900/50 border-y border-dark-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Rocket className="w-3.5 h-3.5" />
               Quick Start
             </span>
@@ -346,7 +346,7 @@ const Home = () => {
 
           <div className="relative">
             {/* Connecting line (desktop) */}
-            <div className="hidden md:block absolute top-20 left-[16.67%] right-[16.67%] h-0.5 bg-gradient-to-r from-gold-500/20 via-gold-500/40 to-gold-500/20" />
+            <div className="hidden md:block absolute top-20 left-[16.67%] right-[16.67%] h-0.5 bg-gradient-to-r from-brand-500/20 via-brand-500/40 to-brand-500/20" />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
               {[
@@ -373,9 +373,9 @@ const Home = () => {
                   title: 'Start Receiving',
                   desc: 'Your number is activated instantly. Start receiving SMS right away.',
                   icon: Inbox,
-                  color: 'text-gold-400',
-                  bg: 'bg-gold-500/10',
-                  border: 'border-gold-500/20',
+                  color: 'text-brand-400',
+                  bg: 'bg-brand-500/10',
+                  border: 'border-brand-500/20',
                 },
               ].map((step, i) => (
                 <div key={i} className="relative text-center animate-slide-up" style={{ animationDelay: `${i * 150}ms` }}>
@@ -385,7 +385,7 @@ const Home = () => {
                       <step.icon className={`w-8 h-8 ${step.color}`} />
                     </div>
                     {/* Number badge */}
-                    <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-gold-500 text-dark-900 text-xs font-bold flex items-center justify-center z-20 shadow-lg">
+                    <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-brand-500 text-[#fff] text-xs font-bold flex items-center justify-center z-20 shadow-lg">
                       {step.num}
                     </div>
                   </div>
@@ -404,7 +404,7 @@ const Home = () => {
       <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Globe className="w-3.5 h-3.5" />
               Coverage
             </span>
@@ -436,14 +436,14 @@ const Home = () => {
             ].map((country, i) => (
               <div
                 key={i}
-                className={`relative group rounded-2xl border border-dark-800 bg-gradient-to-br ${country.gradient} p-6 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/5 animate-slide-up`}
+                className={`relative group rounded-2xl border border-dark-800 bg-gradient-to-br ${country.gradient} p-6 hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 animate-slide-up`}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="text-5xl mb-4">{country.flag}</div>
                 <h3 className="text-white font-semibold text-lg">{country.name}</h3>
                 <p className="text-gray-500 text-sm">{country.code} Numbers</p>
                 <div className="flex items-baseline mt-3">
-                  <span className="text-2xl font-bold text-gold-500">{country.price}</span>
+                  <span className="text-2xl font-bold text-brand-400">{country.price}</span>
                   <span className="text-gray-400 text-sm ml-1">{country.period}</span>
                 </div>
                 <ul className="mt-4 space-y-2">
@@ -473,7 +473,7 @@ const Home = () => {
       <section className="py-16 bg-dark-900/50 border-y border-dark-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Shield className="w-3.5 h-3.5" />
               Trust
             </span>
@@ -489,10 +489,10 @@ const Home = () => {
             ].map((item, i) => (
               <div
                 key={i}
-                className="text-center p-5 rounded-2xl bg-dark-800/40 border border-dark-800 hover:border-gold-500/20 hover:bg-dark-800/60 transition-all duration-300 group"
+                className="text-center p-5 rounded-2xl bg-dark-800/40 border border-dark-800 hover:border-brand-500/20 hover:bg-dark-800/60 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                  <item.icon className="w-6 h-6 text-gold-500" />
+                <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <item.icon className="w-6 h-6 text-brand-400" />
                 </div>
                 <p className="text-white font-medium text-sm">{item.label}</p>
                 <p className="text-gray-500 text-xs mt-1">{item.desc}</p>
@@ -509,9 +509,9 @@ const Home = () => {
       {/*  CTA SECTION                                                  */}
       {/* ───────────────────────────────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-dark-900/50 border-y border-dark-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold-500/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-500/10 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold mb-6">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-6">
             <Rocket className="w-3.5 h-3.5" />
             Get Started Today
           </div>
@@ -549,7 +549,7 @@ const Home = () => {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
         }
-        @keyframes goldShimmer {
+        @keyframes brandShimmer {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }

@@ -197,7 +197,7 @@ const Dashboard = () => {
         {primaryNumber && (() => {
           const daysLeft = getDaysRemaining(primaryNumber.expires_at)
           return (
-            <Card className="mb-8 p-5 sm:p-6 bg-gradient-to-br from-gold-500/10 via-dark-900 to-dark-900 border-gold-500/20">
+            <Card className="mb-8 p-5 sm:p-6 bg-gradient-to-br from-brand-500/10 via-dark-900 to-dark-900 border-brand-500/20">
               <div className="flex flex-col lg:flex-row lg:items-center gap-6">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-gray-400 flex items-center gap-2">
@@ -218,7 +218,7 @@ const Dashboard = () => {
                     <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {daysLeft} days left</span>
                     <span className="flex items-center gap-1.5"><CreditCard className="w-4 h-4" /> {primaryNumber.credits || 0} credits</span>
                     {numbers.length > 1 && (
-                      <Link to="/numbers" className="text-gold-400 hover:text-gold-300">+{numbers.length - 1} more number{numbers.length > 2 ? 's' : ''}</Link>
+                      <Link to="/numbers" className="text-brand-400 hover:text-brand-300">+{numbers.length - 1} more number{numbers.length > 2 ? 's' : ''}</Link>
                     )}
                   </div>
                 </div>
@@ -235,13 +235,13 @@ const Dashboard = () => {
                       {primaryLatestSMS.code && (
                         <button
                           onClick={() => copyCode(primaryLatestSMS.code)}
-                          className="mt-3 w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gold-500/10 border border-gold-500/25 hover:bg-gold-500/20 transition-colors"
+                          className="mt-3 w-full flex items-center justify-between px-3 py-2 rounded-lg bg-brand-500/10 border border-brand-500/25 hover:bg-brand-500/20 transition-colors"
                         >
-                          <span className="flex items-center gap-2 text-gold-400 text-xs font-semibold">
+                          <span className="flex items-center gap-2 text-brand-400 text-xs font-semibold">
                             <KeyRound className="w-4 h-4" /> Code
                           </span>
                           <span className="text-xl font-extrabold tracking-[0.2em] text-white">{primaryLatestSMS.code}</span>
-                          <Copy className="w-4 h-4 text-gold-400" />
+                          <Copy className="w-4 h-4 text-brand-400" />
                         </button>
                       )}
                     </>
@@ -264,7 +264,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             { label: 'Active Numbers', value: stats.activeNumbers, icon: Phone, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-            { label: 'SMS Credits', value: stats.smsCredits, icon: CreditCard, color: 'text-gold-400', bg: 'bg-gold-500/10' },
+            { label: 'SMS Credits', value: stats.smsCredits, icon: CreditCard, color: 'text-brand-400', bg: 'bg-brand-500/10' },
             { label: 'SMS Received Today', value: stats.smsToday, icon: MessageSquare, color: 'text-green-400', bg: 'bg-green-500/10' },
             { label: 'Account Status', value: stats.accountStatus, icon: Shield, color: 'text-purple-400', bg: 'bg-purple-500/10' },
           ].map((stat, i) => (
@@ -420,7 +420,7 @@ const Dashboard = () => {
                       <div key={tx.id} className="flex items-center justify-between p-3 bg-dark-800/50 rounded-lg">
                         <div className="flex items-center space-x-3">
                           <div className="p-2 rounded-lg bg-dark-800">
-                            <Wallet className="w-4 h-4 text-gold-500" />
+                            <Wallet className="w-4 h-4 text-brand-400" />
                           </div>
                           <div>
                             <p className="text-white text-sm font-medium">{tx.type}</p>
@@ -449,10 +449,10 @@ const Dashboard = () => {
               { icon: Headphones, label: 'Contact Support', desc: 'Get help from our team', to: '/support', variant: 'secondary' },
             ].map((action, i) => (
               <Link key={i} to={action.to}>
-                <Card className="p-4 hover:border-gold-500/30 transition-colors group">
+                <Card className="p-4 hover:border-brand-500/30 transition-colors group">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-lg bg-dark-800 group-hover:bg-gold-500/10 transition-colors">
-                      <action.icon className="w-5 h-5 text-gold-500" />
+                    <div className="p-2 rounded-lg bg-dark-800 group-hover:bg-brand-500/10 transition-colors">
+                      <action.icon className="w-5 h-5 text-brand-400" />
                     </div>
                     <div>
                       <p className="text-white font-medium text-sm">{action.label}</p>

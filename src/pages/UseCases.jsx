@@ -80,16 +80,16 @@ const UseCases = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {useCases.map((useCase, i) => (
-            <Card key={i} className="p-6 hover:border-gold-500/30 transition-colors animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="w-12 h-12 rounded-lg bg-gold-500/10 flex items-center justify-center mb-4">
-                <useCase.icon className="w-6 h-6 text-gold-500" />
+            <Card key={i} className="p-6 hover:border-brand-500/30 transition-colors animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <div className="w-12 h-12 rounded-lg bg-brand-500/10 flex items-center justify-center mb-4">
+                <useCase.icon className="w-6 h-6 text-brand-400" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{useCase.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">{useCase.description}</p>
               <ul className="space-y-2">
                 {useCase.points.map((point, pi) => (
                   <li key={pi} className="flex items-start text-sm text-gray-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-1.5 mr-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 mr-2 flex-shrink-0" />
                     {point}
                   </li>
                 ))}

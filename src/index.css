@@ -7,9 +7,9 @@
   :root {
     --white: 255 255 255;
 
-    --gold-300: 236 201 117;
-    --gold-400: 227 180 79;
-    --gold-500: 212 154 46;
+    --brand-300: 196 181 253;
+    --brand-400: 167 139 250;
+    --brand-500: 124 58 237;
 
     --gray-50: 249 250 251;
     --gray-100: 243 244 246;
@@ -22,17 +22,17 @@
     --gray-800: 31 41 55;
     --gray-900: 17 24 39;
 
-    --dark-50: 246 246 247;
-    --dark-100: 225 225 228;
-    --dark-200: 195 195 201;
-    --dark-300: 157 157 167;
-    --dark-400: 120 120 132;
-    --dark-500: 94 94 107;
-    --dark-600: 74 74 86;
-    --dark-700: 62 62 71;
-    --dark-800: 53 53 60;
-    --dark-900: 26 26 32;
-    --dark-950: 15 15 18;
+    --dark-50: 245 244 250;
+    --dark-100: 226 223 238;
+    --dark-200: 196 191 214;
+    --dark-300: 160 154 184;
+    --dark-400: 124 117 150;
+    --dark-500: 98 91 124;
+    --dark-600: 74 68 102;
+    --dark-700: 58 52 84;
+    --dark-800: 42 37 64;
+    --dark-900: 24 21 38;
+    --dark-950: 14 12 22;
 
     --red-300: 252 165 165;
     --red-400: 248 113 113;
@@ -48,13 +48,13 @@
     --orange-400: 251 146 60;
   }
 
-  /* Light theme: surfaces flip to light, text flips to dark, gold deepens for contrast */
+  /* Light theme (default): white surfaces, dark text, deeper violet for contrast */
   html.light {
-    --white: 17 17 24;
+    --white: 20 18 31;
 
-    --gold-300: 184 125 34;
-    --gold-400: 160 106 26;
-    --gold-500: 196 138 38;
+    --brand-300: 124 58 237;
+    --brand-400: 109 40 217;
+    --brand-500: 109 40 217;
 
     --gray-50: 17 24 39;
     --gray-100: 31 41 55;
@@ -67,17 +67,17 @@
     --gray-800: 226 228 233;
     --gray-900: 243 244 246;
 
-    --dark-50: 26 26 32;
-    --dark-100: 53 53 60;
-    --dark-200: 94 94 107;
-    --dark-300: 120 120 132;
-    --dark-400: 157 157 167;
-    --dark-500: 185 185 194;
-    --dark-600: 205 205 212;
-    --dark-700: 222 222 228;
-    --dark-800: 234 234 239;
+    --dark-50: 20 18 31;
+    --dark-100: 42 37 64;
+    --dark-200: 98 91 124;
+    --dark-300: 124 117 150;
+    --dark-400: 160 154 184;
+    --dark-500: 185 180 205;
+    --dark-600: 207 203 224;
+    --dark-700: 226 223 238;
+    --dark-800: 238 236 246;
     --dark-900: 255 255 255;
-    --dark-950: 245 245 247;
+    --dark-950: 246 245 251;
 
     --red-300: 185 28 28;
     --red-400: 220 38 38;
@@ -105,7 +105,7 @@
   }
 
   ::selection {
-    background-color: rgba(212, 154, 46, 0.3);
+    background-color: rgba(124, 58, 237, 0.25);
     color: rgb(var(--white));
   }
 
@@ -130,18 +130,18 @@
 }
 
 @layer utilities {
-  /* Animated gold headline text; deeper golds in light mode so it stays readable */
-  .gold-shimmer {
-    background: linear-gradient(90deg, #D4AF37, #FFD700, #B8860B, #D4AF37);
+  /* Animated violet headline text; deeper violets in light mode so it stays readable */
+  .brand-shimmer {
+    background: linear-gradient(90deg, #a78bfa, #c084fc, #818cf8, #a78bfa);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: goldShimmer 3s ease infinite;
+    animation: brandShimmer 3s ease infinite;
   }
 
-  html.light .gold-shimmer {
-    background-image: linear-gradient(90deg, #a86f1c, #c9921f, #8a5a14, #a86f1c);
+  html.light .brand-shimmer {
+    background-image: linear-gradient(90deg, #6d28d9, #9333ea, #4f46e5, #6d28d9);
   }
 
   .text-balance {

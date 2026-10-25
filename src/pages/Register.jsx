@@ -141,13 +141,13 @@ const Register = () => {
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleChange}
-                  className="mt-0.5 w-4 h-4 rounded border-dark-700 bg-dark-800 text-gold-500 focus:ring-gold-500"
+                  className="mt-0.5 w-4 h-4 rounded border-dark-700 bg-dark-800 text-brand-400 focus:ring-brand-500"
                 />
                 <span className="ml-2 text-sm text-gray-400">
                   I agree to the{' '}
-                  <Link to="/terms" className="text-gold-500 hover:text-gold-400">Terms of Service</Link>
+                  <Link to="/terms" className="text-brand-400 hover:text-brand-400">Terms of Service</Link>
                   {' '}and{' '}
-                  <Link to="/privacy" className="text-gold-500 hover:text-gold-400">Privacy Policy</Link>
+                  <Link to="/privacy" className="text-brand-400 hover:text-brand-400">Privacy Policy</Link>
                 </span>
               </label>
               {errors.agreeTerms && <p className="mt-1 text-sm text-red-400">{errors.agreeTerms}</p>}
@@ -160,7 +160,7 @@ const Register = () => {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-400">
               Already have an account?{' '}
-              <Link to="/login" className="text-gold-500 hover:text-gold-400 font-medium transition-colors">
+              <Link to="/login" className="text-brand-400 hover:text-brand-400 font-medium transition-colors">
                 Sign in
               </Link>
             </p>

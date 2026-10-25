@@ -89,7 +89,7 @@ const Credits = () => {
                 <select
                   value={selectedNumber}
                   onChange={(e) => setSelectedNumber(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500"
+                  className="w-full px-4 py-2.5 bg-dark-800 border border-dark-700 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
                 >
                   {numbers.map((number) => (
                     <option key={number.id} value={number.id}>
@@ -105,7 +105,7 @@ const Credits = () => {
               </div>
               <div className="mt-2 h-1.5 bg-dark-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gold-500 rounded-full transition-all"
+                  className="h-full bg-brand-500 rounded-full transition-all"
                   style={{ width: `${Math.min(100, ((selectedNumberData?.credits || 0) / 50) * 100)}%` }}
                 />
               </div>
@@ -117,19 +117,19 @@ const Credits = () => {
                 <button
                   key={pkg.name}
                   onClick={() => { setSelectedPackage(pkg); setSuccess(false) }}
-                  className={`w-full relative p-5 bg-dark-900 border rounded-xl hover:border-gold-500/50 transition-colors text-left ${
-                    selectedPackage?.name === pkg.name ? 'border-gold-500/50 ring-1 ring-gold-500/30' : 'border-dark-800'
+                  className={`w-full relative p-5 bg-dark-900 border rounded-xl hover:border-brand-500/50 transition-colors text-left ${
+                    selectedPackage?.name === pkg.name ? 'border-brand-500/50 ring-1 ring-brand-500/30' : 'border-dark-800'
                   }`}
                 >
                   {pkg.popular && (
-                    <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-[#fff] text-xs font-semibold rounded">
+                    <div className="absolute -top-2 right-4 px-2 py-0.5 bg-brand-500 text-[#fff] text-xs font-semibold rounded">
                       Best Value
                     </div>
                   )}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="p-2 bg-gold-500/10 rounded-lg">
-                        <pkg.icon className="w-5 h-5 text-gold-500" />
+                      <div className="p-2 bg-brand-500/10 rounded-lg">
+                        <pkg.icon className="w-5 h-5 text-brand-400" />
                       </div>
                       <div>
                         <p className="text-white font-medium">{pkg.name}</p>
@@ -163,7 +163,7 @@ const Credits = () => {
                   </div>
                   <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-dark-700">
                     <span className="text-white font-semibold">Total</span>
-                    <span className="text-gold-500 font-bold">${selectedPackage.price}</span>
+                    <span className="text-brand-400 font-bold">${selectedPackage.price}</span>
                   </div>
                 </div>
                 {success ? (

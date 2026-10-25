@@ -140,10 +140,10 @@ print(data['numbers'])`,
         {/* Overview */}
         <Card className="p-6 mb-8">
           <div className="flex items-center space-x-3 mb-4">
-            <Globe className="w-6 h-6 text-gold-500" />
+            <Globe className="w-6 h-6 text-brand-400" />
             <h2 className="text-xl font-semibold text-white">Base URL</h2>
           </div>
-          <code className="block p-3 bg-dark-950 rounded-lg text-gold-400 text-sm font-mono">
+          <code className="block p-3 bg-dark-950 rounded-lg text-brand-400 text-sm font-mono">
             https://web-production-f778e.up.railway.app
           </code>
         </Card>
@@ -151,7 +151,7 @@ print(data['numbers'])`,
         {/* Authentication */}
         <Card className="p-6 mb-8">
           <div className="flex items-center space-x-3 mb-4">
-            <Terminal className="w-6 h-6 text-gold-500" />
+            <Terminal className="w-6 h-6 text-brand-400" />
             <h2 className="text-xl font-semibold text-white">Authentication</h2>
           </div>
           <p className="text-gray-400 text-sm mb-4">
@@ -177,9 +177,9 @@ print(data['numbers'])`,
                   }`}>
                     {ep.method}
                   </span>
-                  <code className="text-gold-400 text-sm font-mono">{ep.path}</code>
+                  <code className="text-brand-400 text-sm font-mono">{ep.path}</code>
                   {ep.auth && (
-                    <span className="px-2 py-0.5 bg-gold-500/10 text-gold-400 text-xs rounded border border-gold-500/20">
+                    <span className="px-2 py-0.5 bg-brand-500/10 text-brand-400 text-xs rounded border border-brand-500/20">
                       Auth Required
                     </span>
                   )}
@@ -228,16 +228,16 @@ print(data['numbers'])`,
         {/* Rate Limits */}
         <Card className="p-6 mb-8">
           <div className="flex items-center space-x-3 mb-4">
-            <AlertTriangle className="w-6 h-6 text-gold-500" />
+            <AlertTriangle className="w-6 h-6 text-brand-400" />
             <h2 className="text-xl font-semibold text-white">Rate Limits</h2>
           </div>
           <p className="text-gray-400 text-sm mb-4">
             To ensure fair usage for all users, the following rate limits apply:
           </p>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />100 requests per minute per API key</li>
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />1,000 requests per hour per API key</li>
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />SMS history limited to last 100 messages per request</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />100 requests per minute per API key</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />1,000 requests per hour per API key</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />SMS history limited to last 100 messages per request</li>
           </ul>
         </Card>
 
@@ -266,19 +266,19 @@ print(data['numbers'])`,
         </div>
 
         {/* Coming Soon */}
-        <Card className="p-6 border-gold-500/20">
+        <Card className="p-6 border-brand-500/20">
           <div className="flex items-center space-x-3 mb-3">
-            <Code className="w-6 h-6 text-gold-500" />
+            <Code className="w-6 h-6 text-brand-400" />
             <h2 className="text-xl font-semibold text-white">Coming Soon</h2>
-            <span className="px-2 py-0.5 bg-gold-500/10 text-gold-400 text-xs rounded border border-gold-500/20">
+            <span className="px-2 py-0.5 bg-brand-500/10 text-brand-400 text-xs rounded border border-brand-500/20">
               Coming Soon
             </span>
           </div>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />Webhooks for incoming SMS</li>
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />Bulk number purchasing</li>
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />Number reservation system</li>
-            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-gold-500 mr-2" />SDK for Node.js and Python</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />Webhooks for incoming SMS</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />Bulk number purchasing</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />Number reservation system</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mr-2" />SDK for Node.js and Python</li>
           </ul>
         </Card>
       </div>

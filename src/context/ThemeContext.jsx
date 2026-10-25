@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react'
 
 const STORAGE_KEY = 'primedigits_theme'
 
-export const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => {} })
+export const ThemeContext = createContext({ theme: 'light', toggleTheme: () => {} })
 
 const getInitialTheme = () => {
   try {
@@ -11,7 +11,7 @@ const getInitialTheme = () => {
   } catch (err) {
     // Storage blocked - fall back to the default
   }
-  return 'dark'
+  return 'light'
 }
 
 export const ThemeProvider = ({ children }) => {
@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }) => {
     root.classList.toggle('light', theme === 'light')
     root.style.colorScheme = theme
     document.querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#f5f5f7' : '#0f0f12')
+      ?.setAttribute('content', theme === 'light' ? '#f6f5fb' : '#0e0c16')
     try {
       localStorage.setItem(STORAGE_KEY, theme)
     } catch (err) {

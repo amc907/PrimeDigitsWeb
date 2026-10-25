@@ -60,7 +60,7 @@ const About = () => {
             <div className="space-y-3">
               {trustBadges.map((badge, i) => (
                 <div key={i} className="flex items-center text-sm text-gray-300">
-                  <CheckCircle className="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-brand-400 mr-2 flex-shrink-0" />
                   {badge}
                 </div>
               ))}
@@ -74,7 +74,7 @@ const About = () => {
               { value: '<1s', label: 'SMS Delivery' },
             ].map((stat, i) => (
               <Card key={i} className="p-6 text-center">
-                <div className="text-2xl font-bold text-gold-500">{stat.value}</div>
+                <div className="text-2xl font-bold text-brand-400">{stat.value}</div>
                 <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
               </Card>
             ))}
@@ -86,22 +86,22 @@ const About = () => {
           <h2 className="text-2xl font-bold text-white text-center mb-8">Company Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="p-6">
-              <Building2 className="w-8 h-8 text-gold-500 mb-3" />
+              <Building2 className="w-8 h-8 text-brand-400 mb-3" />
               <h3 className="text-white font-semibold mb-1">Legal Name</h3>
               <p className="text-gray-400 text-sm">Prime Digits</p>
             </Card>
             <Card className="p-6">
-              <Shield className="w-8 h-8 text-gold-500 mb-3" />
+              <Shield className="w-8 h-8 text-brand-400 mb-3" />
               <h3 className="text-white font-semibold mb-1">EIN</h3>
               <p className="text-gray-400 text-sm">42-2601844</p>
             </Card>
             <Card className="p-6">
-              <Calendar className="w-8 h-8 text-gold-500 mb-3" />
+              <Calendar className="w-8 h-8 text-brand-400 mb-3" />
               <h3 className="text-white font-semibold mb-1">Founded</h3>
               <p className="text-gray-400 text-sm">2026</p>
             </Card>
             <Card className="p-6">
-              <Globe className="w-8 h-8 text-gold-500 mb-3" />
+              <Globe className="w-8 h-8 text-brand-400 mb-3" />
               <h3 className="text-white font-semibold mb-1">Website</h3>
               <p className="text-gray-400 text-sm">primesdigits.com</p>
             </Card>
@@ -114,7 +114,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6 max-w-xl mx-auto">
             <Card className="p-6">
               <div className="flex items-start space-x-3">
-                <MapPin className="w-6 h-6 text-gold-500 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-6 h-6 text-brand-400 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-white font-semibold mb-1">US Headquarters</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">
@@ -134,7 +134,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {values.map((value, i) => (
               <Card key={i} className="p-6 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-                <value.icon className="w-8 h-8 text-gold-500 mb-3" />
+                <value.icon className="w-8 h-8 text-brand-400 mb-3" />
                 <h3 className="text-lg font-semibold text-white mb-2">{value.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
               </Card>
@@ -151,7 +151,7 @@ const About = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-[#fff] font-medium rounded-lg transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-brand-500 hover:bg-brand-600 text-[#fff] font-medium rounded-lg transition-colors"
             >
               Contact Us
             </a>

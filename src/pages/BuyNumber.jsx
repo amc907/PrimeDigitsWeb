@@ -181,7 +181,7 @@ const BuyNumber = () => {
           {steps.map((s, i) => (
             <div key={i} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                step >= s.num ? 'bg-gold-500 text-[#fff]' : 'bg-dark-800 text-gray-500'
+                step >= s.num ? 'bg-brand-500 text-[#fff]' : 'bg-dark-800 text-gray-500'
               }`}>
                 {s.num}
               </div>
@@ -189,7 +189,7 @@ const BuyNumber = () => {
                 {s.label}
               </span>
               {i < steps.length - 1 && (
-                <div className={`w-8 sm:w-12 h-0.5 mx-2 ${step > s.num ? 'bg-gold-500' : 'bg-dark-800'}`} />
+                <div className={`w-8 sm:w-12 h-0.5 mx-2 ${step > s.num ? 'bg-brand-500' : 'bg-dark-800'}`} />
               )}
             </div>
           ))}
@@ -203,14 +203,14 @@ const BuyNumber = () => {
               <button
                 key={country.code}
                 onClick={() => handleCountrySelect(country)}
-                className="w-full flex items-center justify-between p-4 bg-dark-900 border border-dark-800 rounded-xl hover:border-gold-500/50 transition-colors text-left"
+                className="w-full flex items-center justify-between p-4 bg-dark-900 border border-dark-800 rounded-xl hover:border-brand-500/50 transition-colors text-left"
               >
                 <div className="flex items-center space-x-3">
                   <span className="text-3xl">{country.flag}</span>
                   <div>
                     <p className="text-white font-medium">{country.name}</p>
                     <p className="text-sm text-gray-400">Prefix {country.prefix}</p>
-                    <p className="text-sm text-gold-500">
+                    <p className="text-sm text-brand-400">
                       From $3.99/month
                     </p>
                   </div>
@@ -226,24 +226,24 @@ const BuyNumber = () => {
           <div className="space-y-4 animate-slide-up">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Choose Duration</h2>
-              <button onClick={() => setStep(1)} className="text-sm text-gold-500 hover:text-gold-400">
+              <button onClick={() => setStep(1)} className="text-sm text-brand-400 hover:text-brand-400">
                 Change Country
               </button>
             </div>
-            <div className="flex items-center space-x-2 mb-4 p-3 bg-gold-500/10 rounded-lg">
-              <Globe className="w-5 h-5 text-gold-500" />
-              <span className="text-gold-400 text-sm font-medium">{selectedCountry?.flag} {selectedCountry?.name}</span>
+            <div className="flex items-center space-x-2 mb-4 p-3 bg-brand-500/10 rounded-lg">
+              <Globe className="w-5 h-5 text-brand-400" />
+              <span className="text-brand-400 text-sm font-medium">{selectedCountry?.flag} {selectedCountry?.name}</span>
             </div>
             {currentPlans.map((plan) => (
               <button
                 key={plan.duration}
                 onClick={() => handlePlanSelect(plan)}
-                className={`w-full relative p-5 bg-dark-900 border rounded-xl hover:border-gold-500/50 transition-colors text-left ${
-                  plan.recommended ? 'border-gold-500/50' : 'border-dark-800'
+                className={`w-full relative p-5 bg-dark-900 border rounded-xl hover:border-brand-500/50 transition-colors text-left ${
+                  plan.recommended ? 'border-brand-500/50' : 'border-dark-800'
                 }`}
               >
                 {plan.recommended && (
-                  <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-[#fff] text-xs font-semibold rounded">
+                  <div className="absolute -top-2 right-4 px-2 py-0.5 bg-brand-500 text-[#fff] text-xs font-semibold rounded">
                     Recommended
                   </div>
                 )}
@@ -255,7 +255,7 @@ const BuyNumber = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <Clock className="w-5 h-5 text-gold-500" />
+                      <Clock className="w-5 h-5 text-brand-400" />
                       <span className="text-white font-medium">{plan.label}</span>
                     </div>
                     <p className="mt-1 text-sm text-gray-400">{plan.credits} SMS credits included</p>
@@ -275,7 +275,7 @@ const BuyNumber = () => {
           <div className="space-y-4 animate-slide-up">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Order Summary</h2>
-              <button onClick={() => setStep(2)} className="text-sm text-gold-500 hover:text-gold-400">
+              <button onClick={() => setStep(2)} className="text-sm text-brand-400 hover:text-brand-400">
                 Change Plan
               </button>
             </div>
@@ -295,7 +295,7 @@ const BuyNumber = () => {
                 </div>
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-white font-semibold">Total</span>
-                  <span className="text-xl font-bold text-gold-500">${selectedPlan?.price}</span>
+                  <span className="text-xl font-bold text-brand-400">${selectedPlan?.price}</span>
                 </div>
               </div>
             </Card>
@@ -385,9 +385,9 @@ const BuyNumber = () => {
 
             {/* Polling / Activating */}
             {paymentPhase === 'polling' && (
-              <Card className="p-8 text-center border-gold-500/20">
-                <div className="w-16 h-16 bg-gold-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader2 className="w-8 h-8 text-gold-500 animate-spin" />
+              <Card className="p-8 text-center border-brand-500/20">
+                <div className="w-16 h-16 bg-brand-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader2 className="w-8 h-8 text-brand-400 animate-spin" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Payment Successful!</h3>
                 <p className="text-gray-400 text-sm mb-2">{pollMessage}</p>
