@@ -94,11 +94,19 @@ export const api = {
   },
 
   // Stripe Payments
-  createPaymentIntent: async ({ amount, currency, country, duration_months, user_email }) => {
+  // The refund_policy_* fields record that the buyer agreed to the no-refund policy.
+  // The backend should copy them into the Stripe PaymentIntent metadata for dispute evidence.
+  createPaymentIntent: async ({
+    amount, currency, country, duration_months, user_email,
+    refund_policy_accepted, refund_policy_version, refund_policy_accepted_at, service_ends_on,
+  }) => {
     const response = await fetch(`${API_BASE_URL}/payments/stripe/create-intent`, {
       method: 'POST',
       headers: headers(),
-      body: JSON.stringify({ amount, currency, country, duration_months, user_email }),
+      body: JSON.stringify({
+        amount, currency, country, duration_months, user_email,
+        refund_policy_accepted, refund_policy_version, refund_policy_accepted_at, service_ends_on,
+      }),
     })
     return handleResponse(response)
   },

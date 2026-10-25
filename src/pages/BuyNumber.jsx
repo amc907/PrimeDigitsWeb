@@ -8,6 +8,8 @@ import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import toast from 'react-hot-toast'
 import { CARD_ELEMENT_OPTIONS } from '../lib/stripeStyles'
+import RefundAgreement from '../components/RefundAgreement'
+import { REFUND_POLICY_VERSION, addMonths, formatDate } from '../data/refundPolicy'
 
 const BuyNumber = () => {
   const { user } = useContext(AuthContext)
@@ -52,14 +54,22 @@ const BuyNumber = () => {
     setStep(2)
   }
 
+  // When the buyer ticked the no-refund box; sent with the payment as dispute evidence
+  const [refundAcceptedAt, setRefundAcceptedAt] = useState(null)
+
   const handlePlanSelect = (plan) => {
     setSelectedPlan(plan)
+    setRefundAcceptedAt(null)
     setStep(3)
   }
 
   const handleProceedToPayment = async () => {
     if (!user?.email) {
       toast.error('Please log in to continue')
+      return
+    }
+    if (!refundAcceptedAt) {
+      toast.error('Please read and agree to the no-refund policy first')
       return
     }
     setPaymentPhase('creating')
@@ -72,6 +82,10 @@ const BuyNumber = () => {
         country: selectedCountry.code,
         duration_months: selectedPlan.duration,
         user_email: user.email,
+        refund_policy_accepted: true,
+        refund_policy_version: REFUND_POLICY_VERSION,
+        refund_policy_accepted_at: refundAcceptedAt,
+        service_ends_on: addMonths(new Date(), selectedPlan.duration).toISOString().slice(0, 10),
       })
       setClientSecret(result.client_secret)
       setPaymentPhase('form')
@@ -298,14 +312,21 @@ const BuyNumber = () => {
                 </div>
               </div>
             </Card>
+            <RefundAgreement
+              checked={Boolean(refundAcceptedAt)}
+              onChange={(agreed) => setRefundAcceptedAt(agreed ? new Date().toISOString() : null)}
+              planLabel={selectedPlan?.label}
+              price={selectedPlan?.price}
+              expiresOn={selectedPlan && addMonths(new Date(), selectedPlan.duration)}
+            />
             <Button
               variant="primary"
               className="w-full"
               onClick={handleProceedToPayment}
               isLoading={paymentPhase === 'creating'}
-              disabled={paymentPhase === 'creating'}
+              disabled={paymentPhase === 'creating' || !refundAcceptedAt}
             >
-              {paymentPhase === 'creating' ? 'Initializing...' : 'Proceed to Payment'}
+              {paymentPhase === 'creating' ? 'Initializing...' : 'I agree, continue to payment'}
             </Button>
             {paymentPhase === 'error' && paymentError && (
               <p className="text-center text-sm text-red-400 mt-2">{paymentError}</p>
@@ -330,6 +351,10 @@ const BuyNumber = () => {
                       <span className="text-gray-400">Plan</span>
                       <span className="text-white font-medium">{selectedPlan?.label} — {selectedCountry?.name}</span>
                     </div>
+                  <p className="mb-5 text-xs text-gray-400 leading-relaxed">
+                    You agreed to the no-refund policy on {refundAcceptedAt && formatDate(new Date(refundAcceptedAt))}.
+                    This purchase is final once your number is activated.
+                  </p>
                   </div>
 
                   <form onSubmit={handlePaymentSubmit} className="space-y-4">

@@ -34,7 +34,7 @@ export const faqs = [
   },
   {
     question: 'Can I get a refund?',
-    answer: "Because numbers go live instantly, we look at refunds case by case. If something isn't working, contact support within 24 hours of buying and we'll sort it out.",
+    answer: "No. All sales are final because your number is activated and reserved for you the moment you pay. We don't refund unused days or texts, or numbers a particular app won't accept. The only exception: if your number doesn't activate, contact support within 24 hours and we'll fix it or refund you. You'll be asked to agree to this before you pay.",
   },
   {
     question: 'How do I contact support?',

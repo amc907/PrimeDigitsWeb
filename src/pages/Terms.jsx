@@ -6,7 +6,7 @@ const Terms = () => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl sm:text-4xl font-bold text-white mb-8">Terms of Service</h1>
         <div className="prose prose-invert prose-gray max-w-none">
-          <p className="text-gray-400">Last updated: May 23, 2026</p>
+          <p className="text-gray-400">Last updated: October 25, 2026</p>
           
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">1. Company Information</h2>
           <p className="text-gray-400 leading-relaxed">
@@ -54,9 +54,15 @@ const Terms = () => {
 
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">6. Payments and Refunds</h2>
           <p className="text-gray-400 leading-relaxed">
-            All prices are listed in USD. Due to the instant nature of our service, refunds are granted at our 
-            discretion on a case-by-case basis. Please contact support within 24 hours if you experience issues. 
-            Subscription fees are charged upfront for the selected duration. Failed payments may result in service suspension.
+            All prices are listed in USD and charged upfront for the full plan period. All sales are final. Because
+            each number is activated and reserved for you as soon as payment is made, we do not offer refunds after
+            activation, including for unused time, unused SMS credits, a change of mind, or a third-party service
+            declining to accept a virtual number. Plans do not renew automatically, and service ends at the end of the
+            period you paid for. If your number fails to activate, contact support within 24 hours of purchase and we
+            will either fix the problem or refund that purchase. You must agree to this policy before completing
+            checkout, and we keep a record of that agreement. If you dispute a charge with your bank instead of
+            contacting us, we may provide that record, your account details and your usage history to our payment
+            processor, and suspend your account while the dispute is open.
           </p>
 
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">7. Service Availability</h2>
