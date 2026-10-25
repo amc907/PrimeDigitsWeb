@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, X, ChevronDown, LogOut, User, Mail, Sun, Moon } from 'lucide-react'
+import { Menu, X, ChevronDown, LogOut, User, Mail } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
-import { useTheme } from '../hooks/useTheme'
 import Button from './ui/Button'
-
-const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme()
-  const isLight = theme === 'light'
-  return (
-    <button
-      onClick={toggleTheme}
-      aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
-      title={isLight ? 'Dark mode' : 'Light mode'}
-      className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors"
-    >
-      {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-    </button>
-  )
-}
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -106,7 +90,6 @@ const Navbar = () => {
 
           {/* Desktop Auth */}
           <div className="hidden lg:flex items-center space-x-3">
-            <ThemeToggle />
             {isAuthenticated ? (
               <div className="relative">
                 <button
@@ -146,15 +129,12 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center gap-1">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
 

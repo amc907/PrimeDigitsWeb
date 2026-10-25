@@ -7,12 +7,11 @@ import { AuthContext } from '../context/AuthContext'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import toast from 'react-hot-toast'
-import { useCardElementOptions } from '../lib/stripeStyles'
+import { CARD_ELEMENT_OPTIONS } from '../lib/stripeStyles'
 
 const BuyNumber = () => {
   const { user } = useContext(AuthContext)
   const stripe = useStripe()
-  const cardElementOptions = useCardElementOptions()
   const elements = useElements()
   const navigate = useNavigate()
   const pollTimerRef = useRef(null)
@@ -339,7 +338,7 @@ const BuyNumber = () => {
                         Card Details
                       </label>
                       <div className="p-3 bg-dark-950 border border-dark-700 rounded-lg">
-                        <CardElement options={cardElementOptions} />
+                        <CardElement options={CARD_ELEMENT_OPTIONS} />
                       </div>
                       {paymentError && paymentPhase === 'form' && (
                         <p className="mt-2 text-sm text-red-400">{paymentError}</p>

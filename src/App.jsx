@@ -2,8 +2,6 @@ import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext'
-import { ThemeProvider } from './context/ThemeContext'
-import { useTheme } from './hooks/useTheme'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -41,30 +39,6 @@ const AppLayout = ({ children }) => (
   </div>
 )
 
-const ThemedToaster = () => {
-  const { theme } = useTheme()
-  const surface = theme === 'light' ? '#ffffff' : '#181526'
-  return (
-    <Toaster
-      position="top-right"
-      toastOptions={{
-        duration: 4000,
-        style: {
-          background: surface,
-          color: theme === 'light' ? '#14121f' : '#fff',
-          border: `1px solid ${theme === 'light' ? '#e2dfee' : '#2a2540'}`,
-        },
-        success: {
-          iconTheme: { primary: '#6d28d9', secondary: surface },
-        },
-        error: {
-          iconTheme: { primary: '#ef4444', secondary: surface },
-        },
-      }}
-    />
-  )
-}
-
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center pt-20">
     <LoadingSpinner size="xl" />
@@ -74,80 +48,94 @@ const PageFallback = () => (
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
-          <ThemedToaster />
-          <AppLayout>
-            <Suspense fallback={<PageFallback />}>
-              <Routes>
-                {/* Public routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/how-it-works" element={<HowItWorks />} />
-                <Route path="/pricing" element={<Pricing />} />
-                <Route path="/use-cases" element={<UseCases />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/api-docs" element={<APIDocs />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+      <AuthProvider>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#ffffff',
+              color: '#14121f',
+              border: '1px solid #e2dfee',
+            },
+            success: {
+              iconTheme: { primary: '#6d28d9', secondary: '#ffffff' },
+            },
+            error: {
+              iconTheme: { primary: '#ef4444', secondary: '#ffffff' },
+            },
+          }}
+        />
+        <AppLayout>
+          <Suspense fallback={<PageFallback />}>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/use-cases" element={<UseCases />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/api-docs" element={<APIDocs />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-                {/* Protected routes */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="/buy" element={
-                  <ProtectedRoute>
-                    <BuyNumber />
-                  </ProtectedRoute>
-                } />
-                <Route path="/numbers" element={
-                  <ProtectedRoute>
-                    <MyNumbers />
-                  </ProtectedRoute>
-                } />
-                <Route path="/history" element={
-                  <ProtectedRoute>
-                    <SMSHistory />
-                  </ProtectedRoute>
-                } />
-                <Route path="/sms-inbox" element={
-                  <ProtectedRoute>
-                    <SMSInbox />
-                  </ProtectedRoute>
-                } />
-                <Route path="/credits" element={
-                  <ProtectedRoute>
-                    <Credits />
-                  </ProtectedRoute>
-                } />
-                <Route path="/transactions" element={
-                  <ProtectedRoute>
-                    <Transactions />
-                  </ProtectedRoute>
-                } />
-                <Route path="/profile" element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                } />
-                <Route path="/support" element={
-                  <ProtectedRoute>
-                    <Support />
-                  </ProtectedRoute>
-                } />
+              {/* Protected routes */}
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/buy" element={
+                <ProtectedRoute>
+                  <BuyNumber />
+                </ProtectedRoute>
+              } />
+              <Route path="/numbers" element={
+                <ProtectedRoute>
+                  <MyNumbers />
+                </ProtectedRoute>
+              } />
+              <Route path="/history" element={
+                <ProtectedRoute>
+                  <SMSHistory />
+                </ProtectedRoute>
+              } />
+              <Route path="/sms-inbox" element={
+                <ProtectedRoute>
+                  <SMSInbox />
+                </ProtectedRoute>
+              } />
+              <Route path="/credits" element={
+                <ProtectedRoute>
+                  <Credits />
+                </ProtectedRoute>
+              } />
+              <Route path="/transactions" element={
+                <ProtectedRoute>
+                  <Transactions />
+                </ProtectedRoute>
+              } />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+              <Route path="/support" element={
+                <ProtectedRoute>
+                  <Support />
+                </ProtectedRoute>
+              } />
 
-                {/* 404 */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </AppLayout>
-        </AuthProvider>
-      </ThemeProvider>
+              {/* 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </AppLayout>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

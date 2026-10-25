@@ -3,110 +3,19 @@
 @tailwind utilities;
 
 @layer base {
-  /* Dark theme (default). Values are "R G B" so Tailwind opacity modifiers work. */
-  :root {
-    --white: 255 255 255;
-
-    --brand-300: 196 181 253;
-    --brand-400: 167 139 250;
-    --brand-500: 124 58 237;
-
-    --gray-50: 249 250 251;
-    --gray-100: 243 244 246;
-    --gray-200: 229 231 235;
-    --gray-300: 209 213 219;
-    --gray-400: 156 163 175;
-    --gray-500: 107 114 128;
-    --gray-600: 75 85 99;
-    --gray-700: 55 65 81;
-    --gray-800: 31 41 55;
-    --gray-900: 17 24 39;
-
-    --dark-50: 245 244 250;
-    --dark-100: 226 223 238;
-    --dark-200: 196 191 214;
-    --dark-300: 160 154 184;
-    --dark-400: 124 117 150;
-    --dark-500: 98 91 124;
-    --dark-600: 74 68 102;
-    --dark-700: 58 52 84;
-    --dark-800: 42 37 64;
-    --dark-900: 24 21 38;
-    --dark-950: 14 12 22;
-
-    --red-300: 252 165 165;
-    --red-400: 248 113 113;
-    --yellow-300: 253 224 71;
-    --yellow-400: 250 204 21;
-    --green-300: 134 239 172;
-    --green-400: 74 222 128;
-    --blue-300: 147 197 253;
-    --blue-400: 96 165 250;
-    --purple-300: 216 180 254;
-    --purple-400: 192 132 252;
-    --orange-300: 253 186 116;
-    --orange-400: 251 146 60;
-  }
-
-  /* Light theme (default): white surfaces, dark text, deeper violet for contrast */
-  html.light {
-    --white: 20 18 31;
-
-    --brand-300: 124 58 237;
-    --brand-400: 109 40 217;
-    --brand-500: 109 40 217;
-
-    --gray-50: 17 24 39;
-    --gray-100: 31 41 55;
-    --gray-200: 45 52 64;
-    --gray-300: 62 70 84;
-    --gray-400: 88 96 110;
-    --gray-500: 107 114 128;
-    --gray-600: 148 155 168;
-    --gray-700: 190 195 204;
-    --gray-800: 226 228 233;
-    --gray-900: 243 244 246;
-
-    --dark-50: 20 18 31;
-    --dark-100: 42 37 64;
-    --dark-200: 98 91 124;
-    --dark-300: 124 117 150;
-    --dark-400: 160 154 184;
-    --dark-500: 185 180 205;
-    --dark-600: 207 203 224;
-    --dark-700: 226 223 238;
-    --dark-800: 238 236 246;
-    --dark-900: 255 255 255;
-    --dark-950: 246 245 251;
-
-    --red-300: 185 28 28;
-    --red-400: 220 38 38;
-    --yellow-300: 161 98 7;
-    --yellow-400: 161 98 7;
-    --green-300: 21 128 61;
-    --green-400: 22 163 74;
-    --blue-300: 29 78 216;
-    --blue-400: 37 99 235;
-    --purple-300: 126 34 206;
-    --purple-400: 147 51 234;
-    --orange-300: 194 65 12;
-    --orange-400: 234 88 12;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: rgb(var(--dark-950));
-    color: rgb(var(--gray-100));
-    transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: #f6f5fb;
+    color: #1f2937;
   }
 
   ::selection {
     background-color: rgba(124, 58, 237, 0.25);
-    color: rgb(var(--white));
+    color: #14121f;
   }
 
   /* Custom scrollbar */
@@ -116,23 +25,23 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: rgb(var(--dark-900));
+    background: #eeecf6;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgb(var(--dark-800));
+    background: #cfcbe0;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--dark-600));
+    background: #a09ab8;
   }
 }
 
 @layer utilities {
-  /* Animated violet headline text; deeper violets in light mode so it stays readable */
+  /* Animated violet headline text */
   .brand-shimmer {
-    background: linear-gradient(90deg, #a78bfa, #c084fc, #818cf8, #a78bfa);
+    background: linear-gradient(90deg, #6d28d9, #9333ea, #4f46e5, #6d28d9);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -140,9 +49,6 @@
     animation: brandShimmer 3s ease infinite;
   }
 
-  html.light .brand-shimmer {
-    background-image: linear-gradient(90deg, #6d28d9, #9333ea, #4f46e5, #6d28d9);
-  }
 
   .text-balance {
     text-wrap: balance;

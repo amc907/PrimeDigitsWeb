@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Lock, Shield } from 'lucide-react'
 import Button from './ui/Button'
-import { useCardElementOptions } from '../lib/stripeStyles'
+import { CARD_ELEMENT_OPTIONS } from '../lib/stripeStyles'
 
 const StripePaymentForm = ({ amount, buttonText, onSuccess, onError }) => {
   const stripe = useStripe()
-  const cardElementOptions = useCardElementOptions()
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [cardError, setCardError] = useState(null)
@@ -47,7 +46,7 @@ const StripePaymentForm = ({ amount, buttonText, onSuccess, onError }) => {
           Card Details
         </label>
         <div className="p-3 bg-dark-950 border border-dark-700 rounded-lg">
-          <CardElement options={cardElementOptions} />
+          <CardElement options={CARD_ELEMENT_OPTIONS} />
         </div>
         {cardError && (
           <p className="mt-2 text-sm text-red-400">{cardError}</p>
