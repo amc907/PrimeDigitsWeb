@@ -41,8 +41,8 @@ const Login = () => {
           <Link to="/">
             <img src="/logo.png" alt="PrimeDigits" className="h-28 w-auto mx-auto" />
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-white">Welcome Back</h1>
-          <p className="mt-2 text-gray-400">Sign in to your account to continue</p>
+          <h1 className="mt-4 text-2xl font-bold text-white">Welcome back</h1>
+          <p className="mt-2 text-gray-400">Log in to check your texts.</p>
         </div>
 
         <Card className="p-6 lg:p-8">

@@ -18,7 +18,7 @@ const Contact = () => {
     setIsLoading(true)
     // Mock submission
     await new Promise(resolve => setTimeout(resolve, 1500))
-    toast.success('Message sent successfully! We will get back to you within 24 hours.')
+    toast.success("Thanks! We'll get back to you within 24 hours.")
     setFormData({ name: '', email: '', subject: '', message: '' })
     setIsLoading(false)
   }
@@ -27,9 +27,9 @@ const Contact = () => {
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Contact Us</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Get in touch</h1>
           <p className="mt-4 text-lg text-gray-400">
-            Have a question or need help? We are here for you.
+            Got a question or need a hand? Send us a message and we'll help.
           </p>
         </div>
 

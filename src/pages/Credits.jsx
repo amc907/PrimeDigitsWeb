@@ -65,15 +65,15 @@ const Credits = () => {
     <div className="pt-24 pb-20 lg:pt-28 lg:pb-28 animate-fade-in">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">Buy SMS Credits</h1>
-          <p className="mt-2 text-gray-400">Top up credits for your virtual numbers</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Add text credits</h1>
+          <p className="mt-2 text-gray-400">Top up so your number keeps receiving texts.</p>
         </div>
 
         {numbers.length === 0 ? (
           <Card className="p-12 text-center">
             <CreditCard className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">You need an active number first</h3>
-            <p className="text-gray-400 mb-6">Buy a virtual number to start purchasing SMS credits.</p>
+            <h3 className="text-lg font-semibold text-white mb-2">You'll need a number first</h3>
+            <p className="text-gray-400 mb-6">Get a number, then come back here to add credits.</p>
             <Link to="/buy">
               <Button variant="primary">
                 <Plus className="w-4 h-4 mr-2" /> Buy a Number

@@ -61,7 +61,7 @@ const Register = () => {
     setIsLoading(true)
     try {
       await register(formData.email, formData.password, formData.fullName)
-      toast.success('Account created! Please check your email to verify your account, then login below.')
+      toast.success('Account created! Check your email to confirm it, then log in.')
       // Redirect to login page — do NOT auto-login or go to dashboard
       navigate('/login')
     } catch (err) {
@@ -78,8 +78,8 @@ const Register = () => {
           <Link to="/">
             <img src="/logo.png" alt="PrimeDigits" className="h-28 w-auto mx-auto" />
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-white">Create Your Account</h1>
-          <p className="mt-2 text-gray-400">Start using virtual numbers in minutes</p>
+          <h1 className="mt-4 text-2xl font-bold text-white">Create your free account</h1>
+          <p className="mt-2 text-gray-400">Your second number is about a minute away.</p>
         </div>
 
         <Card className="p-6 lg:p-8">

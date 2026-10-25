@@ -36,7 +36,7 @@ const MyNumbers = () => {
     if (!confirm('Are you sure you want to delete this number? This action cannot be undone.')) return
     try {
       await api.deleteNumber(numberId)
-      toast.success('Number deleted successfully')
+      toast.success('Number deleted')
       loadNumbers()
     } catch (err) {
       toast.error('Failed to delete number')
@@ -76,7 +76,7 @@ const MyNumbers = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white">My Numbers</h1>
-            <p className="mt-1 text-gray-400">Manage all your virtual numbers</p>
+            <p className="mt-1 text-gray-400">All your numbers in one place</p>
           </div>
           <Link to="/buy">
             <Button variant="primary" size="sm">
@@ -88,8 +88,8 @@ const MyNumbers = () => {
         {numbers.length === 0 ? (
           <Card className="p-12 text-center">
             <Phone className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">📱 No active numbers</h3>
-            <p className="text-gray-400 mb-6">You haven't purchased any numbers yet.</p>
+            <h3 className="text-lg font-semibold text-white mb-2">No numbers yet</h3>
+            <p className="text-gray-400 mb-6">Get your first number and it will show up here.</p>
             <Link to="/buy">
               <Button variant="primary">
                 <Plus className="w-4 h-4 mr-2" /> Buy Your First Number

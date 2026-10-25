@@ -6,33 +6,33 @@ const HowItWorks = () => {
   const steps = [
     {
       icon: Search,
-      title: 'Browse Available Numbers',
-      description: 'Explore our inventory of virtual numbers from the United States and Canada. Each number is ready for instant activation.'
+      title: 'Pick a country',
+      description: 'Choose a number from the United States or Canada. Every number is ready to use the moment you buy it.',
     },
     {
       icon: ShoppingCart,
-      title: 'Choose Your Plan',
-      description: 'Select the duration that fits your needs — daily, weekly, or monthly. All plans include SMS credits and come with transparent pricing.',
+      title: 'Choose how long',
+      description: 'Keep it for 1, 3, 6 or 12 months. Every plan includes 15 texts, and longer plans cost less per month.',
     },
     {
       icon: Phone,
-      title: 'Instant Activation',
-      description: 'Your number is activated immediately after purchase. No waiting, no delays. Start using it right away for verifications.',
+      title: "It's live right away",
+      description: 'Your number turns on as soon as payment goes through. Use it for sign-ups, deliveries or anything else.',
     },
     {
       icon: MessageSquare,
-      title: 'Receive SMS',
-      description: 'All incoming SMS messages are delivered in real-time to your dashboard. View full message content with timestamps and sender details.',
+      title: 'Read your texts',
+      description: 'Messages show up in your inbox, grouped by sender like a chat app. Verification codes get a one-tap copy button.',
     },
     {
       icon: RefreshCw,
-      title: 'Renew or Extend',
-      description: 'Need more time? Easily renew your number or add SMS credits from your dashboard. Your history stays accessible.',
+      title: 'Top up anytime',
+      description: 'Running low? Add more text credits from your dashboard. Your message history stays put.',
     },
     {
       icon: Shield,
-      title: 'Secure & Private',
-      description: 'Your data is encrypted and secure. We never share your information. Numbers are dedicated to you for the duration of your plan.',
+      title: 'Private by design',
+      description: 'Your number is yours alone for your whole plan. Your data is encrypted and we never share it.',
     },
   ]
 
@@ -40,9 +40,9 @@ const HowItWorks = () => {
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">How PrimeDigits Works</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">How it works</h1>
           <p className="mt-4 text-lg text-gray-400">
-            Getting a virtual phone number has never been easier. Follow these simple steps to start receiving SMS instantly.
+            Getting a second number takes about a minute. Here's the whole process.
           </p>
         </div>
 
@@ -60,9 +60,9 @@ const HowItWorks = () => {
 
         {/* FAQ Teaser */}
         <div className="mt-20 text-center">
-          <p className="text-gray-400">Have more questions?</p>
+          <p className="text-gray-400">Still curious?</p>
           <a href="/faq" className="mt-2 inline-flex items-center text-brand-400 hover:text-brand-400 font-medium transition-colors">
-            Visit our FAQ page
+            Read the FAQ
           </a>
         </div>
       </div>

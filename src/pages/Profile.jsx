@@ -106,7 +106,7 @@ const Profile = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-white">Profile</h1>
-          <p className="mt-1 text-gray-400">Manage your account settings and preferences</p>
+          <p className="mt-1 text-gray-400">Your account details and password.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

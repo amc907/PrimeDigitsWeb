@@ -8,62 +8,62 @@ const UseCases = () => {
   const useCases = [
     {
       icon: Code,
-      title: 'App Development & Testing',
-      description: 'Test SMS features in your applications with dedicated virtual numbers. Set up multiple numbers for different test scenarios and get instant SMS delivery for fast iteration.',
+      title: 'Testing your app',
+      description: 'Building something that sends texts? Use real numbers to test your sign-up and verification flows from start to finish.',
       points: [
-        'Test SMS features in your applications',
-        'Multiple numbers for different test scenarios',
-        'Instant SMS delivery for fast testing',
+        'Real numbers for real test runs',
+        'A separate number for each test setup',
+        'Texts show up within seconds',
       ],
     },
     {
       icon: ShieldCheck,
-      title: 'Account Verification (2FA/OTP)',
-      description: 'Verify accounts on any platform securely. Receive OTP codes instantly and protect your personal number from being linked to online services.',
+      title: 'Sign-up codes',
+      description: 'Get verification codes without handing out your personal number, then copy the code with one tap.',
       points: [
-        'Verify accounts on any platform',
-        'Receive OTP codes instantly',
-        'Works with PayPal, Amazon, Google & more',
+        'Codes from PayPal, Amazon, Google and more',
+        'One-tap copy for every code',
+        'Keeps your real number off marketing lists',
       ],
     },
     {
       icon: Briefcase,
-      title: 'Business Communication',
-      description: 'Keep your business and personal life separate. Establish a professional US or Canada presence globally and manage business SMS from anywhere in the world.',
+      title: 'A line for your business',
+      description: 'Keep work and personal separate with a US or Canadian number just for your business, and check it from anywhere.',
       points: [
-        'Separate business number from personal',
-        'Professional US/Canada presence globally',
-        'Manage business SMS from anywhere',
+        'Separate work from personal',
+        'A local US or Canadian number',
+        'Read messages from any browser',
       ],
     },
     {
       icon: Globe,
-      title: 'Remote Work & Freelancing',
-      description: 'Get a local number for international clients and build trust with a local phone presence. Perfect for Upwork, Fiverr, and other freelance platforms.',
+      title: 'Freelancing',
+      description: 'Working with clients in the US or Canada? A local number makes you easier to reach and easier to trust. Handy for Upwork, Fiverr and similar sites.',
       points: [
-        'Get a local number for international clients',
-        'Build trust with local phone presence',
-        'Perfect for Upwork, Fiverr freelancers',
+        'A local number for overseas clients',
+        'Look established from day one',
+        'Great for freelance platforms',
       ],
     },
     {
       icon: Eye,
-      title: 'Privacy Protection',
-      description: 'Keep your personal number private when signing up for online services. Use a virtual number for online signups and protect your identity online.',
+      title: 'Privacy',
+      description: 'Online forms, deliveries, dating apps, one-time sign-ups: give them your PrimeDigits number and keep your real one private.',
       points: [
-        'Keep personal number private',
-        'Use virtual number for online signups',
-        'Protect identity online',
+        'Keep your personal number private',
+        'Use it for one-off sign-ups',
+        'Less spam on your real phone',
       ],
     },
     {
       icon: Cpu,
-      title: 'Developer API Integration',
-      description: 'Integrate our API into your apps and receive webhooks for incoming SMS. Build SMS-dependent features easily with our developer-friendly documentation.',
+      title: 'For developers',
+      description: 'Connect PrimeDigits to your own app with our API and get incoming texts sent to your server by webhook.',
       points: [
-        'Integrate our API into your apps',
-        'Receive webhooks for incoming SMS',
-        'Build SMS-dependent features easily',
+        'Integrate with our API',
+        'Webhooks for incoming texts',
+        'Developer-friendly docs',
       ],
     },
   ]
@@ -72,9 +72,9 @@ const UseCases = () => {
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Use Cases</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">What people use it for</h1>
           <p className="mt-4 text-lg text-gray-400">
-            Discover how professionals and developers use Prime Digits virtual numbers every day.
+            A second number comes in handy more often than you'd think.
           </p>
         </div>
 
@@ -100,13 +100,13 @@ const UseCases = () => {
 
         {/* CTA */}
         <div className="mt-20 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Ready to get started?</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Want a second number?</h2>
           <p className="text-gray-400 mb-6 max-w-xl mx-auto">
-            Join thousands of developers and professionals who trust Prime Digits for their virtual number needs.
+            Sign up free and pick your number in about a minute.
           </p>
           <Link to="/register">
             <Button variant="primary" size="lg">
-              Create Free Account <ArrowRight className="ml-2 w-5 h-5" />
+              Create free account <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
         </div>

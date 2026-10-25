@@ -10,7 +10,7 @@ const PricingSection = () => {
       name: 'Starter',
       price: '$3.99',
       period: '/month',
-      desc: 'Perfect for getting started',
+      desc: 'Try it out for a month',
       features: [
         '1 virtual number',
         '30 days active',
@@ -23,7 +23,7 @@ const PricingSection = () => {
       name: 'Standard',
       price: '$9.99',
       period: '/3 months',
-      desc: 'Best value for regular users',
+      desc: 'Save 16% vs. paying monthly',
       features: [
         '1 virtual number',
         '90 days active',
@@ -37,7 +37,7 @@ const PricingSection = () => {
       name: 'Professional',
       price: '$17.99',
       period: '/6 months',
-      desc: 'For power users and freelancers',
+      desc: 'Save 25% vs. paying monthly',
       features: [
         '1 virtual number',
         '180 days active',
@@ -50,7 +50,7 @@ const PricingSection = () => {
       name: 'Enterprise',
       price: '$29.99',
       period: '/year',
-      desc: 'Best for long-term number ownership',
+      desc: 'Save 37% vs. paying monthly',
       features: [
         '1 virtual number',
         '365 days active',
@@ -66,8 +66,8 @@ const PricingSection = () => {
     <section className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">Choose Your Plan</h2>
-          <p className="mt-4 text-gray-400">Flexible plans for every need. Start with 15 free SMS credits.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Pick your plan</h2>
+          <p className="mt-4 text-gray-400">Every plan comes with one US or Canadian number and 15 texts. The longer you keep it, the less you pay.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, i) => (
@@ -93,7 +93,7 @@ const PricingSection = () => {
               </ul>
               <Link to="/register" className="block mt-8">
                 <Button variant={plan.popular ? 'primary' : 'secondary'} className="w-full">
-                  Get Started
+                  Choose {plan.name}
                 </Button>
               </Link>
             </Card>

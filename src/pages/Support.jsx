@@ -10,9 +10,9 @@ const Support = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const faqs = [
-    { question: 'How do I activate my number?', answer: 'Numbers are activated automatically after purchase. Go to your dashboard to see your active numbers.' },
+    { question: 'How do I activate my number?', answer: 'There is nothing to do. Your number turns on by itself after payment and shows up on your dashboard.' },
     { question: 'Can I renew an expired number?', answer: 'Yes, you can renew numbers from the My Numbers page before or shortly after expiry.' },
-    { question: 'How do I buy more credits?', answer: 'Use the Buy SMS Credits quick action on your dashboard or go to the Buy Number page.' },
+    { question: 'How do I buy more credits?', answer: 'Go to Credits in the menu, or use Buy SMS Credits on your dashboard.' },
   ]
 
   const handleChange = (e) => {
@@ -23,7 +23,7 @@ const Support = () => {
     e.preventDefault()
     setIsLoading(true)
     await new Promise(resolve => setTimeout(resolve, 1500))
-    toast.success('Support ticket submitted! We will respond shortly.')
+    toast.success("Got it! We'll reply as soon as we can.")
     setFormData({ subject: '', message: '' })
     setIsLoading(false)
   }
@@ -32,8 +32,8 @@ const Support = () => {
     <div className="pt-24 pb-20 lg:pt-28 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">Support Center</h1>
-          <p className="mt-2 text-gray-400">We are here to help. Reach out or browse common questions.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Help</h1>
+          <p className="mt-2 text-gray-400">Send us a message, or check the common questions below.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

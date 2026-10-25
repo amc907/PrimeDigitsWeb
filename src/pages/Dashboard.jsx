@@ -156,7 +156,7 @@ const Dashboard = () => {
           <h1 className="text-2xl sm:text-3xl font-bold text-white">
             Welcome back, {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User'}
           </h1>
-          <p className="mt-1 text-gray-400">Here is what is happening with your account.</p>
+          <p className="mt-1 text-gray-400">Here's what's new with your numbers.</p>
         </div>
 
         {/* Expiry Warnings */}

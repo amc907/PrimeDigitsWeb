@@ -70,7 +70,7 @@ const SMSHistory = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-white">SMS History</h1>
-          <p className="mt-1 text-gray-400">View messages received by your numbers</p>
+          <p className="mt-1 text-gray-400">Every text your numbers have received.</p>
         </div>
 
         {numbers.length === 0 ? (

@@ -171,8 +171,8 @@ const BuyNumber = () => {
     <div className="pt-24 pb-20 lg:pt-28 lg:pb-28 animate-fade-in">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">Buy Virtual Number</h1>
-          <p className="mt-2 text-gray-400">Follow the steps below to get your number</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Get a new number</h1>
+          <p className="mt-2 text-gray-400">Three quick steps and it's yours.</p>
         </div>
 
         {/* Progress */}
@@ -197,7 +197,7 @@ const BuyNumber = () => {
         {/* Step 1: Country */}
         {step === 1 && (
           <div className="space-y-4 animate-slide-up">
-            <h2 className="text-lg font-semibold text-white mb-4">Select a Country</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Pick a country</h2>
             {countries.map((country) => (
               <button
                 key={country.code}
@@ -224,7 +224,7 @@ const BuyNumber = () => {
         {step === 2 && (
           <div className="space-y-4 animate-slide-up">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Choose Duration</h2>
+              <h2 className="text-lg font-semibold text-white">Choose how long</h2>
               <button onClick={() => setStep(1)} className="text-sm text-brand-400 hover:text-brand-400">
                 Change Country
               </button>
@@ -257,7 +257,7 @@ const BuyNumber = () => {
                       <Clock className="w-5 h-5 text-brand-400" />
                       <span className="text-white font-medium">{plan.label}</span>
                     </div>
-                    <p className="mt-1 text-sm text-gray-400">{plan.credits} SMS credits included</p>
+                    <p className="mt-1 text-sm text-gray-400">{plan.credits} texts included</p>
                   </div>
                   <div className="text-right">
                     <p className="text-xl font-bold text-white">${plan.price}</p>
@@ -273,7 +273,7 @@ const BuyNumber = () => {
         {step === 3 && (
           <div className="space-y-4 animate-slide-up">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Order Summary</h2>
+              <h2 className="text-lg font-semibold text-white">Your order</h2>
               <button onClick={() => setStep(2)} className="text-sm text-brand-400 hover:text-brand-400">
                 Change Plan
               </button>
@@ -319,7 +319,7 @@ const BuyNumber = () => {
             {/* Payment Form */}
             {(paymentPhase === 'form' || paymentPhase === 'confirming') && (
               <>
-                <h2 className="text-lg font-semibold text-white mb-4">Secure Payment</h2>
+                <h2 className="text-lg font-semibold text-white mb-4">Pay securely</h2>
                 <Card className="p-6">
                   <div className="bg-dark-800 rounded-lg p-4 mb-6">
                     <div className="flex items-center justify-between text-sm">
@@ -405,7 +405,7 @@ const BuyNumber = () => {
                 </h3>
                 {purchaseResult ? (
                   <>
-                    <p className="text-gray-400 text-sm mb-6">Your new virtual number has been activated.</p>
+                    <p className="text-gray-400 text-sm mb-6">Your new number is live and ready for texts.</p>
                     <div className="bg-dark-800 rounded-lg p-4 mb-6 text-left max-w-sm mx-auto">
                       <div className="flex items-center justify-between text-sm mb-2">
                         <span className="text-gray-400">Number</span>

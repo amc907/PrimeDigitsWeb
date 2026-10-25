@@ -78,8 +78,8 @@ const Transactions = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Transaction History</h1>
-            <p className="mt-1 text-gray-400">View and export your payment history</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Payments</h1>
+            <p className="mt-1 text-gray-400">Everything you've paid for, with CSV export.</p>
           </div>
           <button
             onClick={exportCSV}

@@ -7,22 +7,22 @@ const About = () => {
     {
       icon: Shield,
       title: 'Privacy',
-      description: 'Your data and communications are protected with industry-standard encryption. We never share your information with third parties.',
+      description: 'Your messages and details are encrypted and never shared with anyone.',
     },
     {
       icon: Zap,
       title: 'Speed',
-      description: 'Numbers activate instantly and SMS messages are delivered in real-time. No waiting, no delays.',
+      description: 'Numbers go live right away, and texts reach your inbox within seconds.',
     },
     {
       icon: Target,
       title: 'Reliability',
-      description: 'Our infrastructure is built for uptime. We maintain 99.9% availability with redundant systems across multiple regions.',
+      description: 'Our systems are built to stay up, with 99.9% availability on redundant infrastructure.',
     },
     {
       icon: Users,
       title: 'Support',
-      description: 'Our dedicated support team is available to help you succeed. We respond to all inquiries within 24 hours.',
+      description: 'We answer every message, usually within 24 hours.',
     },
   ]
 
@@ -37,24 +37,23 @@ const About = () => {
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">About Prime Digits</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">About PrimeDigits</h1>
           <p className="mt-4 text-lg text-gray-400">
-            Providing reliable virtual phone numbers to developers and freelancers worldwide.
+            We make it easy to get a second phone number, so your real one stays private.
           </p>
         </div>
 
         {/* Company Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Why we started</h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              Prime Digits was founded in 2026 with a clear mission: to provide developers, freelancers, and businesses 
-              with reliable, secure, and easy-to-use virtual phone numbers for SMS verification. We believe that privacy 
-              and security should not come at the cost of convenience.
+              PrimeDigits started in 2026 with a simple idea: anyone should be able to get a second phone number
+              in about a minute, without a contract, a SIM card or a second phone.
             </p>
             <p className="text-gray-400 leading-relaxed mb-6">
-              In a world where online verification is essential, we provide the tools you need to protect your 
-              personal phone number while maintaining access to the services that require it.
+              So many apps and websites ask for a phone number now. We give you one you can hand out freely,
+              while your personal number stays private.
             </p>
 
             <div className="space-y-3">
@@ -83,7 +82,7 @@ const About = () => {
 
         {/* Business Details */}
         <div className="mb-20">
-          <h2 className="text-2xl font-bold text-white text-center mb-8">Company Details</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-8">Company details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="p-6">
               <Building2 className="w-8 h-8 text-brand-400 mb-3" />
@@ -110,7 +109,7 @@ const About = () => {
 
         {/* Addresses */}
         <div className="mb-20">
-          <h2 className="text-2xl font-bold text-white text-center mb-8">Our Offices</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-8">Where we are</h2>
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6 max-w-xl mx-auto">
             <Card className="p-6">
               <div className="flex items-start space-x-3">
@@ -130,7 +129,7 @@ const About = () => {
 
         {/* Values */}
         <div className="mb-20">
-          <h2 className="text-2xl font-bold text-white text-center mb-8">Our Values</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-8">What we care about</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {values.map((value, i) => (
               <Card key={i} className="p-6 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
@@ -144,16 +143,16 @@ const About = () => {
 
         {/* Contact CTA */}
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-4">Get In Touch</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Say hello</h2>
           <p className="text-gray-400 mb-6">
-            Have questions or feedback? We would love to hear from you.
+            Questions, ideas or feedback? We'd love to hear from you.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/contact"
               className="inline-flex items-center px-6 py-3 bg-brand-500 hover:bg-brand-600 text-[#fff] font-medium rounded-lg transition-colors"
             >
-              Contact Us
+              Contact us
             </a>
             <a
               href="mailto:support@primesdigits.com"

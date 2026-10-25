@@ -10,7 +10,7 @@ const Pricing = () => {
       name: 'Starter',
       price: '$3.99',
       period: 'per month',
-      description: 'Perfect for getting started',
+      description: 'Try it out for a month',
       features: [
         '1 virtual number',
         '30 days active',
@@ -18,14 +18,14 @@ const Pricing = () => {
         'US or Canada number',
         'Email support'
       ],
-      cta: 'Get Starter Plan',
+      cta: 'Choose Starter',
       popular: false,
     },
     {
       name: 'Standard',
       price: '$9.99',
       period: 'per 3 months',
-      description: 'Best value for regular users',
+      description: 'Save 16% vs. paying monthly',
       features: [
         '1 virtual number',
         '90 days active',
@@ -33,14 +33,14 @@ const Pricing = () => {
         'US or Canada number',
         'Priority support'
       ],
-      cta: 'Get Standard Plan',
+      cta: 'Choose Standard',
       popular: true,
     },
     {
       name: 'Professional',
       price: '$17.99',
       period: 'per 6 months',
-      description: 'For power users and freelancers',
+      description: 'Save 25% vs. paying monthly',
       features: [
         '1 virtual number',
         '180 days active',
@@ -48,14 +48,14 @@ const Pricing = () => {
         'US or Canada number',
         'Priority support'
       ],
-      cta: 'Get Pro Plan',
+      cta: 'Choose Professional',
       popular: false,
     },
     {
       name: 'Enterprise',
       price: '$29.99',
       period: 'per year',
-      description: 'Best for long-term number ownership',
+      description: 'Save 37% vs. paying monthly',
       features: [
         '1 virtual number',
         '365 days active',
@@ -64,7 +64,7 @@ const Pricing = () => {
         'Priority support',
         'Number guaranteed for 1 year'
       ],
-      cta: 'Get Enterprise Plan',
+      cta: 'Choose Enterprise',
       popular: false,
     },
   ]
@@ -78,9 +78,9 @@ const Pricing = () => {
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Simple, Transparent Pricing</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Simple pricing</h1>
           <p className="mt-4 text-lg text-gray-400">
-            No hidden fees. No surprises. Choose the plan that works for you and scale as you grow.
+            One number, 15 texts included, and no hidden fees. The longer you keep it, the less you pay each month.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ const Pricing = () => {
 
         {/* Country Pricing */}
         <div className="mt-20">
-          <h2 className="text-2xl font-bold text-white text-center mb-8">Available Countries</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-8">Countries</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {countries.map((country, i) => (
               <Card key={i} className="p-4 flex items-center justify-between">
@@ -135,9 +135,9 @@ const Pricing = () => {
         {/* Features Grid */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {[
-            { icon: Shield, title: 'Secure Payments', desc: 'All transactions are encrypted and secure.' },
-            { icon: Zap, title: 'Instant Activation', desc: 'Numbers are ready to use immediately.' },
-            { icon: Globe, title: 'Global Numbers', desc: 'Access numbers from multiple countries.' },
+            { icon: Shield, title: 'Secure checkout', desc: 'Payments are handled by Stripe. We never see your card number.' },
+            { icon: Zap, title: 'Ready right away', desc: 'Your number works as soon as payment goes through.' },
+            { icon: Globe, title: 'US & Canada', desc: 'Local numbers from both countries, with more on the way.' },
           ].map((feature, i) => (
             <div key={i} className="text-center">
               <feature.icon className="w-8 h-8 text-brand-400 mx-auto mb-3" />

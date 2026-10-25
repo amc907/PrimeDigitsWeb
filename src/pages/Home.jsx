@@ -267,47 +267,47 @@ const Home = () => {
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Star className="w-3.5 h-3.5" />
-              Features
+              Why PrimeDigits
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">Why Choose PrimeDigits?</h2>
-            <p className="mt-4 text-gray-400">Everything you need for reliable SMS verification, built for professionals.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">Why people use PrimeDigits</h2>
+            <p className="mt-4 text-gray-400">A real number for sign-ups, deliveries and anything you'd rather not give your own number to.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: Shield,
-                title: 'Maximum Security',
-                desc: 'End-to-end encryption and secure number handling protect your data.',
+                title: 'Your real number stays private',
+                desc: 'Hand out your PrimeDigits number instead and keep your personal one off spam lists.',
                 gradient: 'from-brand-500/10 to-brand-600/5',
               },
               {
                 icon: Zap,
-                title: 'Instant Delivery',
-                desc: 'Receive SMS messages in real-time with sub-second latency.',
+                title: 'Texts show up fast',
+                desc: "Codes and messages land in your inbox within seconds, so you're never left waiting.",
                 gradient: 'from-green-500/10 to-green-600/5',
               },
               {
                 icon: Globe,
-                title: 'Global Coverage',
-                desc: 'Numbers from US and Canada with more regions coming soon.',
+                title: 'US & Canadian numbers',
+                desc: 'Pick a number from the United States or Canada. More countries are on the way.',
                 gradient: 'from-blue-500/10 to-blue-600/5',
               },
               {
                 icon: Clock,
-                title: 'Flexible Duration',
-                desc: 'Choose from monthly, quarterly, 6-month, or annual plans that fit your needs.',
+                title: 'Keep it as long as you like',
+                desc: 'Go month to month, or save with 3-month, 6-month and yearly plans.',
                 gradient: 'from-purple-500/10 to-purple-600/5',
               },
               {
                 icon: MessageSquare,
-                title: 'SMS History',
-                desc: 'Access complete message history for all your numbers anytime.',
+                title: 'Every text in one place',
+                desc: 'Messages are grouped by sender like a chat app, and easy to search.',
                 gradient: 'from-pink-500/10 to-pink-600/5',
               },
               {
                 icon: CreditCard,
-                title: 'Simple Pricing',
-                desc: 'Transparent pricing with no hidden fees. Pay only for what you use.',
+                title: 'Simple pricing',
+                desc: 'From $3.99 a month with 15 texts included. No hidden fees.',
                 gradient: 'from-cyan-500/10 to-cyan-600/5',
               },
             ].map((feature, i) => (
@@ -338,10 +338,10 @@ const Home = () => {
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Rocket className="w-3.5 h-3.5" />
-              Quick Start
+              How it works
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">How It Works</h2>
-            <p className="mt-4 text-gray-400">Get your virtual number in three simple steps.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">Up and running in a minute</h2>
+            <p className="mt-4 text-gray-400">Three steps. No paperwork, no SIM card.</p>
           </div>
 
           <div className="relative">
@@ -352,8 +352,8 @@ const Home = () => {
               {[
                 {
                   num: '01',
-                  title: 'Choose a Country',
-                  desc: 'Select from available countries including US and Canada.',
+                  title: 'Pick your country',
+                  desc: 'Choose a number from the United States or Canada.',
                   icon: MapPin,
                   color: 'text-blue-400',
                   bg: 'bg-blue-500/10',
@@ -361,8 +361,8 @@ const Home = () => {
                 },
                 {
                   num: '02',
-                  title: 'Pick a Plan',
-                  desc: 'Choose the duration that works for you with transparent pricing.',
+                  title: 'Choose how long',
+                  desc: 'One month, three months, six months or a full year.',
                   icon: MousePointerClick,
                   color: 'text-green-400',
                   bg: 'bg-green-500/10',
@@ -370,8 +370,8 @@ const Home = () => {
                 },
                 {
                   num: '03',
-                  title: 'Start Receiving',
-                  desc: 'Your number is activated instantly. Start receiving SMS right away.',
+                  title: 'Start getting texts',
+                  desc: 'Your number is live right after checkout. Use it anywhere you need a phone number.',
                   icon: Inbox,
                   color: 'text-brand-400',
                   bg: 'bg-brand-500/10',
@@ -406,10 +406,10 @@ const Home = () => {
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
               <Globe className="w-3.5 h-3.5" />
-              Coverage
+              Numbers
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">Available Countries</h2>
-            <p className="mt-4 text-gray-400">Get local numbers from trusted carriers across multiple regions.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">Choose your number</h2>
+            <p className="mt-4 text-gray-400">Real local numbers, powered by Telnyx.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {[
@@ -463,7 +463,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <p className="text-center text-gray-500 text-sm mt-8">More countries coming soon</p>
+          <p className="text-center text-gray-500 text-sm mt-8">More countries coming soon.</p>
         </div>
       </section>
 
@@ -477,8 +477,8 @@ const Home = () => {
               <Shield className="w-3.5 h-3.5" />
               Trust
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">Trusted & Secure</h2>
-            <p className="mt-3 text-gray-400">Prime Digits is a legitimate registered business built on transparency.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">A real, registered business</h2>
+            <p className="mt-3 text-gray-400">PrimeDigits is a registered US company. Here's what that means for you.</p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {[
@@ -513,28 +513,28 @@ const Home = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-6">
             <Rocket className="w-3.5 h-3.5" />
-            Get Started Today
+            Ready when you are
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">Ready to Get Started?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Get your second number today</h2>
           <p className="mt-4 text-lg text-gray-400">
-            Join thousands of professionals who trust Prime Digits for their SMS verification needs.
+            Sign up free, pick a number, and start getting texts in about a minute.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/register">
               <Button variant="primary" size="lg" className="group">
-                Create Free Account
+                Create free account
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/buy">
               <Button variant="outline" size="lg">
-                Browse Numbers
+                Browse numbers
               </Button>
             </Link>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-gray-500 text-sm">
             <span className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4 text-green-500" /> No credit card required
+              <CheckCircle className="w-4 h-4 text-green-500" /> Free to sign up
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-green-500" /> Cancel anytime

@@ -34,7 +34,7 @@ const Footer = () => {
               <img src="/logo.png" alt="Prime Digits" className="h-20 w-auto" />
             </Link>
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">
-              Premium virtual phone numbers for secure SMS verification. Reliable, instant, and built for professionals.
+              A second phone number for sign-ups, codes and everything else. Keep your real number private.
             </p>
             <div className="mt-4 flex items-center space-x-3">
               <a href="https://www.facebook.com/share/1G8dG4ZwXh/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-800 text-gray-400 hover:text-brand-400 hover:bg-dark-700 transition-colors">
@@ -111,7 +111,7 @@ const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-dark-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">
-            &copy; {currentYear} Prime Digits. All rights reserved. Prime Digits is a registered US business.
+            &copy; {currentYear} PrimeDigits. All rights reserved. PrimeDigits is a registered US business.
           </p>
           <p className="text-sm text-gray-500">
             support@primesdigits.com
