@@ -7,27 +7,12 @@ import { AuthContext } from '../context/AuthContext'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import toast from 'react-hot-toast'
-
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      color: '#f3f4f6',
-      fontFamily: '"Inter", sans-serif',
-      fontSize: '16px',
-      '::placeholder': {
-        color: '#6b7280',
-      },
-    },
-    invalid: {
-      color: '#ef4444',
-      iconColor: '#ef4444',
-    },
-  },
-}
+import { useCardElementOptions } from '../lib/stripeStyles'
 
 const BuyNumber = () => {
   const { user } = useContext(AuthContext)
   const stripe = useStripe()
+  const cardElementOptions = useCardElementOptions()
   const elements = useElements()
   const navigate = useNavigate()
   const pollTimerRef = useRef(null)
@@ -196,7 +181,7 @@ const BuyNumber = () => {
           {steps.map((s, i) => (
             <div key={i} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                step >= s.num ? 'bg-gold-500 text-white' : 'bg-dark-800 text-gray-500'
+                step >= s.num ? 'bg-gold-500 text-[#fff]' : 'bg-dark-800 text-gray-500'
               }`}>
                 {s.num}
               </div>
@@ -258,7 +243,7 @@ const BuyNumber = () => {
                 }`}
               >
                 {plan.recommended && (
-                  <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-white text-xs font-semibold rounded">
+                  <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-[#fff] text-xs font-semibold rounded">
                     Recommended
                   </div>
                 )}
@@ -354,7 +339,7 @@ const BuyNumber = () => {
                         Card Details
                       </label>
                       <div className="p-3 bg-dark-950 border border-dark-700 rounded-lg">
-                        <CardElement options={CARD_ELEMENT_OPTIONS} />
+                        <CardElement options={cardElementOptions} />
                       </div>
                       {paymentError && paymentPhase === 'form' && (
                         <p className="mt-2 text-sm text-red-400">{paymentError}</p>

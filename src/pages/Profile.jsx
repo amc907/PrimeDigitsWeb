@@ -247,7 +247,7 @@ const Profile = () => {
                       />
                       <button
                         onClick={copyReferralLink}
-                        className="p-2 bg-gold-500 hover:bg-gold-600 text-white rounded-lg transition-colors"
+                        className="p-2 bg-gold-500 hover:bg-gold-600 text-[#fff] rounded-lg transition-colors"
                       >
                         {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       </button>

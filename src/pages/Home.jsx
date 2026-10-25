@@ -59,7 +59,7 @@ const PhoneMockup = () => (
         <div className="divide-y divide-dark-800">
           {threads.map((t, i) => (
             <div key={i} className="flex items-center gap-3 px-4 py-3">
-              <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>
+              <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-[#fff] text-sm font-bold flex-shrink-0`}>
                 {t.initial}
               </div>
               <div className="flex-1 min-w-0">
@@ -93,7 +93,7 @@ const PhoneMockup = () => (
 
     {/* Floating badges around the phone */}
     <FloatingBadge icon={Bell} text="New code received" className="-top-4 -right-4 sm:-right-10" delay={0} />
-    <FloatingBadge icon={BadgeCheck} text="Real US & CA numbers" className="top-28 -left-6 sm:-left-14" delay={0.8} />
+    <FloatingBadge icon={BadgeCheck} text="Real US & CA numbers" className="top-36 -left-6 sm:-left-20 lg:-left-44" delay={0.8} />
     <FloatingBadge icon={Shield} text="Private & secure" className="-bottom-3 -right-2 sm:-right-8" delay={1.6} />
   </div>
 )
@@ -171,18 +171,7 @@ const Home = () => {
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
                 Get a real phone number.{' '}
-                <span
-                  style={{
-                    background: 'linear-gradient(90deg, #D4AF37, #FFD700, #B8860B, #D4AF37)',
-                    backgroundSize: '300% 100%',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    animation: 'goldShimmer 3s ease infinite',
-                  }}
-                >
-                  Keep yours private.
-                </span>
+                <span className="gold-shimmer">Keep yours private.</span>
               </h1>
               <p
                 className="mt-6 text-lg sm:text-xl text-gray-300"

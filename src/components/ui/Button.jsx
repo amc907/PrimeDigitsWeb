@@ -12,11 +12,11 @@ const Button = ({
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-950 disabled:opacity-50 disabled:cursor-not-allowed'
 
   const variants = {
-    primary: 'bg-gold-500 hover:bg-gold-600 text-white focus:ring-gold-500 shadow-lg shadow-gold-500/25',
+    primary: 'bg-gold-500 hover:bg-gold-600 text-[#fff] focus:ring-gold-500 shadow-lg shadow-gold-500/25',
     secondary: 'bg-dark-800 hover:bg-dark-700 text-gray-100 border border-dark-700 focus:ring-dark-500',
-    outline: 'border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-white focus:ring-gold-500',
+    outline: 'border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-[#fff] focus:ring-gold-500',
     ghost: 'text-gray-300 hover:text-white hover:bg-dark-800 focus:ring-dark-500',
-    danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
+    danger: 'bg-red-600 hover:bg-red-700 text-[#fff] focus:ring-red-500',
   }
 
   const sizes = {

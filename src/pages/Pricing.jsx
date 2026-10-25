@@ -89,7 +89,7 @@ const Pricing = () => {
           {plans.map((plan, i) => (
             <Card key={i} className={`relative p-6 lg:p-8 ${plan.popular ? 'border-gold-500/50 shadow-lg shadow-gold-500/10' : ''}`}>
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gold-500 text-white text-xs font-semibold rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gold-500 text-[#fff] text-xs font-semibold rounded-full">
                   Most Popular
                 </div>
               )}

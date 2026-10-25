@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { MessageSquare, Copy, Search, RefreshCw, Inbox, Hash, ArrowLeft, ChevronDown, Lock } from 'lucide-react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import {
+  MessageSquare, Copy, Search, RefreshCw, Inbox, Hash, ArrowLeft, ChevronDown, Lock,
+  Bell, BellRing, BellOff, KeyRound,
+} from 'lucide-react'
 import { api } from '../lib/api'
 import Card from '../components/ui/Card'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
@@ -20,7 +23,7 @@ const avatarColor = (sender = '') => {
 const Avatar = ({ sender, size = 'w-10 h-10' }) => {
   const letter = /^[a-z]/i.test(sender || '') ? sender[0].toUpperCase() : null
   return (
-    <div className={`${size} rounded-full ${avatarColor(sender)} flex items-center justify-center text-white font-bold flex-shrink-0`}>
+    <div className={`${size} rounded-full ${avatarColor(sender)} flex items-center justify-center text-[#fff] font-bold flex-shrink-0`}>
       {letter || <Hash className="w-4 h-4" />}
     </div>
   )
@@ -53,6 +56,19 @@ const formatDayDivider = (date) => {
   return date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })
 }
 
+const timeAgo = (dateString) => {
+  const minutes = Math.floor((Date.now() - new Date(dateString)) / 60000)
+  if (minutes < 1) return 'just now'
+  if (minutes < 60) return `${minutes} min ago`
+  return `${Math.floor(minutes / 60)} hr ago`
+}
+
+// Codes older than this are probably used already, so the big code card hides
+const LATEST_CODE_WINDOW_MS = 30 * 60 * 1000
+
+const getNotificationPermission = () =>
+  typeof Notification === 'undefined' ? 'unsupported' : Notification.permission
+
 const getCountryFlag = (country) => {
   const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦' }
   return flags[country?.toUpperCase()] || '🌍'
@@ -60,6 +76,7 @@ const getCountryFlag = (country) => {
 
 const SMSInbox = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [numbers, setNumbers] = useState([])
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [messages, setMessages] = useState([])
@@ -69,10 +86,17 @@ const SMSInbox = () => {
   const [activeSender, setActiveSender] = useState(null)
   const [unreadMap, setUnreadMap] = useState({})
   const [showNumberMenu, setShowNumberMenu] = useState(false)
+  const [notifPermission, setNotifPermission] = useState(getNotificationPermission)
   const activeSenderRef = useRef(null)
+  const selectedNumberRef = useRef(null)
+  const messagesRef = useRef([])
+  const notifPermissionRef = useRef(notifPermission)
+  const baseTitleRef = useRef(document.title)
   const threadEndRef = useRef(null)
 
   activeSenderRef.current = activeSender
+  selectedNumberRef.current = selectedNumber
+  notifPermissionRef.current = notifPermission
 
   useEffect(() => {
     loadNumbers()
@@ -80,6 +104,7 @@ const SMSInbox = () => {
 
   useEffect(() => {
     if (!selectedNumber) return
+    messagesRef.current = []
     setMessages([])
     setActiveSender(null)
     setUnreadMap({})
@@ -92,12 +117,37 @@ const SMSInbox = () => {
     threadEndRef.current?.scrollIntoView({ block: 'end' })
   }, [activeSender, messages.length])
 
+  // Show the unread count in the browser tab, e.g. "(2) PrimeDigits"
+  useEffect(() => {
+    const total = Object.values(unreadMap).reduce((a, b) => a + b, 0)
+    document.title = total > 0 ? `(${total}) ${baseTitleRef.current}` : baseTitleRef.current
+  }, [unreadMap])
+
+  useEffect(() => {
+    const baseTitle = baseTitleRef.current
+    return () => { document.title = baseTitle }
+  }, [])
+
+  // Coming back to the tab marks the open conversation as read
+  useEffect(() => {
+    const onVisible = () => {
+      const sender = activeSenderRef.current
+      if (!document.hidden && sender) setUnreadMap(prev => ({ ...prev, [sender]: 0 }))
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [])
+
   const loadNumbers = async () => {
     try {
       const data = await api.getMyNumbers()
       const nums = data || []
       setNumbers(nums)
-      if (nums.length > 0) setSelectedNumber(nums[0].id.toString())
+      if (nums.length > 0) {
+        const requested = searchParams.get('number')
+        const match = nums.find(n => n.id.toString() === requested)
+        setSelectedNumber((match || nums[0]).id.toString())
+      }
     } catch (err) {
       setNumbers([])
     } finally {
@@ -110,28 +160,62 @@ const SMSInbox = () => {
     else setIsLoading(true)
     try {
       const data = await api.getSMSHistory(numberId)
+      // Ignore late responses for a number the user already switched away from
+      if (numberId !== selectedNumberRef.current) return
       const newMessages = data || []
-      setMessages(prev => {
-        // Only count arrivals after the first load, and not for the thread that is open
-        if (prev.length > 0) {
-          const prevIds = new Set(prev.map(m => m.id))
-          const added = newMessages.filter(m => !prevIds.has(m.id) && m.from_number !== activeSenderRef.current)
-          if (added.length > 0) {
-            setUnreadMap(u => {
-              const next = { ...u }
-              added.forEach(m => { next[m.from_number] = (next[m.from_number] || 0) + 1 })
-              return next
-            })
-          }
-        }
-        return newMessages
-      })
+      const prev = messagesRef.current
+      // Only count arrivals after the first load
+      if (prev.length > 0) {
+        const prevIds = new Set(prev.map(m => m.id))
+        const added = newMessages.filter(m => !prevIds.has(m.id))
+        if (added.length > 0) handleArrivals(added)
+      }
+      messagesRef.current = newMessages
+      setMessages(newMessages)
     } catch (err) {
       if (!silent) setMessages([])
     } finally {
       if (silent) setIsRefreshing(false)
       else setIsLoading(false)
     }
+  }
+
+  const handleArrivals = (added) => {
+    const hidden = document.hidden
+    // The open thread counts as read unless the tab is in the background
+    const counted = added.filter(m => hidden || m.from_number !== activeSenderRef.current)
+    if (counted.length > 0) {
+      setUnreadMap(u => {
+        const next = { ...u }
+        counted.forEach(m => { next[m.from_number] = (next[m.from_number] || 0) + 1 })
+        return next
+      })
+    }
+
+    if (hidden && notifPermissionRef.current === 'granted') {
+      const latest = added[added.length - 1]
+      const code = extractCode(latest.message)
+      const notification = new Notification(
+        added.length > 1 ? `${added.length} new texts` : `New text from ${latest.from_number}`,
+        {
+          body: code ? `Code: ${code} · ${latest.message}` : latest.message,
+          icon: '/icons/icon-192.png',
+          tag: 'primedigits-sms',
+        }
+      )
+      notification.onclick = () => {
+        window.focus()
+        openConversation(latest.from_number)
+        notification.close()
+      }
+    }
+  }
+
+  const enableAlerts = async () => {
+    if (notifPermission !== 'default') return
+    const result = await Notification.requestPermission()
+    setNotifPermission(result)
+    if (result === 'granted') toast.success("Alerts on. We'll notify you when a text arrives.")
   }
 
   const conversations = useMemo(() => {
@@ -153,6 +237,16 @@ const SMSInbox = () => {
     const q = searchQuery.toLowerCase()
     return c.sender.toLowerCase().includes(q) || c.messages.some(m => m.message?.toLowerCase().includes(q))
   })
+
+  const latestCode = useMemo(() => {
+    const newestFirst = [...messages].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    for (const msg of newestFirst) {
+      const code = extractCode(msg.message)
+      if (code) return { code, msg }
+    }
+    return null
+  }, [messages])
+  const showLatestCode = latestCode && Date.now() - new Date(latestCode.msg.created_at) < LATEST_CODE_WINDOW_MS
 
   const activeConversation = conversations.find(c => c.sender === activeSender)
   const selectedNumberData = numbers.find(n => n.id.toString() === selectedNumber)
@@ -185,7 +279,7 @@ const SMSInbox = () => {
             <p className="text-gray-400 mb-2">Get a number and your texts will show up here like a messaging app.</p>
             <button
               onClick={() => navigate('/buy')}
-              className="mt-4 inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-white font-medium rounded-lg transition-colors"
+              className="mt-4 inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-[#fff] font-medium rounded-lg transition-colors"
             >
               Get a Number
             </button>
@@ -204,24 +298,41 @@ const SMSInbox = () => {
           <aside className={`${activeSender ? 'hidden md:flex' : 'flex'} w-full md:w-80 lg:w-96 flex-col border-r border-dark-800`}>
             {/* Number switcher */}
             <div className="relative px-4 pt-4 pb-3 border-b border-dark-800">
-              <button
-                onClick={() => numbers.length > 1 && setShowNumberMenu(!showNumberMenu)}
-                className="w-full flex items-center justify-between text-left"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-2xl">{getCountryFlag(selectedNumberData?.country)}</span>
-                  <div className="min-w-0">
-                    <p className="text-[11px] text-gray-500">My number</p>
-                    <p className="text-white font-bold tracking-wide truncate">{selectedNumberData?.phone_number}</p>
+              <div className="flex items-center justify-between gap-2">
+                <button
+                  onClick={() => numbers.length > 1 && setShowNumberMenu(!showNumberMenu)}
+                  className="flex-1 min-w-0 flex items-center justify-between text-left"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-2xl">{getCountryFlag(selectedNumberData?.country)}</span>
+                    <div className="min-w-0">
+                      <p className="text-[11px] text-gray-500">My number</p>
+                      <p className="text-white font-bold tracking-wide truncate">{selectedNumberData?.phone_number}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RefreshCw className={`w-4 h-4 text-gray-500 ${isRefreshing ? 'animate-spin' : ''}`} />
                   {numbers.length > 1 && (
                     <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showNumberMenu ? 'rotate-180' : ''}`} />
                   )}
+                </button>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <RefreshCw className={`w-4 h-4 text-gray-500 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  {notifPermission === 'default' && (
+                    <button
+                      onClick={enableAlerts}
+                      title="Get a browser alert when a text arrives"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20 hover:bg-gold-500/20"
+                    >
+                      <Bell className="w-3.5 h-3.5" /> Alerts
+                    </button>
+                  )}
+                  {notifPermission === 'granted' && (
+                    <span title="Alerts are on"><BellRing className="w-4 h-4 text-green-400" /></span>
+                  )}
+                  {notifPermission === 'denied' && (
+                    <span title="Alerts are blocked in your browser settings"><BellOff className="w-4 h-4 text-gray-500" /></span>
+                  )}
                 </div>
-              </button>
+              </div>
               {showNumberMenu && (
                 <div className="absolute left-4 right-4 top-full mt-1 z-20 bg-dark-800 border border-dark-700 rounded-xl shadow-xl overflow-hidden animate-fade-in">
                   {numbers.map(number => (
@@ -251,6 +362,27 @@ const SMSInbox = () => {
                 />
               </div>
             </div>
+
+            {/* Latest verification code */}
+            {showLatestCode && (
+              <div className="mx-4 mt-3 p-3 rounded-xl bg-gold-500/10 border border-gold-500/25">
+                <div className="flex items-center justify-between gap-2 text-[11px] text-gray-400">
+                  <span className="flex items-center gap-1 font-semibold text-gold-400 uppercase tracking-wider">
+                    <KeyRound className="w-3.5 h-3.5" /> Latest code
+                  </span>
+                  <span className="truncate">{latestCode.msg.from_number} · {timeAgo(latestCode.msg.created_at)}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3 mt-1.5">
+                  <span className="text-3xl font-extrabold tracking-[0.2em] text-white">{latestCode.code}</span>
+                  <button
+                    onClick={() => copyToClipboard(latestCode.code, `Code ${latestCode.code} copied`)}
+                    className="inline-flex items-center px-3 py-2 rounded-lg bg-gold-500 hover:bg-gold-600 text-[#fff] text-sm font-semibold transition-colors"
+                  >
+                    <Copy className="w-4 h-4 mr-1.5" /> Copy
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Threads */}
             <div className="flex-1 overflow-y-auto">

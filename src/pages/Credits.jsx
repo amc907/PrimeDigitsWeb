@@ -122,7 +122,7 @@ const Credits = () => {
                   }`}
                 >
                   {pkg.popular && (
-                    <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-white text-xs font-semibold rounded">
+                    <div className="absolute -top-2 right-4 px-2 py-0.5 bg-gold-500 text-[#fff] text-xs font-semibold rounded">
                       Best Value
                     </div>
                   )}

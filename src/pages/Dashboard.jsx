@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Phone, MessageSquare, CreditCard, Shield,
   Plus, RefreshCw, History, Headphones, Copy, Trash2,
-  Clock, Inbox, Wallet
+  Clock, Inbox, Wallet, KeyRound, ArrowRight
 } from 'lucide-react'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
@@ -56,9 +56,12 @@ const Dashboard = () => {
               time: m.created_at,
               status: m.status || 'delivered',
               number: num.phone_number,
+              numberId: num.id,
+              code: (m.message?.match(/\b\d{4,8}\b/) || [])[0] || null,
             })))
           }
         }
+        allSMS.sort((a, b) => new Date(b.time) - new Date(a.time))
         setRecentSMS(allSMS.slice(0, 5))
       } catch (smsErr) {
         setRecentSMS([])
@@ -85,6 +88,21 @@ const Dashboard = () => {
   const copyNumber = (number) => {
     navigator.clipboard.writeText(number)
     toast.success('Number copied to clipboard')
+  }
+
+  const copyCode = (code) => {
+    navigator.clipboard.writeText(code)
+    toast.success(`Code ${code} copied`)
+  }
+
+  const formatSMSTime = (dateString) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    if (isNaN(date)) return dateString
+    const sameDay = date.toDateString() === new Date().toDateString()
+    return sameDay
+      ? date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+      : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   }
 
   const handleDelete = async (numberId) => {
@@ -119,6 +137,9 @@ const Dashboard = () => {
   const expiringSoon = numbers.filter(n => getDaysRemaining(n.expires_at) <= 7 && getDaysRemaining(n.expires_at) > 0)
   const criticalExpiry = numbers.filter(n => getDaysRemaining(n.expires_at) <= 3 && getDaysRemaining(n.expires_at) > 0)
 
+  const primaryNumber = numbers[0]
+  const primaryLatestSMS = primaryNumber && recentSMS.find(sms => sms.numberId === primaryNumber.id)
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center pt-20">
@@ -140,7 +161,7 @@ const Dashboard = () => {
 
         {/* Expiry Warnings */}
         {criticalExpiry.length > 0 && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start space-x-3">
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex flex-wrap items-start gap-3">
             <div className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5">⚠️</div>
             <div>
               <p className="text-red-400 font-medium">Critical: Numbers expiring within 3 days</p>
@@ -148,10 +169,15 @@ const Dashboard = () => {
                 {criticalExpiry.map(n => n.phone_number).join(', ')} — Renew now to avoid losing your numbers.
               </p>
             </div>
+            <Link to="/support" className="ml-auto flex-shrink-0">
+              <Button variant="danger" size="sm">
+                <RefreshCw className="w-3.5 h-3.5 mr-1" /> Renew now
+              </Button>
+            </Link>
           </div>
         )}
         {expiringSoon.length > 0 && criticalExpiry.length === 0 && (
-          <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl flex items-start space-x-3">
+          <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl flex flex-wrap items-start gap-3">
             <div className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5">⚠️</div>
             <div>
               <p className="text-yellow-400 font-medium">Warning: Numbers expiring within 7 days</p>
@@ -159,8 +185,80 @@ const Dashboard = () => {
                 {expiringSoon.map(n => n.phone_number).join(', ')} — Consider renewing soon.
               </p>
             </div>
+            <Link to="/support" className="ml-auto flex-shrink-0">
+              <Button variant="secondary" size="sm">
+                <RefreshCw className="w-3.5 h-3.5 mr-1" /> Renew
+              </Button>
+            </Link>
           </div>
         )}
+
+        {/* My number */}
+        {primaryNumber && (() => {
+          const daysLeft = getDaysRemaining(primaryNumber.expires_at)
+          return (
+            <Card className="mb-8 p-5 sm:p-6 bg-gradient-to-br from-gold-500/10 via-dark-900 to-dark-900 border-gold-500/20">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-gray-400 flex items-center gap-2">
+                    <span className="text-lg">{getCountryFlag(primaryNumber.country)}</span> My number
+                    {getStatusBadge(daysLeft)}
+                  </p>
+                  <div className="mt-2 flex items-center gap-3 flex-wrap">
+                    <p className="text-3xl sm:text-4xl font-extrabold tracking-wide text-white">{primaryNumber.phone_number}</p>
+                    <button
+                      onClick={() => copyNumber(primaryNumber.phone_number)}
+                      className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors"
+                      title="Copy number"
+                    >
+                      <Copy className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-400">
+                    <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {daysLeft} days left</span>
+                    <span className="flex items-center gap-1.5"><CreditCard className="w-4 h-4" /> {primaryNumber.credits || 0} credits</span>
+                    {numbers.length > 1 && (
+                      <Link to="/numbers" className="text-gold-400 hover:text-gold-300">+{numbers.length - 1} more number{numbers.length > 2 ? 's' : ''}</Link>
+                    )}
+                  </div>
+                </div>
+
+                <div className="lg:w-96 p-4 rounded-xl bg-dark-950/60 border border-dark-800">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Latest text</p>
+                  {primaryLatestSMS ? (
+                    <>
+                      <div className="mt-2 flex items-center justify-between gap-2">
+                        <p className="text-white text-sm font-semibold truncate">{primaryLatestSMS.from}</p>
+                        <span className="text-xs text-gray-500 flex-shrink-0">{formatSMSTime(primaryLatestSMS.time)}</span>
+                      </div>
+                      <p className="text-gray-400 text-sm truncate">{primaryLatestSMS.preview}</p>
+                      {primaryLatestSMS.code && (
+                        <button
+                          onClick={() => copyCode(primaryLatestSMS.code)}
+                          className="mt-3 w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gold-500/10 border border-gold-500/25 hover:bg-gold-500/20 transition-colors"
+                        >
+                          <span className="flex items-center gap-2 text-gold-400 text-xs font-semibold">
+                            <KeyRound className="w-4 h-4" /> Code
+                          </span>
+                          <span className="text-xl font-extrabold tracking-[0.2em] text-white">{primaryLatestSMS.code}</span>
+                          <Copy className="w-4 h-4 text-gold-400" />
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <p className="mt-2 text-sm text-gray-500">No texts yet. Use this number to sign up somewhere and the code shows up here.</p>
+                  )}
+                  <Link to={`/sms-inbox?number=${primaryNumber.id}`} className="mt-3 block">
+                    <Button variant="primary" size="sm" className="w-full group">
+                      Open inbox
+                      <ArrowRight className="ml-1.5 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </Card>
+          )
+        })()}
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -295,7 +393,7 @@ const Dashboard = () => {
                           <p className="text-gray-400 text-sm truncate">{sms.preview}</p>
                         </div>
                         <div className="text-right flex-shrink-0 ml-4">
-                          <p className="text-xs text-gray-500">{sms.time}</p>
+                          <p className="text-xs text-gray-500">{formatSMSTime(sms.time)}</p>
                           <Badge variant="success" className="mt-1">Delivered</Badge>
                         </div>
                       </div>

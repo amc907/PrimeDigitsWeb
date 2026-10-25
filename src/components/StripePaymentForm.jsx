@@ -2,26 +2,11 @@ import React, { useState } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Lock, Shield } from 'lucide-react'
 import Button from './ui/Button'
-
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      color: '#f3f4f6',
-      fontFamily: '"Inter", sans-serif',
-      fontSize: '16px',
-      '::placeholder': {
-        color: '#6b7280',
-      },
-    },
-    invalid: {
-      color: '#ef4444',
-      iconColor: '#ef4444',
-    },
-  },
-}
+import { useCardElementOptions } from '../lib/stripeStyles'
 
 const StripePaymentForm = ({ amount, buttonText, onSuccess, onError }) => {
   const stripe = useStripe()
+  const cardElementOptions = useCardElementOptions()
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [cardError, setCardError] = useState(null)
@@ -62,7 +47,7 @@ const StripePaymentForm = ({ amount, buttonText, onSuccess, onError }) => {
           Card Details
         </label>
         <div className="p-3 bg-dark-950 border border-dark-700 rounded-lg">
-          <CardElement options={CARD_ELEMENT_OPTIONS} />
+          <CardElement options={cardElementOptions} />
         </div>
         {cardError && (
           <p className="mt-2 text-sm text-red-400">{cardError}</p>
