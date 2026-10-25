@@ -198,7 +198,7 @@ const Pricing = () => {
         {/* Features Grid */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {[
-            { icon: Shield, title: 'Secure checkout', desc: 'Payments are handled by Stripe. We never see your card number.' },
+            { icon: Shield, title: 'Secure checkout', desc: 'Payments are handled by Bachs. We never see your card number.' },
             { icon: Zap, title: 'Ready right away', desc: 'Your number works as soon as payment goes through.' },
             { icon: Globe, title: 'US & Canada', desc: 'Local numbers from both countries, with more on the way.' },
           ].map((feature, i) => (

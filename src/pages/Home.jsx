@@ -163,7 +163,7 @@ const HomeInvest = () => {
           <div className="relative grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fff]/15 text-[#fff] text-xs font-semibold">
-                <TrendingUp className="w-3.5 h-3.5" /> {live ? 'Community investment' : 'Coming soon'}
+                <TrendingUp className="w-3.5 h-3.5" /> Community investment
               </span>
               <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-[#fff] leading-tight">
                 Own a piece of PrimeDigits
@@ -173,16 +173,12 @@ const HomeInvest = () => {
                 {live ? ` Investments are made on ${investing.portalName}.` : ' Investments are made through an SEC-registered funding portal.'}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                {live ? (
+                {live && (
                   <a href={investing.campaignUrl} target="_blank" rel="noopener noreferrer">
                     <button className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[#fff] text-[#6d28d9] font-bold hover:bg-[#f5f3ff] transition-colors">
                       Invest from {formatMoney(investing.minInvestment)} <ArrowRight className="ml-2 w-5 h-5" />
                     </button>
                   </a>
-                ) : (
-                  <span className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[#fff]/15 border border-[#fff]/25 text-[#fff] font-bold cursor-default">
-                    Investing opens soon
-                  </span>
                 )}
                 <Link to="/invest">
                   <button className={`w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-colors ${

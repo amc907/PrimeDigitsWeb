@@ -1,29 +1,25 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Check, ChevronRight, Globe, Clock, Tag, Loader2, CreditCard, Shield, Lock } from 'lucide-react'
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Check, ChevronRight, Globe, Clock, Tag, Loader2, Lock } from 'lucide-react'
 import { api } from '../lib/api'
 import { AuthContext } from '../context/AuthContext'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import toast from 'react-hot-toast'
-import { CARD_ELEMENT_OPTIONS } from '../lib/stripeStyles'
 import RefundAgreement from '../components/RefundAgreement'
-import { REFUND_POLICY_VERSION, addMonths, formatDate } from '../data/refundPolicy'
+import { REFUND_POLICY_VERSION, addMonths } from '../data/refundPolicy'
 
 const BuyNumber = () => {
   const { user } = useContext(AuthContext)
-  const stripe = useStripe()
-  const elements = useElements()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const pollTimerRef = useRef(null)
 
   const [step, setStep] = useState(1)
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedPlan, setSelectedPlan] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [clientSecret, setClientSecret] = useState(null)
-  const [paymentPhase, setPaymentPhase] = useState('idle') // idle | creating | form | confirming | polling | done | error
+  const [paymentPhase, setPaymentPhase] = useState('idle') // idle | creating | polling | done | error
   const [paymentError, setPaymentError] = useState(null)
   const [purchaseResult, setPurchaseResult] = useState(null)
   const [pollMessage, setPollMessage] = useState('')
@@ -75,10 +71,11 @@ const BuyNumber = () => {
     setPaymentPhase('creating')
     setPaymentError(null)
     try {
-      const priceInCents = Math.round(selectedPlan.price * 100)
-      const result = await api.createPaymentIntent({
-        amount: priceInCents,
-        currency: 'usd',
+      const returnUrl = `${window.location.origin}/buy`
+      const result = await api.createCheckout({
+        purpose: 'number',
+        amount: selectedPlan.price.toFixed(2),
+        currency: 'USD',
         country: selectedCountry.code,
         duration_months: selectedPlan.duration,
         user_email: user.email,
@@ -86,62 +83,40 @@ const BuyNumber = () => {
         refund_policy_version: REFUND_POLICY_VERSION,
         refund_policy_accepted_at: refundAcceptedAt,
         service_ends_on: addMonths(new Date(), selectedPlan.duration).toISOString().slice(0, 10),
+        success_url: `${returnUrl}?checkout=success`,
+        cancel_url: `${returnUrl}?checkout=cancelled`,
       })
-      setClientSecret(result.client_secret)
-      setPaymentPhase('form')
-      setStep(4)
+      if (!result.checkout_url) throw new Error('Could not start checkout')
+      // Remember the order so this page can pick up where it left off when Bachs sends the buyer back
+      try {
+        sessionStorage.setItem(PENDING_ORDER_KEY, JSON.stringify({
+          country: selectedCountry.code,
+          duration: selectedPlan.duration,
+          startedAt: new Date().toISOString(),
+        }))
+      } catch {}
+      window.location.href = result.checkout_url
     } catch (err) {
-      setPaymentError(err.message || 'Failed to initialize payment')
+      setPaymentError(err.message || 'Failed to start checkout')
       setPaymentPhase('error')
-      toast.error(err.message || 'Failed to initialize payment')
+      toast.error(err.message || 'Failed to start checkout')
     }
   }
 
-  const handlePaymentSubmit = async (e) => {
-    e.preventDefault()
-    if (!stripe || !elements || !clientSecret) return
-
-    setPaymentPhase('confirming')
-    setPaymentError(null)
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          email: user?.email || '',
-        },
-      },
-    })
-
-    if (error) {
-      setPaymentError(error.message)
-      setPaymentPhase('form')
-      toast.error(error.message)
-      return
-    }
-
-    if (paymentIntent.status === 'succeeded') {
-      setPaymentPhase('polling')
-      setPollMessage('Payment successful! Your number is being activated...')
-      toast.success('Payment successful!')
-      startPolling()
-    } else {
-      setPaymentError('Payment was not completed. Please try again.')
-      setPaymentPhase('form')
-    }
-  }
-
-  const startPolling = () => {
+  // startedAt keeps numbers bought before this checkout from being shown as the new one
+  const startPolling = (startedAt) => {
     let attempts = 0
-    const maxAttempts = 10 // 10 * 3s = 30 seconds
+    const maxAttempts = 20 // 20 * 3s = 60 seconds, the Bachs webhook can take a moment
+    const since = startedAt ? new Date(startedAt).getTime() - 60 * 1000 : 0
 
     const poll = async () => {
       attempts++
       try {
         const data = await api.getWebNumbers(user.email)
-        if (data.numbers && data.numbers.length > 0) {
+        const fresh = (data.numbers || []).filter(n => new Date(n.purchased_at || 0).getTime() >= since)
+        if (fresh.length > 0) {
           // Get the most recently purchased number
-          const newest = data.numbers.reduce((a, b) =>
+          const newest = fresh.reduce((a, b) =>
             new Date(b.purchased_at || 0) > new Date(a.purchased_at || 0) ? b : a
           )
           setPurchaseResult(newest)
@@ -164,6 +139,34 @@ const BuyNumber = () => {
 
     pollTimerRef.current = setTimeout(poll, 3000)
   }
+
+  // Bachs sends the buyer back here with ?checkout=success or ?checkout=cancelled
+  useEffect(() => {
+    const outcome = searchParams.get('checkout')
+    if (!outcome || !user?.email) return
+
+    let pending = null
+    try {
+      pending = JSON.parse(sessionStorage.getItem(PENDING_ORDER_KEY) || 'null')
+      sessionStorage.removeItem(PENDING_ORDER_KEY)
+    } catch {}
+    setSearchParams({}, { replace: true })
+
+    const country = pending && countries.find(c => c.code === pending.country)
+    const plan = country && plans[country.code].find(p => p.duration === pending.duration)
+    if (country) setSelectedCountry(country)
+    if (plan) setSelectedPlan(plan)
+
+    if (outcome === 'success') {
+      setStep(4)
+      setPaymentPhase('polling')
+      setPollMessage('Payment received! Your number is being activated...')
+      startPolling(pending?.startedAt)
+    } else {
+      toast('Checkout cancelled. You have not been charged.')
+      if (plan) setStep(3)
+    }
+  }, [searchParams, user?.email])
 
   // Cleanup polling timer on unmount
   useEffect(() => {
@@ -326,8 +329,12 @@ const BuyNumber = () => {
               isLoading={paymentPhase === 'creating'}
               disabled={paymentPhase === 'creating' || !refundAcceptedAt}
             >
-              {paymentPhase === 'creating' ? 'Initializing...' : 'I agree, continue to payment'}
+              {paymentPhase === 'creating' ? 'Opening secure checkout...' : 'I agree, continue to payment'}
             </Button>
+            <p className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
+              <Lock className="w-3 h-3" />
+              You'll pay on Bachs's secure checkout page. Prime Digits never sees your card details.
+            </p>
             {paymentPhase === 'error' && paymentError && (
               <p className="text-center text-sm text-red-400 mt-2">{paymentError}</p>
             )}
@@ -337,83 +344,13 @@ const BuyNumber = () => {
         {/* Step 4: Payment */}
         {step === 4 && (
           <div className="space-y-4 animate-slide-up">
-            {/* Payment Form */}
-            {(paymentPhase === 'form' || paymentPhase === 'confirming') && (
-              <>
-                <h2 className="text-lg font-semibold text-white mb-4">Pay securely</h2>
-                <Card className="p-6">
-                  <div className="bg-dark-800 rounded-lg p-4 mb-6">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400">Amount</span>
-                      <span className="text-white font-medium">${selectedPlan?.price}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm mt-2">
-                      <span className="text-gray-400">Plan</span>
-                      <span className="text-white font-medium">{selectedPlan?.label} — {selectedCountry?.name}</span>
-                    </div>
-                  <p className="mb-5 text-xs text-gray-400 leading-relaxed">
-                    You agreed to the no-refund policy on {refundAcceptedAt && formatDate(new Date(refundAcceptedAt))}.
-                    This purchase is final once your number is activated.
-                  </p>
-                  </div>
-
-                  <form onSubmit={handlePaymentSubmit} className="space-y-4">
-                    <div className="bg-dark-800 border border-dark-700 rounded-lg p-4">
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Card Details
-                      </label>
-                      <div className="p-3 bg-dark-950 border border-dark-700 rounded-lg">
-                        <CardElement options={CARD_ELEMENT_OPTIONS} />
-                      </div>
-                      {paymentError && paymentPhase === 'form' && (
-                        <p className="mt-2 text-sm text-red-400">{paymentError}</p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
-                      <Lock className="w-3 h-3" />
-                      <span>SSL Secured — Your card details are encrypted</span>
-                    </div>
-                    <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
-                      <Shield className="w-3 h-3" />
-                      <span>Powered by Stripe</span>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      className="w-full"
-                      isLoading={paymentPhase === 'confirming'}
-                      disabled={!stripe || paymentPhase === 'confirming'}
-                    >
-                      {paymentPhase === 'confirming' ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Processing...
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-2">
-                          <CreditCard className="w-4 h-4" />
-                          Pay ${selectedPlan?.price}
-                        </span>
-                      )}
-                    </Button>
-                  </form>
-
-                  <p className="mt-4 text-xs text-gray-500 text-center">
-                    Payments are processed securely by Stripe. Prime Digits never stores your card details.
-                  </p>
-                </Card>
-              </>
-            )}
-
             {/* Polling / Activating */}
             {paymentPhase === 'polling' && (
               <Card className="p-8 text-center border-brand-500/20">
                 <div className="w-16 h-16 bg-brand-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader2 className="w-8 h-8 text-brand-400 animate-spin" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Payment Successful!</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Payment received!</h3>
                 <p className="text-gray-400 text-sm mb-2">{pollMessage}</p>
                 <p className="text-gray-500 text-xs">This usually takes a few seconds...</p>
               </Card>
@@ -480,6 +417,8 @@ const BuyNumber = () => {
     </div>
   )
 }
+
+const PENDING_ORDER_KEY = 'primedigits_pending_checkout'
 
 const getCountryFlag = (country) => {
   const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦' }

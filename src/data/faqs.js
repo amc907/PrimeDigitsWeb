@@ -30,7 +30,7 @@ export const faqs = [
   },
   {
     question: 'What payment methods do you accept?',
-    answer: 'All major credit and debit cards, processed securely by Stripe.',
+    answer: 'All major credit and debit cards, processed securely by Bachs.',
   },
   {
     question: 'Can I get a refund?',

@@ -93,25 +93,22 @@ export const api = {
     return handleResponse(response)
   },
 
-  // Stripe Payments
-  // The refund_policy_* fields record that the buyer agreed to the no-refund policy.
-  // The backend should copy them into the Stripe PaymentIntent metadata for dispute evidence.
-  createPaymentIntent: async ({
-    amount, currency, country, duration_months, user_email,
-    refund_policy_accepted, refund_policy_version, refund_policy_accepted_at, service_ends_on,
-  }) => {
-    const response = await fetch(`${API_BASE_URL}/payments/stripe/create-intent`, {
+  // Bachs Payments
+  // The backend creates a Bachs hosted checkout session with its secret key and returns
+  // { checkout_url, checkout_id }. Payment is confirmed by the Bachs webhook, not the redirect.
+  // purpose is 'number' (country + duration_months) or 'credits' (number_id + sms_credits).
+  // The refund_policy_* fields record that the buyer agreed to the no-refund policy;
+  // the backend should copy them into the checkout session metadata for dispute evidence.
+  createCheckout: async (order) => {
+    const response = await fetch(`${API_BASE_URL}/payments/bachs/create-checkout`, {
       method: 'POST',
       headers: headers(),
-      body: JSON.stringify({
-        amount, currency, country, duration_months, user_email,
-        refund_policy_accepted, refund_policy_version, refund_policy_accepted_at, service_ends_on,
-      }),
+      body: JSON.stringify(order),
     })
     return handleResponse(response)
   },
 
-  // Web user numbers (for polling after Stripe payment)
+  // Web user numbers (for polling after payment)
   getWebNumbers: async (email) => {
     const response = await fetch(`${API_BASE_URL}/numbers/web/${encodeURIComponent(email)}`, {
       headers: headers(),

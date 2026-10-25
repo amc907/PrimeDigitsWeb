@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { CreditCard, Check, Zap, Tag, ChevronDown, Plus } from 'lucide-react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { CreditCard, Check, Zap, Tag, ChevronDown, Plus, Lock } from 'lucide-react'
 import { api } from '../lib/api'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
-import StripePaymentForm from '../components/StripePaymentForm'
 import toast from 'react-hot-toast'
 
 const Credits = () => {
@@ -14,6 +13,8 @@ const Credits = () => {
   const [selectedPackage, setSelectedPackage] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [success, setSuccess] = useState(false)
+  const [isRedirecting, setIsRedirecting] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const packages = [
     { name: 'Starter', sms: 20, price: 2.49, icon: Zap },
@@ -24,6 +25,20 @@ const Credits = () => {
   useEffect(() => {
     loadNumbers()
   }, [])
+
+  // Bachs sends the buyer back here with ?checkout=success or ?checkout=cancelled.
+  // Credits are added by the backend when the Bachs webhook confirms payment.
+  useEffect(() => {
+    const outcome = searchParams.get('checkout')
+    if (!outcome) return
+    setSearchParams({}, { replace: true })
+    if (outcome === 'success') {
+      toast.success('Payment received! Your credits will appear in a moment.')
+      setTimeout(loadNumbers, 4000)
+    } else {
+      toast('Checkout cancelled. You have not been charged.')
+    }
+  }, [searchParams])
 
   const loadNumbers = async () => {
     try {
@@ -39,15 +54,24 @@ const Credits = () => {
     }
   }
 
-  const handlePaymentSuccess = async () => {
+  const handleCheckout = async () => {
+    setIsRedirecting(true)
     try {
-      await api.buyCredits(selectedNumber, selectedPackage.price)
-      toast.success(`${selectedPackage.sms} SMS credits added!`)
-      setSuccess(true)
-      loadNumbers()
-      setTimeout(() => setSuccess(false), 3000)
+      const returnUrl = `${window.location.origin}/credits`
+      const result = await api.createCheckout({
+        purpose: 'credits',
+        number_id: selectedNumber,
+        sms_credits: selectedPackage.sms,
+        amount: selectedPackage.price.toFixed(2),
+        currency: 'USD',
+        success_url: `${returnUrl}?checkout=success`,
+        cancel_url: `${returnUrl}?checkout=cancelled`,
+      })
+      if (!result.checkout_url) throw new Error('Could not start checkout')
+      window.location.href = result.checkout_url
     } catch (err) {
-      toast.error('Payment succeeded but credit update failed. Please contact support.')
+      toast.error(err.message || 'Failed to start checkout')
+      setIsRedirecting(false)
     }
   }
 
@@ -148,7 +172,7 @@ const Credits = () => {
             {/* Payment */}
             {selectedPackage && (
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-white mb-2 text-center">Stripe Payment</h3>
+                <h3 className="text-lg font-semibold text-white mb-2 text-center">Checkout</h3>
                 <p className="text-gray-400 text-sm mb-4 text-center">
                   Secure payment processing for {selectedPackage.sms} SMS credits.
                 </p>
@@ -172,15 +196,19 @@ const Credits = () => {
                     <span className="font-medium">Credits added successfully!</span>
                   </div>
                 ) : (
-                  <StripePaymentForm
-                    amount={selectedPackage.price}
-                    buttonText={`Pay $${selectedPackage.price}`}
-                    onSuccess={handlePaymentSuccess}
-                    onError={(msg) => toast.error(msg)}
-                  />
+                  <Button
+                    variant="primary"
+                    className="w-full"
+                    onClick={handleCheckout}
+                    isLoading={isRedirecting}
+                    disabled={isRedirecting}
+                  >
+                    {isRedirecting ? 'Opening secure checkout...' : `Pay $${selectedPackage.price}`}
+                  </Button>
                 )}
-                <p className="mt-4 text-xs text-gray-500 text-center">
-                  Payments are processed securely by Stripe. Prime Digits never stores your card details.
+                <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-gray-500">
+                  <Lock className="w-3 h-3" />
+                  You'll pay on Bachs's secure checkout page. Prime Digits never sees your card details.
                 </p>
               </Card>
             )}

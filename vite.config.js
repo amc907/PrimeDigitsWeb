@@ -10,7 +10,6 @@ export default defineConfig({
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
           supabase: ['@supabase/supabase-js'],
-          stripe: ['@stripe/stripe-js', '@stripe/react-stripe-js'],
         },
       },
     },

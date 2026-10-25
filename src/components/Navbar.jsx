@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X, ChevronDown, LogOut, User, Mail } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
-import { isInvestingLive } from '../data/investing'
 import Button from './ui/Button'
 
 const Navbar = () => {
@@ -35,7 +34,7 @@ const Navbar = () => {
     { name: 'Pricing', path: '/pricing' },
     { name: 'Use Cases', path: '/use-cases' },
     { name: 'Guides', path: '/guides' },
-    { name: 'Invest', path: '/invest', badge: isInvestingLive() ? null : 'Soon' },
+    { name: 'Invest', path: '/invest' },
     { name: 'About', path: '/about' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
