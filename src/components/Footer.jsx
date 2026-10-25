@@ -21,6 +21,7 @@ const Footer = () => {
     resources: [
       { name: 'API Docs', path: '/api-docs' },
       { name: 'How It Works', path: '/how-it-works' },
+      { name: 'Guides', path: '/guides' },
     ],
   }
 

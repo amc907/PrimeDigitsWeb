@@ -23,7 +23,7 @@ const PricingSection = () => {
       name: 'Standard',
       price: '$9.99',
       period: '/3 months',
-      desc: 'Save 16% vs. paying monthly',
+      desc: 'Save 17% vs. paying monthly',
       features: [
         '1 virtual number',
         '90 days active',

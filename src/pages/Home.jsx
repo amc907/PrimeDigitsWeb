@@ -10,6 +10,7 @@ import {
 import Button from '../components/ui/Button'
 import PricingSection from '../components/Pricing'
 import Testimonials from '../components/Testimonials'
+import { faqs, homeFaqIndexes } from '../data/faqs'
 
 /* ------------------------------------------------------------------ */
 /*  Reusable floating-badge component for the hero                    */
@@ -144,6 +145,49 @@ const StatItem = ({ value, suffix, label, icon: Icon }) => {
       <div className="text-3xl sm:text-4xl font-bold text-white">{displayValue}{suffix}</div>
       <div className="mt-1 text-sm text-gray-400">{label}</div>
     </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  Short FAQ for the home page                                       */
+/* ------------------------------------------------------------------ */
+const HomeFAQ = () => {
+  const [openIndex, setOpenIndex] = useState(0)
+  const items = homeFaqIndexes.map(i => faqs[i])
+
+  return (
+    <section className="py-20 lg:py-28">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
+            <MessageCircle className="w-3.5 h-3.5" />
+            Questions
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Before you sign up</h2>
+          <p className="mt-4 text-gray-400">The things people ask us most.</p>
+        </div>
+        <div className="space-y-3">
+          {items.map((faq, i) => (
+            <div key={faq.question} className="bg-dark-900 border border-dark-800 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-dark-800/50 transition-colors"
+              >
+                <span className="text-white font-semibold pr-4">{faq.question}</span>
+                <ChevronRight className={`w-5 h-5 text-brand-400 flex-shrink-0 transition-transform ${openIndex === i ? 'rotate-90' : ''}`} />
+              </button>
+              {openIndex === i && (
+                <p className="px-5 pb-4 text-gray-400 text-sm leading-relaxed animate-fade-in">{faq.answer}</p>
+              )}
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 text-center text-sm text-gray-400">
+          More questions?{' '}
+          <Link to="/faq" className="text-brand-400 font-semibold hover:underline">See all answers</Link>
+        </p>
+      </div>
+    </section>
   )
 }
 
@@ -504,6 +548,7 @@ const Home = () => {
 
       <PricingSection />
       <Testimonials />
+      <HomeFAQ />
 
       {/* ───────────────────────────────────────────────────────────── */}
       {/*  CTA SECTION                                                  */}

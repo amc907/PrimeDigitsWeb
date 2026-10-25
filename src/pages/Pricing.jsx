@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Check, Shield, Zap, Globe } from 'lucide-react'
+import { Check, Minus, Shield, Zap, Globe } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 
@@ -25,7 +25,7 @@ const Pricing = () => {
       name: 'Standard',
       price: '$9.99',
       period: 'per 3 months',
-      description: 'Save 16% vs. paying monthly',
+      description: 'Save 17% vs. paying monthly',
       features: [
         '1 virtual number',
         '90 days active',
@@ -68,6 +68,24 @@ const Pricing = () => {
       popular: false,
     },
   ]
+
+  // Side-by-side comparison; one value per plan, in the same order as `plans`
+  const comparison = [
+    { label: 'Price', values: ['$3.99', '$9.99', '$17.99', '$29.99'] },
+    { label: 'Works out to', values: ['$3.99/mo', '$3.33/mo', '$3.00/mo', '$2.50/mo'] },
+    { label: 'You save', values: [null, '17%', '25%', '37%'] },
+    { label: 'Days active', values: ['30', '90', '180', '365'] },
+    { label: 'Texts included', values: ['15', '15', '15', '15'] },
+    { label: 'US or Canada number', values: [true, true, true, true] },
+    { label: 'Priority support', values: [false, true, true, true] },
+    { label: 'Number guaranteed for 1 year', values: [false, false, false, true] },
+  ]
+
+  const renderCell = (value) => {
+    if (value === true) return <Check className="w-5 h-5 text-green-400 mx-auto" />
+    if (value === false || value === null) return <Minus className="w-4 h-4 text-gray-600 mx-auto" />
+    return value
+  }
 
   const countries = [
     { flag: '🇺🇸', name: 'United States', price: 'From $3.99' },
@@ -114,6 +132,51 @@ const Pricing = () => {
               </Link>
             </Card>
           ))}
+        </div>
+
+        {/* Comparison table */}
+        <div className="mt-20 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-white text-center mb-2">Compare plans</h2>
+          <p className="text-center text-gray-400 mb-8">Same number, same features. Longer plans just cost less each month.</p>
+          <div className="overflow-x-auto rounded-2xl border border-dark-800 bg-dark-900">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr className="border-b border-dark-800">
+                  <th className="text-left font-semibold text-gray-400 px-5 py-4">Plan</th>
+                  {plans.map(plan => (
+                    <th key={plan.name} className={`px-4 py-4 text-center font-bold ${plan.popular ? 'text-brand-400 bg-brand-500/5' : 'text-white'}`}>
+                      {plan.name}
+                      {plan.popular && <span className="block text-[11px] font-semibold text-brand-400">Most popular</span>}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map(row => (
+                  <tr key={row.label} className="border-b border-dark-800 last:border-0">
+                    <td className="px-5 py-3.5 text-gray-300 font-medium">{row.label}</td>
+                    {row.values.map((value, i) => (
+                      <td key={i} className={`px-4 py-3.5 text-center text-white ${plans[i].popular ? 'bg-brand-500/5' : ''}`}>
+                        {renderCell(value)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                <tr>
+                  <td className="px-5 py-4" />
+                  {plans.map(plan => (
+                    <td key={plan.name} className={`px-3 py-4 ${plan.popular ? 'bg-brand-500/5' : ''}`}>
+                      <Link to="/register">
+                        <Button variant={plan.popular ? 'primary' : 'secondary'} size="sm" className="w-full">
+                          {plan.cta}
+                        </Button>
+                      </Link>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Country Pricing */}

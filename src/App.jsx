@@ -1,11 +1,12 @@
-import React, { Suspense, lazy } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { Suspense, lazy, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+import { getMetaForPath, setPageMeta } from './lib/pageMeta'
 
 // Pages load on demand so the first visit only downloads what it needs
 const Home = lazy(() => import('./pages/Home'))
@@ -30,6 +31,8 @@ const Credits = lazy(() => import('./pages/Credits'))
 const Transactions = lazy(() => import('./pages/Transactions'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Support = lazy(() => import('./pages/Support'))
+const Guides = lazy(() => import('./pages/Guides'))
+const Guide = lazy(() => import('./pages/Guide'))
 
 const AppLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col bg-dark-950">
@@ -38,6 +41,17 @@ const AppLayout = ({ children }) => (
     <Footer />
   </div>
 )
+
+// Updates the tab title and description on every route change, and starts each page at the top
+const RouteMeta = () => {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const meta = getMetaForPath(pathname)
+    if (meta) setPageMeta(meta)
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 const PageFallback = () => (
   <div className="min-h-screen flex items-center justify-center pt-20">
@@ -49,6 +63,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <RouteMeta />
         <Toaster
           position="top-right"
           toastOptions={{
@@ -74,6 +89,8 @@ function App() {
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/use-cases" element={<UseCases />} />
+            <Route path="/guides" element={<Guides />} />
+            <Route path="/guides/:slug" element={<Guide />} />
               <Route path="/about" element={<About />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<Terms />} />

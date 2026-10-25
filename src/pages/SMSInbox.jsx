@@ -2,9 +2,10 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   MessageSquare, Copy, Search, RefreshCw, Inbox, Hash, ArrowLeft, ChevronDown, Lock,
-  Bell, BellRing, BellOff, KeyRound,
+  Bell, BellRing, BellOff, KeyRound, Layers, Download, Pin, PinOff,
 } from 'lucide-react'
 import { api } from '../lib/api'
+import { PAGE_META, formatTitle } from '../lib/pageMeta'
 import Card from '../components/ui/Card'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import toast from 'react-hot-toast'
@@ -69,6 +70,44 @@ const LATEST_CODE_WINDOW_MS = 30 * 60 * 1000
 const getNotificationPermission = () =>
   typeof Notification === 'undefined' ? 'unsupported' : Notification.permission
 
+// "All numbers" view: merges every number's texts into one inbox
+const ALL = 'all'
+
+const PINS_KEY = 'primedigits_pinned_senders'
+
+const loadPins = () => {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(PINS_KEY) || '[]'))
+  } catch (err) {
+    return new Set()
+  }
+}
+
+const savePins = (pins) => {
+  try {
+    localStorage.setItem(PINS_KEY, JSON.stringify([...pins]))
+  } catch (err) {
+    // Storage blocked - pins last for this visit only
+  }
+}
+
+const csvCell = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`
+
+const downloadCSV = (messages, label) => {
+  const rows = [['Date', 'From', 'To', 'Message']]
+  ;[...messages]
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .forEach(m => rows.push([new Date(m.created_at).toISOString(), m.from_number, m._numberPhone, m.message]))
+  const csv = rows.map(r => r.map(csvCell).join(',')).join('\r\n')
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `primedigits-texts-${label}-${new Date().toISOString().slice(0, 10)}.csv`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
 const getCountryFlag = (country) => {
   const flags = { US: '🇺🇸', CA: '🇨🇦', USA: '🇺🇸', CANADA: '🇨🇦' }
   return flags[country?.toUpperCase()] || '🌍'
@@ -87,15 +126,18 @@ const SMSInbox = () => {
   const [unreadMap, setUnreadMap] = useState({})
   const [showNumberMenu, setShowNumberMenu] = useState(false)
   const [notifPermission, setNotifPermission] = useState(getNotificationPermission)
+  const [pinned, setPinned] = useState(loadPins)
   const activeSenderRef = useRef(null)
   const selectedNumberRef = useRef(null)
   const messagesRef = useRef([])
+  const numbersRef = useRef([])
   const notifPermissionRef = useRef(notifPermission)
-  const baseTitleRef = useRef(document.title)
+  const baseTitleRef = useRef(formatTitle(PAGE_META['/sms-inbox'].title))
   const threadEndRef = useRef(null)
 
   activeSenderRef.current = activeSender
   selectedNumberRef.current = selectedNumber
+  numbersRef.current = numbers
   notifPermissionRef.current = notifPermission
 
   useEffect(() => {
@@ -122,11 +164,6 @@ const SMSInbox = () => {
     const total = Object.values(unreadMap).reduce((a, b) => a + b, 0)
     document.title = total > 0 ? `(${total}) ${baseTitleRef.current}` : baseTitleRef.current
   }, [unreadMap])
-
-  useEffect(() => {
-    const baseTitle = baseTitleRef.current
-    return () => { document.title = baseTitle }
-  }, [])
 
   // Coming back to the tab marks the open conversation as read
   useEffect(() => {
@@ -159,15 +196,22 @@ const SMSInbox = () => {
     if (silent) setIsRefreshing(true)
     else setIsLoading(true)
     try {
-      const data = await api.getSMSHistory(numberId)
+      const targets = numberId === ALL
+        ? numbersRef.current
+        : numbersRef.current.filter(n => n.id.toString() === numberId)
+      const results = await Promise.all(targets.map(n => api.getSMSHistory(n.id).catch(() => [])))
       // Ignore late responses for a number the user already switched away from
       if (numberId !== selectedNumberRef.current) return
-      const newMessages = data || []
+      const newMessages = results.flatMap((list, i) => (list || []).map(m => ({
+        ...m,
+        _key: `${targets[i].id}:${m.id}`,
+        _numberPhone: targets[i].phone_number,
+      })))
       const prev = messagesRef.current
       // Only count arrivals after the first load
       if (prev.length > 0) {
-        const prevIds = new Set(prev.map(m => m.id))
-        const added = newMessages.filter(m => !prevIds.has(m.id))
+        const prevIds = new Set(prev.map(m => m._key))
+        const added = newMessages.filter(m => !prevIds.has(m._key))
         if (added.length > 0) handleArrivals(added)
       }
       messagesRef.current = newMessages
@@ -230,8 +274,10 @@ const SMSInbox = () => {
         const sorted = [...msgs].sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
         return { sender, messages: sorted, last: sorted[sorted.length - 1] }
       })
-      .sort((a, b) => new Date(b.last.created_at) - new Date(a.last.created_at))
-  }, [messages])
+      .sort((a, b) =>
+        (pinned.has(b.sender) - pinned.has(a.sender)) ||
+        (new Date(b.last.created_at) - new Date(a.last.created_at)))
+  }, [messages, pinned])
 
   const filteredConversations = conversations.filter(c => {
     const q = searchQuery.toLowerCase()
@@ -249,7 +295,27 @@ const SMSInbox = () => {
   const showLatestCode = latestCode && Date.now() - new Date(latestCode.msg.created_at) < LATEST_CODE_WINDOW_MS
 
   const activeConversation = conversations.find(c => c.sender === activeSender)
+  const isAllNumbers = selectedNumber === ALL
   const selectedNumberData = numbers.find(n => n.id.toString() === selectedNumber)
+
+  const togglePin = (sender) => {
+    setPinned(prev => {
+      const next = new Set(prev)
+      if (next.has(sender)) next.delete(sender)
+      else next.add(sender)
+      savePins(next)
+      return next
+    })
+  }
+
+  const exportCSV = () => {
+    if (messages.length === 0) {
+      toast.error('No texts to export yet')
+      return
+    }
+    downloadCSV(messages, isAllNumbers ? 'all-numbers' : (selectedNumberData?.phone_number || 'number').replace(/\D/g, ''))
+    toast.success(`Exported ${messages.length} text${messages.length === 1 ? '' : 's'}`)
+  }
 
   const openConversation = (sender) => {
     setActiveSender(sender)
@@ -304,10 +370,18 @@ const SMSInbox = () => {
                   className="flex-1 min-w-0 flex items-center justify-between text-left"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-2xl">{getCountryFlag(selectedNumberData?.country)}</span>
+                    {isAllNumbers ? (
+                      <span className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                        <Layers className="w-4 h-4 text-brand-400" />
+                      </span>
+                    ) : (
+                      <span className="text-2xl">{getCountryFlag(selectedNumberData?.country)}</span>
+                    )}
                     <div className="min-w-0">
-                      <p className="text-[11px] text-gray-500">My number</p>
-                      <p className="text-white font-bold tracking-wide truncate">{selectedNumberData?.phone_number}</p>
+                      <p className="text-[11px] text-gray-500">{isAllNumbers ? `${numbers.length} numbers` : 'My number'}</p>
+                      <p className="text-white font-bold tracking-wide truncate">
+                        {isAllNumbers ? 'All numbers' : selectedNumberData?.phone_number}
+                      </p>
                     </div>
                   </div>
                   {numbers.length > 1 && (
@@ -316,6 +390,13 @@ const SMSInbox = () => {
                 </button>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <RefreshCw className={`w-4 h-4 text-gray-500 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  <button
+                    onClick={exportCSV}
+                    title="Download these texts as a CSV file"
+                    className="p-1 rounded-md text-gray-500 hover:text-brand-400 hover:bg-dark-800"
+                  >
+                    <Download className="w-4 h-4" />
+                  </button>
                   {notifPermission === 'default' && (
                     <button
                       onClick={enableAlerts}
@@ -334,12 +415,21 @@ const SMSInbox = () => {
                 </div>
               </div>
               {showNumberMenu && (
-                <div className="absolute left-4 right-4 top-full mt-1 z-20 bg-dark-800 border border-dark-700 rounded-xl shadow-xl overflow-hidden animate-fade-in">
+                <div className="absolute left-4 right-4 top-full mt-1 z-20 bg-dark-900 border border-dark-700 rounded-xl shadow-xl overflow-hidden animate-fade-in">
+                  <button
+                    onClick={() => { setSelectedNumber(ALL); setShowNumberMenu(false) }}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm font-semibold border-b border-dark-800 hover:bg-dark-800 ${
+                      isAllNumbers ? 'text-brand-400' : 'text-gray-200'
+                    }`}
+                  >
+                    <Layers className="w-4 h-4" />
+                    All numbers
+                  </button>
                   {numbers.map(number => (
                     <button
                       key={number.id}
                       onClick={() => { setSelectedNumber(number.id.toString()); setShowNumberMenu(false) }}
-                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm hover:bg-dark-700 ${
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm hover:bg-dark-800 ${
                         selectedNumber === number.id.toString() ? 'text-brand-400' : 'text-gray-200'
                       }`}
                     >
@@ -355,7 +445,7 @@ const SMSInbox = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
                   type="text"
-                  placeholder="Search conversations"
+                  placeholder={isAllNumbers ? 'Search all numbers' : 'Search conversations'}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-9 pr-4 py-2 bg-dark-800 border border-dark-700 rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500"
@@ -413,8 +503,9 @@ const SMSInbox = () => {
                       <Avatar sender={conv.sender} />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
-                          <p className={`text-sm truncate ${unread ? 'text-white font-semibold' : 'text-gray-200 font-medium'}`}>
-                            {conv.sender}
+                          <p className={`text-sm truncate flex items-center gap-1 ${unread ? 'text-white font-semibold' : 'text-gray-200 font-medium'}`}>
+                            {pinned.has(conv.sender) && <Pin className="w-3 h-3 text-brand-400 flex-shrink-0" />}
+                            <span className="truncate">{conv.sender}</span>
                           </p>
                           <span className={`text-xs flex-shrink-0 ${unread ? 'text-brand-400' : 'text-gray-500'}`}>
                             {formatListTime(conv.last.created_at)}
@@ -457,12 +548,25 @@ const SMSInbox = () => {
                     <ArrowLeft className="w-5 h-5" />
                   </button>
                   <Avatar sender={activeConversation.sender} size="w-9 h-9" />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="text-white font-semibold truncate">{activeConversation.sender}</p>
                     <p className="text-xs text-gray-500">
                       {activeConversation.messages.length} message{activeConversation.messages.length === 1 ? '' : 's'}
                     </p>
                   </div>
+                  <button
+                    onClick={() => togglePin(activeConversation.sender)}
+                    title={pinned.has(activeConversation.sender) ? 'Unpin conversation' : 'Pin to top'}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                      pinned.has(activeConversation.sender)
+                        ? 'text-brand-400 bg-brand-500/10 border-brand-500/20'
+                        : 'text-gray-400 border-dark-700 hover:text-brand-400 hover:border-brand-500/30'
+                    }`}
+                  >
+                    {pinned.has(activeConversation.sender)
+                      ? <><PinOff className="w-3.5 h-3.5" /> Unpin</>
+                      : <><Pin className="w-3.5 h-3.5" /> Pin</>}
+                  </button>
                 </div>
 
                 {/* Bubbles */}
@@ -473,7 +577,7 @@ const SMSInbox = () => {
                     const showDivider = !prev || !isSameDay(new Date(prev.created_at), date)
                     const code = extractCode(msg.message)
                     return (
-                      <React.Fragment key={msg.id}>
+                      <React.Fragment key={msg._key}>
                         {showDivider && (
                           <p className="text-center text-[11px] text-gray-500 py-2">{formatDayDivider(date)}</p>
                         )}
@@ -484,6 +588,7 @@ const SMSInbox = () => {
                           <div className="flex items-center gap-2 mt-1 ml-1">
                             <span className="text-[11px] text-gray-500">
                               {date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+                              {isAllNumbers && ` · to ${msg._numberPhone}`}
                             </span>
                             {code && (
                               <button

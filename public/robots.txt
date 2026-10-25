@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /buy
+Disallow: /numbers
+Disallow: /history
+Disallow: /sms-inbox
+Disallow: /credits
+Disallow: /transactions
+Disallow: /profile
+Disallow: /support
+
+Sitemap: https://primesdigits.com/sitemap.xml

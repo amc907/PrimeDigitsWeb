@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Phone, MessageSquare, CreditCard, Shield,
   Plus, RefreshCw, History, Headphones, Copy, Trash2,
-  Clock, Inbox, Wallet, KeyRound, ArrowRight
+  Clock, Inbox, Wallet, KeyRound, ArrowRight, QrCode
 } from 'lucide-react'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
@@ -12,6 +12,8 @@ import Button from '../components/ui/Button'
 import Badge from '../components/ui/Badge'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import toast from 'react-hot-toast'
+import PhoneQR from '../components/PhoneQR'
+import WelcomeTour, { shouldShowTour } from '../components/WelcomeTour'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -25,10 +27,17 @@ const Dashboard = () => {
   const [recentSMS, setRecentSMS] = useState([])
   const [recentTransactions, setRecentTransactions] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [showQR, setShowQR] = useState(false)
+  const [showTour, setShowTour] = useState(false)
 
   useEffect(() => {
     loadDashboardData()
   }, [])
+
+  // First visit: show the welcome tour once the dashboard has loaded
+  useEffect(() => {
+    if (!isLoading && shouldShowTour()) setShowTour(true)
+  }, [isLoading])
 
   const loadDashboardData = async () => {
     setIsLoading(true)
@@ -212,6 +221,13 @@ const Dashboard = () => {
                       title="Copy number"
                     >
                       <Copy className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => setShowQR(true)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold text-brand-400 bg-brand-500/10 hover:bg-brand-500/20 transition-colors"
+                      title="Scan to open your inbox on your phone"
+                    >
+                      <QrCode className="w-4 h-4" /> Open on phone
                     </button>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-400">
@@ -465,6 +481,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <PhoneQR open={showQR} onClose={() => setShowQR(false)} number={primaryNumber} />
+      <WelcomeTour open={showTour} onClose={() => setShowTour(false)} hasNumber={numbers.length > 0} />
     </div>
   )
 }
