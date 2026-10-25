@@ -60,3 +60,16 @@
     text-wrap: balance;
   }
 }
+
+/* Clean white pages when printing policies to PDF */
+@media print {
+  html, body, #root > .min-h-screen {
+    background: #fff !important;
+  }
+
+  /* Standard fonts embed reliably in PDFs; letter-spacing breaks some PDF viewers */
+  body, body * {
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: normal !important;
+  }
+}

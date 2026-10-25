@@ -62,7 +62,8 @@ const Terms = () => {
             will either fix the problem or refund that purchase. You must agree to this policy before completing
             checkout, and we keep a record of that agreement. If you dispute a charge with your bank instead of
             contacting us, we may provide that record, your account details and your usage history to our payment
-            processor, and suspend your account while the dispute is open.
+            processor, and suspend your account while the dispute is open. See our Refund Policy
+            (https://primesdigits.com/refund-policy) and Cancellation Policy (https://primesdigits.com/cancellation-policy).
           </p>
 
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">7. Service Availability</h2>

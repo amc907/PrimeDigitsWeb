@@ -16,6 +16,8 @@ export const PAGE_META = {
   '/contact': { title: 'Contact us', description: "Questions or need a hand? Send us a message and we'll help." },
   '/terms': { title: 'Terms of Service' },
   '/privacy': { title: 'Privacy Policy' },
+  '/refund-policy': { title: 'Refund Policy', description: 'All sales are final. When PrimeDigits does and does not issue refunds.' },
+  '/cancellation-policy': { title: 'Cancellation Policy', description: 'PrimeDigits plans are prepaid and never renew automatically. How plans end and how to stop service.' },
   '/api-docs': { title: 'API docs' },
   '/login': { title: 'Log in' },
   '/register': { title: 'Create your free account' },

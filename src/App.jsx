@@ -34,6 +34,8 @@ const Support = lazy(() => import('./pages/Support'))
 const Guides = lazy(() => import('./pages/Guides'))
 const Guide = lazy(() => import('./pages/Guide'))
 const Invest = lazy(() => import('./pages/Invest'))
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy'))
+const CancellationPolicy = lazy(() => import('./pages/CancellationPolicy'))
 
 const AppLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col bg-dark-950">
@@ -97,6 +99,8 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/cancellation-policy" element={<CancellationPolicy />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/api-docs" element={<APIDocs />} />
               <Route path="/login" element={<Login />} />

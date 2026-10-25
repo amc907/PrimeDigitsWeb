@@ -17,6 +17,8 @@ const Footer = () => {
     legal: [
       { name: 'Terms of Service', path: '/terms' },
       { name: 'Privacy Policy', path: '/privacy' },
+      { name: 'Refund Policy', path: '/refund-policy' },
+      { name: 'Cancellation Policy', path: '/cancellation-policy' },
       { name: 'Contact', path: '/contact' },
     ],
     resources: [
@@ -27,7 +29,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-dark-900 border-t border-dark-800">
+    <footer className="print:hidden bg-dark-900 border-t border-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}

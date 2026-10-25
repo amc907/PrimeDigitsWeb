@@ -35,7 +35,8 @@ const RefundAgreement = ({ checked, onChange, planLabel, price, expiresOn }) => 
         className="mt-0.5 w-5 h-5 rounded accent-brand-500 flex-shrink-0"
       />
       <span className="text-sm text-white leading-relaxed">
-        I have read and agree to the no-refund policy and the{' '}
+        I have read and agree to the{' '}
+        <Link to="/refund-policy" target="_blank" className="text-brand-400 font-semibold underline">no-refund policy</Link> and the{' '}
         <Link to="/terms" target="_blank" className="text-brand-400 font-semibold underline">Terms of Service</Link>.
         I understand this purchase is final and I will not be refunded after my number is activated.
       </span>
