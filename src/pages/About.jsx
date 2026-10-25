@@ -70,7 +70,7 @@ const About = () => {
             {[
               { value: '10K+', label: 'Numbers Delivered' },
               { value: '99.9%', label: 'Uptime' },
-              { value: '2', label: 'Countries Available' }
+              { value: '2', label: 'Countries Available' },
               { value: '<1s', label: 'SMS Delivery' },
             ].map((stat, i) => (
               <Card key={i} className="p-6 text-center">

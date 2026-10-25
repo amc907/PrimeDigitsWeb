@@ -29,8 +29,15 @@ const FloatingBadge = ({ icon: Icon, text, className, delay = 0 }) => (
 )
 
 /* ------------------------------------------------------------------ */
-/*  Phone mock-up SVG                                                 */
+/*  Messenger-style phone mock-up for the hero                        */
 /* ------------------------------------------------------------------ */
+const threads = [
+  { from: 'PayPal', initial: 'P', color: 'bg-blue-500', msg: 'Your code is 739201', time: '9:41', unread: true },
+  { from: 'Amazon', initial: 'A', color: 'bg-orange-500', msg: 'OTP: 482917. Do not share it.', time: '9:38', unread: true },
+  { from: 'WhatsApp', initial: 'W', color: 'bg-green-500', msg: 'Your WhatsApp code: 615-204', time: 'Yesterday' },
+  { from: 'Google', initial: 'G', color: 'bg-red-500', msg: 'G-552190 is your verification code.', time: 'Mon' },
+]
+
 const PhoneMockup = () => (
   <div className="relative mx-auto w-64 sm:w-72">
     {/* Phone frame */}
@@ -40,73 +47,54 @@ const PhoneMockup = () => (
         <div className="h-6 flex justify-center items-end pb-1">
           <div className="w-20 h-4 bg-dark-800 rounded-full" />
         </div>
-        {/* Screen content */}
-        <div className="px-4 pb-6 pt-2 space-y-3">
-          {/* Status bar */}
-          <div className="flex justify-between items-center text-[10px] text-gray-500 px-1">
-            <span>9:41</span>
-            <div className="flex gap-1">
-              <div className="w-3 h-3 rounded-full bg-gold-500/30" />
-              <div className="w-3 h-3 rounded-full bg-gold-500/50" />
-              <div className="w-3 h-3 rounded-full bg-gold-500" />
-            </div>
+        {/* App header with the user's number */}
+        <div className="px-4 pt-2 pb-3 border-b border-dark-800">
+          <p className="text-[10px] text-gray-500">My number</p>
+          <div className="flex items-center justify-between">
+            <p className="text-white text-sm font-bold tracking-wide">+1 (870) 555-0142</p>
+            <span className="text-[9px] px-2 py-0.5 rounded-full bg-green-500/15 text-green-400 font-semibold">Active</span>
           </div>
-          {/* Notification */}
-          <div className="bg-dark-800/80 rounded-2xl p-3 border border-dark-700 animate-pulse-slow">
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gold-500/15 flex items-center justify-center flex-shrink-0">
-                <MessageSquare className="w-5 h-5 text-gold-500" />
+        </div>
+        {/* Conversation list */}
+        <div className="divide-y divide-dark-800">
+          {threads.map((t, i) => (
+            <div key={i} className="flex items-center gap-3 px-4 py-3">
+              <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>
+                {t.initial}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-white text-xs font-semibold">PrimeDigits</p>
-                <p className="text-gray-400 text-[11px] mt-0.5">Your verification code is</p>
-                <p className="text-gold-400 text-lg font-bold tracking-widest mt-1">4 8 2 9 1 7</p>
+                <div className="flex items-center justify-between">
+                  <p className={`text-xs ${t.unread ? 'text-white font-semibold' : 'text-gray-300 font-medium'}`}>{t.from}</p>
+                  <span className="text-[9px] text-gray-500">{t.time}</span>
+                </div>
+                <p className={`text-[11px] truncate ${t.unread ? 'text-gray-300' : 'text-gray-500'}`}>{t.msg}</p>
               </div>
+              {t.unread && <div className="w-2 h-2 rounded-full bg-gold-500 flex-shrink-0" />}
             </div>
+          ))}
+        </div>
+        {/* Open thread preview */}
+        <div className="px-4 pt-3 pb-5 bg-dark-950/60 space-y-2">
+          <p className="text-center text-[9px] text-gray-600">Today 9:41</p>
+          <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-md bg-dark-800 text-[11px] text-gray-200">
+            Your PayPal code is <span className="font-bold text-gold-400 tracking-widest">739201</span>
           </div>
-          {/* App icons row */}
-          <div className="flex justify-around pt-2">
-            {[
-              { icon: ShoppingCart, label: 'Amazon' },
-              { icon: Wallet, label: 'PayPal' },
-              { icon: MessageCircle, label: 'WhatsApp' },
-              { icon: Search, label: 'Google' },
-            ].map((app, i) => (
-              <div key={i} className="flex flex-col items-center gap-1">
-                <div className="w-10 h-10 rounded-xl bg-dark-800 border border-dark-700 flex items-center justify-center">
-                  <app.icon className="w-5 h-5 text-gray-400" />
-                </div>
-                <span className="text-[9px] text-gray-500">{app.label}</span>
-              </div>
-            ))}
-          </div>
-          {/* Messages list */}
-          <div className="space-y-2 pt-1">
-            {[
-              { from: 'PayPal', msg: 'Your code: 739201', time: '2m ago' },
-              { from: 'Amazon', msg: 'OTP: 482917', time: '5m ago' },
-            ].map((msg, i) => (
-              <div key={i} className="flex items-center gap-3 p-2 rounded-xl bg-dark-800/50">
-                <div className="w-8 h-8 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-gold-500" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-xs font-medium">{msg.from}</p>
-                  <p className="text-gray-500 text-[10px] truncate">{msg.msg}</p>
-                </div>
-                <span className="text-gray-600 text-[9px]">{msg.time}</span>
-              </div>
-            ))}
+          <div className="flex items-center gap-2 pt-1">
+            <div className="flex-1 h-8 rounded-full bg-dark-800 border border-dark-700 px-3 flex items-center text-[10px] text-gray-500">
+              Message
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center">
+              <Send className="w-3.5 h-3.5 text-dark-900" />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     {/* Floating badges around the phone */}
-    <FloatingBadge icon={BadgeCheck} text="PayPal Verified" className="-top-4 -right-4 sm:-right-8" delay={0} />
-    <FloatingBadge icon={BadgeCheck} text="Amazon Verified" className="top-20 -left-6 sm:-left-12" delay={0.8} />
-    <FloatingBadge icon={BadgeCheck} text="WhatsApp Verified" className="-bottom-2 -right-2 sm:-right-6" delay={1.6} />
-    <FloatingBadge icon={Shield} text="256-bit SSL" className="top-1/2 -right-4 sm:-right-10" delay={2.4} />
+    <FloatingBadge icon={Bell} text="New code received" className="-top-4 -right-4 sm:-right-10" delay={0} />
+    <FloatingBadge icon={BadgeCheck} text="Real US & CA numbers" className="top-28 -left-6 sm:-left-14" delay={0.8} />
+    <FloatingBadge icon={Shield} text="Private & secure" className="-bottom-3 -right-2 sm:-right-8" delay={1.6} />
   </div>
 )
 
@@ -178,20 +166,12 @@ const Home = () => {
             {/* Left: Text */}
             <div className="max-w-xl">
               <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-sm font-medium mb-6">
-                <Zap className="w-4 h-4 mr-2" />
-                Instant Activation Worldwide
+                <Smartphone className="w-4 h-4 mr-2" />
+                A second number on the phone you already have
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                Get a real phone number.{' '}
                 <span
-                  className="text-white"
-                  style={{
-                    textShadow: '0 0 30px rgba(255,255,255,0.15), 0 0 60px rgba(255,255,255,0.05)',
-                  }}
-                >
-                  Premium Virtual Phone Numbers for{' '}
-                </span>
-                <span
-                  className="gold-gradient-text"
                   style={{
                     background: 'linear-gradient(90deg, #D4AF37, #FFD700, #B8860B, #D4AF37)',
                     backgroundSize: '300% 100%',
@@ -199,48 +179,44 @@ const Home = () => {
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                     animation: 'goldShimmer 3s ease infinite',
-                    filter: 'drop-shadow(0 0 8px rgba(212, 175, 55, 0.35))',
                   }}
                 >
-                  SMS Verification
+                  Keep yours private.
                 </span>
               </h1>
               <p
                 className="mt-6 text-lg sm:text-xl text-gray-300"
-                style={{
-                  lineHeight: 1.75,
-                  opacity: 0.85,
-                  animation: 'fadeInUp 0.6s ease 0.3s both',
-                }}
+                style={{ lineHeight: 1.75, opacity: 0.85, animation: 'fadeInUp 0.6s ease 0.3s both' }}
               >
-                Get secure, reliable virtual numbers instantly. Perfect for business verification,
-                two-factor authentication, and protecting your privacy online.
+                Pick a US or Canadian number in seconds and read every text in one simple inbox,
+                from any browser. No SIM card, no contract, no new phone.
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <Link to="/register">
-                  <Button variant="primary" size="lg" className="w-full sm:w-auto group">
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link to="/how-it-works">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    Learn More
-                  </Button>
-                </Link>
+
+              {/* Get-a-number card */}
+              <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-dark-900/80 border border-dark-800 shadow-xl shadow-black/20">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div className="flex-1">
+                    <p className="text-white font-semibold">Choose your number</p>
+                    <p className="text-gray-400 text-sm mt-0.5">🇺🇸 United States · 🇨🇦 Canada · from $3.99/mo</p>
+                  </div>
+                  <Link to="/register">
+                    <Button variant="primary" size="lg" className="w-full sm:w-auto group">
+                      Get my number
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="mt-10 flex flex-wrap items-center gap-6 text-gray-500 text-sm">
+
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-gray-500 text-sm">
                 <span className="flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-gold-500" /> Secure
+                  <Zap className="w-4 h-4 text-gold-500" /> Live in under a minute
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Zap className="w-4 h-4 text-gold-500" /> Instant
+                  <Inbox className="w-4 h-4 text-gold-500" /> Texts arrive instantly
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Globe className="w-4 h-4 text-gold-500" /> Global
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Lock className="w-4 h-4 text-gold-500" /> Private
+                  <RefreshCw className="w-4 h-4 text-gold-500" /> Cancel anytime
                 </span>
               </div>
             </div>
@@ -258,7 +234,7 @@ const Home = () => {
       {/* ───────────────────────────────────────────────────────────── */}
       <section className="py-10 border-y border-dark-800 bg-dark-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-gray-500 text-sm mb-6">Verify with your favorite apps and services</p>
+          <p className="text-center text-gray-500 text-sm mb-6">Get codes and texts from the apps you already use</p>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
             {[
               { icon: Wallet, label: 'PayPal', color: 'text-blue-400' },
@@ -324,7 +300,7 @@ const Home = () => {
               {
                 icon: Globe,
                 title: 'Global Coverage',
-                desc: 'Numbers from US and Canada with more regions coming soon.'
+                desc: 'Numbers from US and Canada with more regions coming soon.',
                 gradient: 'from-blue-500/10 to-blue-600/5',
               },
               {
@@ -388,7 +364,7 @@ const Home = () => {
                 {
                   num: '01',
                   title: 'Choose a Country',
-                  desc: 'Select from available countries including US and Canada.'
+                  desc: 'Select from available countries including US and Canada.',
                   icon: MapPin,
                   color: 'text-blue-400',
                   bg: 'bg-blue-500/10',
@@ -489,7 +465,7 @@ const Home = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/buy-number" className="block mt-6">
+                <Link to="/buy" className="block mt-6">
                   <Button variant="secondary" className="w-full group/btn">
                     Get Number
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -561,7 +537,7 @@ const Home = () => {
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link to="/buy-number">
+            <Link to="/buy">
               <Button variant="outline" size="lg">
                 Browse Numbers
               </Button>
