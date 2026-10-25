@@ -33,6 +33,7 @@ const Profile = lazy(() => import('./pages/Profile'))
 const Support = lazy(() => import('./pages/Support'))
 const Guides = lazy(() => import('./pages/Guides'))
 const Guide = lazy(() => import('./pages/Guide'))
+const Invest = lazy(() => import('./pages/Invest'))
 
 const AppLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col bg-dark-950">
@@ -91,6 +92,7 @@ function App() {
               <Route path="/use-cases" element={<UseCases />} />
             <Route path="/guides" element={<Guides />} />
             <Route path="/guides/:slug" element={<Guide />} />
+            <Route path="/invest" element={<Invest />} />
               <Route path="/about" element={<About />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<Terms />} />

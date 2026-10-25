@@ -11,6 +11,7 @@ const Footer = () => {
       { name: 'Pricing', path: '/pricing' },
       { name: 'Use Cases', path: '/use-cases' },
       { name: 'About', path: '/about' },
+      { name: 'Invest', path: '/invest' },
       { name: 'FAQ', path: '/faq' },
     ],
     legal: [
