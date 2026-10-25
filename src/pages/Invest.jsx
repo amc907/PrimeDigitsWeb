@@ -61,13 +61,13 @@ const Invest = () => {
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
             <TrendingUp className="w-3.5 h-3.5" />
-            Community investment
+            {isLive ? 'Investment round open' : 'Coming soon'}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Invest in PrimeDigits</h1>
           <p className="mt-4 text-lg text-gray-400">
             {isLive
               ? `We're raising money from our community. Investments start at ${formatMoney(investing.minInvestment)} and are made through ${investing.portalName}, an SEC-registered funding portal.`
-              : `Own a piece of the company you use. Investments will start at ${formatMoney(investing.minInvestment)} and are made through an SEC-registered funding portal, where every investor gets their own account.`}
+              : `Coming soon: own a piece of the company you use. Investments will start at ${formatMoney(investing.minInvestment)} and are made through an SEC-registered funding portal, where every investor gets their own account.`}
           </p>
         </div>
 
@@ -164,9 +164,15 @@ const Invest = () => {
                     </li>
                   ))}
                 </ol>
-                <div className="mt-7 p-4 rounded-xl bg-dark-800/60 border border-dark-700">
+                <button
+                  disabled
+                  className="mt-7 w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-dark-800 border border-dark-700 text-gray-400 font-semibold text-lg cursor-not-allowed"
+                >
+                  Invest from {formatMoney(investing.minInvestment)} · Coming soon
+                </button>
+                <div className="mt-4 p-4 rounded-xl bg-dark-800/60 border border-dark-700">
                   <p className="text-sm text-gray-300">
-                    The investment button will appear here as soon as our campaign is published on the portal.
+                    This button goes live as soon as our campaign is published on the portal.
                     Questions about investing? Email us.
                   </p>
                   <a href={`mailto:${investing.contactEmail}?subject=${encodeURIComponent('Question about investing in PrimeDigits')}`} className="inline-block mt-3">

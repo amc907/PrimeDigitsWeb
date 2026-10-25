@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X, ChevronDown, LogOut, User, Mail } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
+import { isInvestingLive } from '../data/investing'
 import Button from './ui/Button'
 
 const Navbar = () => {
@@ -34,7 +35,7 @@ const Navbar = () => {
     { name: 'Pricing', path: '/pricing' },
     { name: 'Use Cases', path: '/use-cases' },
     { name: 'Guides', path: '/guides' },
-    { name: 'Invest', path: '/invest' },
+    { name: 'Invest', path: '/invest', badge: isInvestingLive() ? null : 'Soon' },
     { name: 'About', path: '/about' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
@@ -80,6 +81,11 @@ const Navbar = () => {
               >
                 <span className="flex items-center">
                   {link.name}
+                  {link.badge && (
+                    <span className="ml-1.5 px-1.5 py-0.5 bg-brand-500/10 text-brand-400 text-[10px] font-bold rounded-full">
+                      {link.badge}
+                    </span>
+                  )}
                   {link.name === 'SMS Inbox' && unreadCount > 0 && (
                     <span className="ml-1.5 px-1.5 py-0.5 bg-brand-500 text-[#fff] text-[10px] font-bold rounded-full">
                       {unreadCount}
@@ -156,6 +162,11 @@ const Navbar = () => {
               >
                 {link.icon && <link.icon className="w-4 h-4 mr-2" />}
                 {link.name}
+                {link.badge && (
+                  <span className="ml-2 px-1.5 py-0.5 bg-brand-500/10 text-brand-400 text-[10px] font-bold rounded-full">
+                    {link.badge}
+                  </span>
+                )}
                 {link.name === 'SMS Inbox' && unreadCount > 0 && (
                   <span className="ml-auto px-1.5 py-0.5 bg-brand-500 text-[#fff] text-[10px] font-bold rounded-full">
                     {unreadCount}
