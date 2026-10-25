@@ -1,17 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   TrendingUp, Building2, Shield, MapPin, Mail, Globe, Calendar, ExternalLink,
-  CheckCircle, AlertTriangle, Users, Smartphone, Zap,
+  CheckCircle, AlertTriangle, Users, Smartphone, Zap, UserCheck, PieChart,
+  FileText, Bell, Receipt, Wallet,
 } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
-import toast from 'react-hot-toast'
-import { investing } from '../data/investing'
-
-const AMOUNTS = [500, 1000, 2500, 5000, 10000]
-
-const formatMoney = (n) => `$${n.toLocaleString('en-US')}`
+import { investing, formatMoney } from '../data/investing'
 
 const companyFacts = [
   { icon: Building2, label: 'Company', value: 'Prime Digits' },
@@ -28,9 +23,26 @@ const highlights = [
   { icon: Users, title: "Who it's for", text: 'Freelancers, small businesses, developers testing apps, and anyone who wants to keep their personal number private.' },
 ]
 
+// What investors get in their account on the funding portal
+const accountFeatures = [
+  { icon: UserCheck, title: 'Verified investor profile', text: 'The portal confirms your identity once, then you can invest in a few clicks.' },
+  { icon: Wallet, title: 'Secure payments', text: 'Pay by bank transfer or card on the portal. Your money is held safely until the round closes.' },
+  { icon: PieChart, title: 'Your portfolio', text: 'See how much you invested, how many shares you own and what they are worth.' },
+  { icon: FileText, title: 'All the documents', text: 'Read the offering documents before you invest, and keep your investment agreement on file.' },
+  { icon: Bell, title: 'Company updates', text: 'Get regular updates from us on growth, new features and how the business is doing.' },
+  { icon: Receipt, title: 'Tax forms', text: 'Any tax documents you need are available to download from your account each year.' },
+]
+
+const steps = [
+  'Open the PrimeDigits campaign on our funding portal.',
+  'Create your free investor account and verify your identity.',
+  `Choose how much to invest, from ${formatMoney(investing.minInvestment)} up to your legal limit.`,
+  'Pay securely on the portal and sign your investment agreement.',
+  'Track your shares and get company updates from your portfolio.',
+]
+
 const Invest = () => {
   const isLive = investing.status === 'live' && investing.campaignUrl
-  const [form, setForm] = useState({ name: '', email: '', amount: String(investing.minInvestment), agree: false })
 
   const offeringTerms = [
     ['Minimum investment', formatMoney(investing.minInvestment)],
@@ -42,27 +54,6 @@ const Invest = () => {
     ['Funding portal', investing.portalName],
   ].filter(([, value]) => value)
 
-  // No backend endpoint exists for this yet, so sign-ups go out as a pre-filled email
-  const handleInterest = (e) => {
-    e.preventDefault()
-    if (!form.agree) {
-      toast.error('Please tick the box to confirm you understand this is not an investment')
-      return
-    }
-    const subject = `Investor interest: ${form.name}`
-    const body = [
-      'I would like to hear when the PrimeDigits investment round opens.',
-      '',
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      `Amount I might invest: ${formatMoney(Number(form.amount))}${Number(form.amount) === AMOUNTS[AMOUNTS.length - 1] ? '+' : ''}`,
-      '',
-      'I understand this is not an investment, no money is being collected, and it does not commit me to anything.',
-    ].join('\n')
-    window.location.href = `mailto:${investing.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    toast.success('Your email app should open now. Just press Send.')
-  }
-
   return (
     <div className="pt-24 pb-20 lg:pt-32 lg:pb-28 animate-fade-in">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,13 +61,13 @@ const Invest = () => {
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold mb-4">
             <TrendingUp className="w-3.5 h-3.5" />
-            {isLive ? 'Investment round open' : 'Investment round coming soon'}
+            Community investment
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Invest in PrimeDigits</h1>
           <p className="mt-4 text-lg text-gray-400">
             {isLive
               ? `We're raising money from our community. Investments start at ${formatMoney(investing.minInvestment)} and are made through ${investing.portalName}, an SEC-registered funding portal.`
-              : `We're planning to raise money from our community, with investments starting at ${formatMoney(investing.minInvestment)}. Leave your details and we'll tell you the moment it opens.`}
+              : `Own a piece of the company you use. Investments will start at ${formatMoney(investing.minInvestment)} and are made through an SEC-registered funding portal, where every investor gets their own account.`}
           </p>
         </div>
 
@@ -159,66 +150,55 @@ const Invest = () => {
               </Card>
             ) : (
               <Card className="p-6 sm:p-8">
-                <h2 className="text-2xl font-bold text-white">Get notified when it opens</h2>
+                <h2 className="text-2xl font-bold text-white">How investing works</h2>
                 <p className="mt-2 text-gray-400">
-                  Tell us roughly how much you might invest. This is not an investment and you won't be charged anything.
+                  Investments are made on our funding portal, not on this website. Here's what the process looks like.
                 </p>
-                <form onSubmit={handleInterest} className="mt-6 space-y-4">
-                  <Input
-                    label="Your name"
-                    name="name"
-                    value={form.name}
-                    onChange={e => setForm({ ...form, name: e.target.value })}
-                    placeholder="Jane Smith"
-                    required
-                  />
-                  <Input
-                    label="Email"
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={e => setForm({ ...form, email: e.target.value })}
-                    placeholder="you@example.com"
-                    required
-                  />
-                  <div>
-                    <p className="block text-sm font-medium text-gray-300 mb-2">How much might you invest?</p>
-                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                      {AMOUNTS.map((amount, i) => (
-                        <button
-                          type="button"
-                          key={amount}
-                          onClick={() => setForm({ ...form, amount: String(amount) })}
-                          className={`py-2.5 rounded-lg text-sm font-semibold border transition-colors ${
-                            form.amount === String(amount)
-                              ? 'bg-brand-500 text-[#fff] border-brand-500'
-                              : 'bg-dark-800 text-gray-200 border-dark-700 hover:border-brand-500/40'
-                          }`}
-                        >
-                          {formatMoney(amount)}{i === AMOUNTS.length - 1 ? '+' : ''}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <label className="flex items-start gap-3 text-sm text-gray-400 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={form.agree}
-                      onChange={e => setForm({ ...form, agree: e.target.checked })}
-                      className="mt-0.5 w-4 h-4 rounded accent-brand-500"
-                    />
-                    I understand this is only a sign-up for updates. It is not an investment, no money is collected,
-                    and it does not commit me to anything.
-                  </label>
-                  <Button type="submit" variant="primary" size="lg" className="w-full">
-                    Notify me when it opens
-                  </Button>
-                  <p className="text-xs text-gray-500 text-center">
-                    This opens your email app with your details filled in. Just press Send.
+                <ol className="mt-6 space-y-3">
+                  {steps.map((step, i) => (
+                    <li key={step} className="flex items-start gap-3 text-gray-300">
+                      <span className="w-7 h-7 rounded-full bg-brand-500 text-[#fff] text-sm font-bold flex items-center justify-center flex-shrink-0">
+                        {i + 1}
+                      </span>
+                      <span className="pt-0.5 text-sm leading-relaxed">{step}</span>
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-7 p-4 rounded-xl bg-dark-800/60 border border-dark-700">
+                  <p className="text-sm text-gray-300">
+                    The investment button will appear here as soon as our campaign is published on the portal.
+                    Questions about investing? Email us.
                   </p>
-                </form>
+                  <a href={`mailto:${investing.contactEmail}?subject=${encodeURIComponent('Question about investing in PrimeDigits')}`} className="inline-block mt-3">
+                    <Button variant="secondary" size="sm">
+                      <Mail className="w-4 h-4 mr-1.5" /> {investing.contactEmail}
+                    </Button>
+                  </a>
+                </div>
               </Card>
             )}
+          </div>
+        </div>
+
+        {/* What an investor account includes */}
+        <div className="mt-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">Your investor account</h2>
+            <p className="mt-3 text-gray-400">
+              {isLive ? `When you invest on ${investing.portalName}, you get` : 'When you invest through our funding portal, you get'} your own
+              investor account with everything in one place.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {accountFeatures.map(f => (
+              <Card key={f.title} className="p-5">
+                <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <f.icon className="w-5 h-5 text-brand-400" />
+                </div>
+                <h3 className="mt-3 font-bold text-white">{f.title}</h3>
+                <p className="mt-1 text-sm text-gray-400 leading-relaxed">{f.text}</p>
+              </Card>
+            ))}
           </div>
         </div>
 

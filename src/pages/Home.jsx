@@ -11,6 +11,7 @@ import Button from '../components/ui/Button'
 import PricingSection from '../components/Pricing'
 import Testimonials from '../components/Testimonials'
 import { faqs, homeFaqIndexes } from '../data/faqs'
+import { investing, isInvestingLive, formatMoney } from '../data/investing'
 
 /* ------------------------------------------------------------------ */
 /*  Reusable floating-badge component for the hero                    */
@@ -145,6 +146,71 @@ const StatItem = ({ value, suffix, label, icon: Icon }) => {
       <div className="text-3xl sm:text-4xl font-bold text-white">{displayValue}{suffix}</div>
       <div className="mt-1 text-sm text-gray-400">{label}</div>
     </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  Invest in PrimeDigits                                             */
+/* ------------------------------------------------------------------ */
+const HomeInvest = () => {
+  const live = isInvestingLive()
+  return (
+    <section className="py-20 lg:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-brand-500 px-6 py-12 sm:px-12 sm:py-14">
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#fff]/10 blur-2xl" />
+          <div className="absolute -bottom-32 -left-20 w-80 h-80 rounded-full bg-[#4f46e5]/40 blur-3xl" />
+          <div className="relative grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fff]/15 text-[#fff] text-xs font-semibold">
+                <TrendingUp className="w-3.5 h-3.5" /> Community investment
+              </span>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-[#fff] leading-tight">
+                Own a piece of PrimeDigits
+              </h2>
+              <p className="mt-4 text-[#fff]/80 text-lg leading-relaxed">
+                Invest in the company behind your second number, starting from {formatMoney(investing.minInvestment)}.
+                {live ? ` Investments are made on ${investing.portalName}.` : ' Investments are made through an SEC-registered funding portal.'}
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                {live ? (
+                  <a href={investing.campaignUrl} target="_blank" rel="noopener noreferrer">
+                    <button className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[#fff] text-[#6d28d9] font-bold hover:bg-[#f5f3ff] transition-colors">
+                      Invest from {formatMoney(investing.minInvestment)} <ArrowRight className="ml-2 w-5 h-5" />
+                    </button>
+                  </a>
+                ) : null}
+                <Link to="/invest">
+                  <button className={`w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-colors ${
+                    live ? 'border-2 border-[#fff]/40 text-[#fff] hover:bg-[#fff]/10' : 'bg-[#fff] text-[#6d28d9] hover:bg-[#f5f3ff]'
+                  }`}>
+                    Learn about investing {!live && <ArrowRight className="ml-2 w-5 h-5" />}
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { value: formatMoney(investing.minInvestment), label: 'Minimum investment' },
+                { value: 'Any amount', label: `above ${formatMoney(investing.minInvestment)}, within your legal limit` },
+                { value: 'SEC', label: 'Registered funding portal' },
+                { value: 'Your account', label: 'Portfolio, documents and updates' },
+              ].map(item => (
+                <div key={item.label} className="rounded-2xl bg-[#fff]/10 border border-[#fff]/15 p-5">
+                  <p className="text-2xl font-extrabold text-[#fff]">{item.value}</p>
+                  <p className="mt-1 text-sm text-[#fff]/75">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="relative mt-8 text-xs text-[#fff]/60 leading-relaxed">
+            {live
+              ? `This offering is made only through ${investing.portalName}. Read the offering documents there before investing. Investing in startups is risky and you could lose your money.`
+              : 'No money is being accepted on this website. Investments can only be made through an SEC-registered funding portal once our offering statement is filed. Investing in startups is risky.'}
+          </p>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -548,6 +614,7 @@ const Home = () => {
 
       <PricingSection />
       <Testimonials />
+      <HomeInvest />
       <HomeFAQ />
 
       {/* ───────────────────────────────────────────────────────────── */}

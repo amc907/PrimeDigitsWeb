@@ -1,6 +1,6 @@
 // Settings for the /invest page. Edit this file when your crowdfunding campaign goes live.
 //
-// status: 'coming_soon' -> shows company facts and a no-money interest form
+// status: 'coming_soon' -> shows company facts and how investing works (no investing yet)
 //         'live'        -> shows the offering terms and sends investors to the funding portal
 //
 // Investments are only ever made on the funding portal. This website never takes payment for shares.
@@ -18,6 +18,10 @@ export const investing = {
   maximumAmount: null, // e.g. '$500,000'
   deadline: null, // e.g. 'March 31, 2027'
 
-  // Where interest-form sign-ups are emailed
+  // Where investor questions are emailed
   contactEmail: 'support@primesdigits.com',
 }
+
+export const isInvestingLive = () => investing.status === 'live' && Boolean(investing.campaignUrl)
+
+export const formatMoney = (n) => `$${n.toLocaleString('en-US')}`

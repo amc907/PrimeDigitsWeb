@@ -10,7 +10,7 @@ export const PAGE_META = {
   '/pricing': { title: 'Pricing', description: 'US and Canadian numbers from $3.99 a month with 15 texts included. Longer plans cost less.' },
   '/use-cases': { title: 'What people use it for', description: 'Sign-up codes, freelancing, a business line, privacy and app testing.' },
   '/guides': { title: 'Guides', description: 'Short how-tos for getting and using a second phone number.' },
-  '/invest': { title: 'Invest in PrimeDigits', description: 'Learn about PrimeDigits and get notified when our community investment round opens, from $500.' },
+  '/invest': { title: 'Invest in PrimeDigits', description: 'Own a piece of PrimeDigits. Investments start at $500 through an SEC-registered funding portal.' },
   '/about': { title: 'About us', description: 'PrimeDigits is a registered US company that makes it easy to get a second phone number.' },
   '/faq': { title: 'Questions & answers', description: 'Quick answers about numbers, texts and payments.' },
   '/contact': { title: 'Contact us', description: "Questions or need a hand? Send us a message and we'll help." },
